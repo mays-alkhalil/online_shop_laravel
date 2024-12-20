@@ -35,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
                 // مشاركة البيانات مع جميع الـ Views
                 View::share('LastProducts', $LastProducts);
 
-                $orders = Order::all(); // هنا يتم جلب جميع الطلبات
+                $orders = Order::with('orderItems')->get();
                 View::share('orders', $orders);
                 foreach ($orders as $order) {
                     $orderItems = OrderItem::where('order_id', $order->id)->get();

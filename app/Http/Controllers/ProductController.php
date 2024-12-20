@@ -189,5 +189,22 @@ public function show($id)
     return view('front.product.show', compact('product'));
 }
 
+
+public function indexFront(Request $request)
+{
+    $query = $request->input('query'); // الكلمة التي يتم إدخالها في شريط البحث
+
+    // إذا كان هناك كلمة بحث، قم بالبحث في جدول المنتجات
+    if ($query) {
+        $products = Product::where('name', 'like', "%{$query}%")
+                           ->orWhere('description', 'like', "%{$query}%")
+                           ->get();
+    } else {
+        // إذا لم تكن هناك كلمة بحث، عرض كل المنتجات
+        $products = Product::all();
+    }
+
+    return view('front.shop', compact('products', 'query'));
+}
     }
 

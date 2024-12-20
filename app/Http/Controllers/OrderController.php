@@ -133,15 +133,15 @@ class OrderController extends Controller
     }
     
 
-//     public function orderHistory()
-// {
-//     // جلب جميع الطلبات من قاعدة البيانات
-//       // استرجاع الطلبات الخاصة بالمستخدم المسجل الدخول
-//       $orders = Order::where('user_id', auth()->id())->get();
+    public function orderHistory()
+{
+    // جلب جميع الطلبات من قاعدة البيانات
+      // استرجاع الطلبات الخاصة بالمستخدم المسجل الدخول
+      $orders = Order::where('user_id', auth()->id())->get();
 
-//       // إرسال المتغير إلى الـ View
-//       return view('front.order', compact('orders'));
+      // إرسال المتغير إلى الـ View
+      return view('front.orders', compact('orders'));
   
-// }
+}
                     
 }

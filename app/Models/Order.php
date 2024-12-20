@@ -33,7 +33,8 @@ public function getTotalAmountAttribute()
         return $item->unit_price * $item->quantity;
     });
 }
-
-
-
+public function orderItems()
+{
+    return $this->hasMany(OrderItem::class);
+}
 }

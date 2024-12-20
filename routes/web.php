@@ -16,10 +16,14 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 
+
+Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
+
 Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('order.items');
 
-// Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
+Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
 
+Route::get('/front/shop', [ProductController::class, 'indexFront'])->name('front.shop');
 
 Route::get('/logout', function () {
     Auth::logout(); // تسجيل الخروج
@@ -81,7 +85,7 @@ Route::get('/shop', [ProductController::class, 'shop']);
 Route::get('/front/shop', [FilterController::class, 'showFilters'])->name('front.shop');
 
 
-Route::get('/front/shop', [FilterController::class, 'showFilters'])->name('front.shop');
+// Route::get('/front/shop', [FilterController::class, 'showFilters'])->name('front.shop');
 
 
 Route::middleware(['share.stores'])->get('/front/shop', [FilterController::class, 'showProducts']);

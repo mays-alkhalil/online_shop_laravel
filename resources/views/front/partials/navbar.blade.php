@@ -61,17 +61,16 @@
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
-                <form action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for products">
-                        <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
-                        </div>
+               <!-- HTML for Search Form -->
+               {{-- <form method="GET" action="{{ route('front.shop') }}" class="mb-4">
+                <div class="input-group">
+                    <input type="text" name="query" value="{{ request()->query('query') }}" class="form-control" placeholder="Search for products..." required>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                </form>
-            </div>
+                </div> 
+            </form> --}}
+                        </div>
             <div class="col-lg-4 col-6 text-right">
                 <p class="m-0">Customer Service</p>
                 <h5 class="m-0">+962 796 532 179 </h5>
