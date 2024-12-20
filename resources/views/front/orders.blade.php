@@ -12,71 +12,40 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <div class="col-lg-12 table-responsive mb-5">
-            <table class="table table-light table-borderless table-hover text-center mb-0">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Total Price</th>
-                        <th>Date</th>
-                        <th>Items Count</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle">
-                    <!-- Order 1 -->
-                    <tr>
-                        <td class="align-middle">#001</td>
-                        <td class="align-middle">$500</td>
-                        <td class="align-middle">2024-11-29</td>
-                        <td class="align-middle">5</td>
-                        <td class="align-middle">
-                            <button class="btn btn-sm btn-info">
-                                <i class="fa fa-eye"></i> 
-                                <small>View Order Items</small>
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Order 2 -->
-                    <tr>
-                        <td class="align-middle">#002</td>
-                        <td class="align-middle">$320</td>
-                        <td class="align-middle">2024-11-27</td>
-                        <td class="align-middle">3</td>
-                        <td class="align-middle">
-                            <button class="btn btn-sm btn-info">
-                                <i class="fa fa-eye"></i> 
-                                <small>View Order Items</small>
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Order 3 -->
-                    <tr>
-                        <td class="align-middle">#003</td>
-                        <td class="align-middle">$250</td>
-                        <td class="align-middle">2024-11-25</td>
-                        <td class="align-middle">2</td>
-                        <td class="align-middle">
-                            <button class="btn btn-sm btn-info">
-                                <i class="fa fa-eye"></i> 
-                                <small>View Order Items</small>
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Order 4 -->
-                    <tr>
-                        <td class="align-middle">#004</td>
-                        <td class="align-middle">$700</td>
-                        <td class="align-middle">2024-11-22</td>
-                        <td class="align-middle">7</td>
-                        <td class="align-middle">
-                            <button class="btn btn-sm btn-info">
-                                <i class="fa fa-eye"></i> 
-                                <small>View Order Items</small>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            @if($orders->isEmpty())
+                <!-- رسالة عندما لا توجد طلبات -->
+                <div class="alert alert-warning text-center">
+                    <strong>No orders found!</strong> You haven't placed any orders yet.
+                </div>
+            @else
+                <table class="table table-light table-borderless table-hover text-center mb-0">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Total Price</th>
+                            <th>Date</th>
+                            <th>Items Count</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        @foreach($orders as $order)
+                        <tr>
+                            <td class="align-middle">#{{ $order->id }}</td>
+                            <td class="align-middle">${{ $order->total_price }}</td>
+                            <td class="align-middle">{{ $order->order_date }}</td>
+                            <td class="align-middle">{{ $order->items_count }}</td>
+                            <td class="align-middle">
+                                <a href="{{ route('front.order', $order->id) }}" class="btn btn-sm btn-info">
+                                    <i class="fa fa-eye"></i> 
+                                    <small>View Order Items</small>
+                                </a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
     </div>
 </div>

@@ -116,5 +116,32 @@ class OrderController extends Controller
     
         return redirect()->route('admin.orders.index')->with('success', 'Coupon applied successfully!');
     }
+
+    public function showThanksPage()
+    {
+        return view('front.thanks');
+
+        // // الحصول على بيانات الطلب من جدول orders بناءً على user_id أو طريقة أخرى
+        // $order = Order::where('user_id', auth()->id())->latest()->first();  // هذا يفترض أنك تجلب آخر طلب للمستخدم الحالي
+        
+        // // التحقق إذا كان هناك طلب
+        
+        //     $orderId = $order->id; // جلب order_id من الجدول
+            // return view('front.thanks', compact('orderId'));  // تمرير order_id إلى الـ view
+        
+    
+    }
+    
+
+//     public function orderHistory()
+// {
+//     // جلب جميع الطلبات من قاعدة البيانات
+//       // استرجاع الطلبات الخاصة بالمستخدم المسجل الدخول
+//       $orders = Order::where('user_id', auth()->id())->get();
+
+//       // إرسال المتغير إلى الـ View
+//       return view('front.order', compact('orders'));
+  
+// }
                     
 }

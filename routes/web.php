@@ -16,6 +16,10 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 
+Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('order.items');
+
+// Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
+
 
 Route::get('/logout', function () {
     Auth::logout(); // تسجيل الخروج
@@ -24,6 +28,13 @@ Route::get('/logout', function () {
     return redirect('/front/index'); // إعادة التوجيه إلى الصفحة الرئيسية أو أي صفحة أخرى
 })->name('logout');
 Route::get('/admin/dashboard', [LoginController::class, 'authenticated'])->name('admin.dashboard');
+
+
+// Route for checkout (POST method)
+Route::post('/front/checkout', [CheckoutController::class, 'checkout'])->name('front.checkout');
+
+// Route for the thanks page (GET method)
+Route::get('/front/thanks', [OrderController::class, 'showThanksPage'])->name('front.thanks');
 
 
 Route::patch('/front/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
@@ -55,13 +66,13 @@ Route::view('/front/points','front.points');
 
 Route::get('/front/navbar', [FrontCategoryController::class, 'showCategoriesInNavbar'])->name('front.activeCategories');
 
-Route::get('/front/index', [FrontCategoryController::class, 'index'])->name('front.index');
+// Route::get('/front/index', [FrontCategoryController::class, 'index'])->name('front.index');
 
 
-Route::get('/front/index', [FrontStoreController::class, 'getStores'])->name('front.activeStores');
+// Route::get('/front/index', [FrontStoreController::class, 'getStores'])->name('front.activeStores');
 
 
-Route::get('/front/products', [ProductController::class, 'index'])->name('front.index');
+Route::get('/front/index', [ProductController::class, 'indexProduct'])->name('front.index');
 
 // Route::get('/stores', [StoreController::class, 'getStores']);
 Route::get('/shop', [ProductController::class, 'shop']);

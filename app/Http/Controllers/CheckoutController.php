@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,27 +10,37 @@ class CheckoutController extends Controller
 {
     public function index()
     {
-        // التحقق من إذا كان المستخدم مسجلاً دخوله أم لا
         if (auth()->check()) {
-            // إذا كان مسجلاً، استخدم المستخدم المسجل
             $user = auth()->user();
         } else {
-            // إذا لم يكن مسجلاً، تعيين المستخدم 3
-            $user = User::find(3);
+            $user = User::find(3); // إذا لم يكن المستخدم مسجلاً
         }
 
-        // الحصول على المنتجات الخاصة بالسلة للمستخدم الحالي
         $cartItems = Cart::where('user_id', $user->id)->get();
-
-        // حساب الإجمالي
         $subtotal = $cartItems->sum(function($item) {
-            return $item->product->price * $item->quantity; // assuming 'product' relationship is set
+            return $item->product->price * $item->quantity;
         });
 
-        $shipping = 10; // فرضاً الشحن ثابت
+        $shipping = 10; // تكلفة الشحن
         $total = $subtotal + $shipping;
 
-        // تمرير البيانات إلى الـ view
         return view('front.checkout', compact('cartItems', 'subtotal', 'shipping', 'total'));
     }
-}
+
+    public function store(Request $request)
+    {
+        // تأكد من أن البيانات التي سيتم حفظها هي فقط التي تريدها
+        $order = new Order();
+        $order->user_id = auth()->id();
+        $order->address = $request->address;
+        $order->phone_number = $request->phoneNumber;
+        $order->payment_method = $request->paymentMethod;
+        // لا تخزن الكارت نمبر ولا الكسبير ديت ولا الاسم الأول أو الأخير
+    
+        // حفظ الطلب
+        $order->save();
+    
+        // إعادة توجيه إلى صفحة الشكر
+        return redirect()->route('front.thanks'); // تأكد من أنك قد عرفت هذه الصفحة
+    }
+    }

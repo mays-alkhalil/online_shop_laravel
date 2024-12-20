@@ -127,22 +127,21 @@ public function destroy($id)
     return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
 }
 
-// public function index()
-// {
-//     // جلب جميع المنتجات مع التقييمات
-//     $products = Product::with('reviews')->get();
+public function indexProduct()
+{
+    // جلب جميع المنتجات مع التقييمات
+    $products = Product::with('reviews')->get();
     
-//     // حساب التقييم المتوسط لكل منتج
-//     foreach ($products as $product) {
-//         $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
-//     }
+    // حساب التقييم المتوسط لكل منتج
+    foreach ($products as $product) {
+        $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
+    }
 
-    // جلب آخر 5 منتجات
-//     $LastProducts = Product::orderBy('created_at', 'desc')->limit(5)->get();
+    $LastProducts = Product::orderBy('created_at', 'desc')->limit(5)->get();
     
-//     // تمرير البيانات إلى صفحة index
-//     return view('front.index', compact('products', 'LastProducts'));
-// }
+    // تمرير البيانات إلى صفحة index
+    return view('front.index', compact('products', 'LastProducts'));
+}
 
 public function shop()
 {

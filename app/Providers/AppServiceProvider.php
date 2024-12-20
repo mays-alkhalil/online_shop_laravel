@@ -7,6 +7,8 @@ use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\View;
 
 use App\Models\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Category;
 use App\Models\Store;
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +34,16 @@ class AppServiceProvider extends ServiceProvider
 
                 // مشاركة البيانات مع جميع الـ Views
                 View::share('LastProducts', $LastProducts);
+
+                $orders = Order::all(); // هنا يتم جلب جميع الطلبات
+                View::share('orders', $orders);
+                foreach ($orders as $order) {
+                    $orderItems = OrderItem::where('order_id', $order->id)->get();
+                    View::share('orderItems_' . $order->id, $orderItems);  // مشاركة العناصر في الـ View مع اسم فريد
+                }
+                
+                // $userId = auth()->id(); // الحصول على الـ ID الخاص بالمستخدم الحالي
+                // $orders = Order::where('user_id', $userId)->get(); // جلب الطلبات بناءً على الـ user_id
+                // View::share('orders', $orders); // مشاركة البيانات مع جميع الـ Views}
 }
 }
