@@ -17,15 +17,18 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Livewire\SearchProducts;
 
+
+
+
 Route::get('/front/shop', SearchProducts::class);
 
 Route::get('/front/shop', [ShopController::class, 'Shopindex'])->name('shop.index');
 
 Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
 
-Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('order.items');
+Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('front.order-items');
 
-Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
+// Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
 
 Route::get('/front/shop', [ProductController::class, 'indexFront'])->name('front.shop');
 
@@ -50,7 +53,7 @@ Route::patch('/front/cart/update/{id}', [CartController::class, 'update'])->name
 Route::delete('/front/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 
 // عرض صفحة الطلبات
-Route::get('/front/orders', [OrderController::class, 'index'])->name('front.orders');
+// Route::get('/front/orders', [OrderController::class, 'index'])->name('front.orders');
 
 // Route::view('/front/index','front.index');
 // Route::view('/','welcome');

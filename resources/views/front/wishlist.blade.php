@@ -24,21 +24,24 @@
                     @foreach($wishlists as $wishlist)
                         <tr>
                             <td class="align-middle">
-                                <img src="{{ asset('storage/images/'.$wishlist->product->image) }}" alt="" style="width: 50px;">
+                                <img src="{{ asset('storage/'.$wishlist->product->image) }}" alt="" style="width: 50px;">
                                 {{ $wishlist->product->name }}
                             </td>
                             <td class="align-middle">${{ $wishlist->product->price }}</td>
                             <td class="align-middle">
-                                <form action="{{ route('wishlist.remove', $wishlist->product_id) }}" method="POST">
+                                <form action="{{ route('wishlist.remove', $wishlist->product_id) }}" method="POST" class="d-inline-block mr-2">
                                     @csrf
                                     @method('DELETE') <!-- تأكد من أن هذه السطر موجود -->
                                     <button type="submit" class="btn btn-sm btn-danger">
                                         <i class="fa fa-times"></i> Remove
                                     </button>
                                 </form>
-                                
-                                <a href="{{ route('cart.add', $wishlist->product->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                            
+                                <a href="{{ route('cart.add', $wishlist->product->id) }}" class="btn btn-sm btn-primary d-inline-block">
+                                    <i class="fa fa-cart-plus"></i> Add to Cart
+                                </a>
                             </td>
+                            
                         </tr>
                     @endforeach
                 </tbody>

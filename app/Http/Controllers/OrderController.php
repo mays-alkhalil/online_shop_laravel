@@ -133,15 +133,27 @@ class OrderController extends Controller
     }
     
 
-    public function orderHistory()
-{
-    // جلب جميع الطلبات من قاعدة البيانات
-      // استرجاع الطلبات الخاصة بالمستخدم المسجل الدخول
-      $orders = Order::where('user_id', auth()->id())->get();
+    // public function orderHistory()
+    // {
+    //     // تحقق من معرف المستخدم
+    //     $userId = auth()->id();
+    //     \Log::info('User ID: ' . $userId); // تسجيل المعرف في الـ log
+    
+    //     // جلب جميع الطلبات الخاصة بالمستخدم
+    //     $orders = Order::where('user_id', $userId)->get();
+    
+    //     // إرسال المتغير إلى الـ View
+    //     return view('front.orders', compact('orders'));
+    // }
 
-      // إرسال المتغير إلى الـ View
-      return view('front.orders', compact('orders'));
-  
-}
+    public function showOrderItems($orderId)
+    {
+        // جلب الطلب باستخدام ID مع العناصر المرتبطة به
+        $order = Order::with('orderItems.product')->findOrFail($orderId);
+    
+        // إرسال الطلب والعناصر المرتبطة به إلى الـ View
+        return view('front.order-items', compact('order'));
+    }
+    
                     
 }

@@ -32,11 +32,11 @@
                         @foreach($orders as $order)
                         <tr>
                             <td class="align-middle">#{{ $order->id }}</td>
-                            <td class="align-middle">${{ $order->total_price }}</td>
+                            <td class="align-middle">${{ $order->total_amount }}</td>
                             <td class="align-middle">{{ $order->order_date }}</td>
-                            <td class="align-middle">{{ $order->items_count }}</td>
+                            <td class="align-middle">{{ $order->payment_method }}</td>
                             <td class="align-middle">
-                                <a href="{{ route('front.order', $order->id) }}" class="btn btn-sm btn-info">
+                                <a href="{{ route('front.order-items', $order->id) }}" class="btn btn-sm btn-info">
                                     <i class="fa fa-eye"></i> 
                                     <small>View Order Items</small>
                                 </a>
