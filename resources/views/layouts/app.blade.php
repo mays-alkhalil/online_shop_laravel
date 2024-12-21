@@ -15,7 +15,7 @@
 
     <!-- styled -->
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
-
+@livewireStyles
 
     <!-- Scripts -->
 </head>
@@ -83,5 +83,7 @@
 
     <!-- scripts -->
      <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"  defer></script>
+     @livewireScripts
+
 </body>
 </html>

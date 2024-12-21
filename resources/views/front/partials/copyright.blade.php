@@ -6,6 +6,6 @@
         </p>
     </div>
     <div class="col-md-6 px-xl-0 text-center text-md-right">
-        <img class="img-fluid" src="{{ asset('front-assets') }}/img/payments.png" alt="Accepted Payment Methods">
+        <img class="" src="{{ asset('front-assets') }}/img/payments.png" alt="Accepted Payment Methods">
     </div>
 </div>

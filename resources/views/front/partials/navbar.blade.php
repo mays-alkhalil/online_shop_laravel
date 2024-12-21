@@ -117,7 +117,7 @@
                 </div>
                 
                                 </div>
-              </nav>
+ </nav>
                       </div>
         <div class="col-lg-9">
             <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
@@ -136,21 +136,25 @@
                         <a href="{{ url('/front/contact')}}" class="nav-item nav-link @yield('contact-active') ">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                        <!-- Wishlist Icon -->
-                        <a href="{{ url('/front/wishlist') }}" class="btn px-0">
-                            <i class="fas fa-heart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            <br>
-                            <small class="d-block text-center" style="font-size: 12px; color:white;margin-right:15px;">Wishlist</small> <!-- Text below the icon -->
-                        </a>
-                        
-                        <!-- Cart Icon -->
-                        <a href="{{ url('/front/cart') }}" class="btn px-0 ml-3">
-                            <i class="fas fa-shopping-cart text-primary"></i>
-                            <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                            <br>
-                            <small class="d-block text-center" style="font-size: 12px; color:white; margin-right:15px;">Cart</small> <!-- Text below the icon -->
-                        </a>
+<!-- Wishlist Icon -->
+<a href="{{ url('/front/wishlist') }}" class="btn px-0">
+    <i class="fas fa-heart text-primary"></i>
+    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+        {{ $wishlistCount }}
+    </span>
+    <br>
+    <small class="d-block text-center" style="font-size: 12px; color:white;margin-right:15px;">Wishlist</small>
+</a>
+
+<!-- Cart Icon -->
+<a href="{{ url('/front/cart') }}" class="btn px-0 ml-3">
+    <i class="fas fa-shopping-cart text-primary"></i>
+    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+        {{ $cartCount }}
+    </span>
+    <br>
+    <small class="d-block text-center" style="font-size: 12px; color:white; margin-right:15px;">Cart</small>
+</a>
 
                        <!-- User Icon with Dropdown -->
                        <a href="#" class="btn px-0 ml-3 position-relative" id="userIcon">
@@ -162,8 +166,8 @@
                             @if(Auth::check()) <!-- إذا كان المستخدم مسجل دخوله -->
                                 <a class="dropdown-item" href="{{ url('/profile') }}">My Profile</a>
                                 <a class="dropdown-item" href="{{ url('/front/orders') }}">My Orders</a>
-                                <a class="dropdown-item" href="{{ url('/front/coupons') }}">My Coupons</a>
-                                <a class="dropdown-item" href="{{ url('/front/points') }}">My Points</a>
+                                {{-- <a class="dropdown-item" href="{{ url('/front/coupons') }}">My Coupons</a>
+                                <a class="dropdown-item" href="{{ url('/front/points') }}">My Points</a> --}}
                                 <!-- رابط تسجيل الخروج -->
                                 <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                             @else <!-- إذا كان المستخدم غير مسجل دخوله -->

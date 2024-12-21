@@ -214,4 +214,6 @@ class ProductController extends Controller
 
         return view('front.shop', compact('products', 'query'));
     }
+
+    
 }

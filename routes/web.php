@@ -19,6 +19,7 @@ use App\Http\Livewire\SearchProducts;
 
 Route::get('/front/shop', SearchProducts::class);
 
+Route::get('/front/shop', [ShopController::class, 'Shopindex'])->name('shop.index');
 
 Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
 

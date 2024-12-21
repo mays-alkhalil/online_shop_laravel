@@ -12,7 +12,7 @@
 @include('front.partials.breadcrumb',['pageName' => 'Details']);
 
     <!-- Shop Detail Start -->
-    <div class="container-fluid pb-5">
+    {{-- <div class="container-fluid pb-5">
         <div class="row px-xl-5">
             <div class="col-lg-5 mb-30">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
@@ -251,7 +251,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 {{-- داينمك بس بطلعلي انه مش قادر يوصل للبرودكت --}}
 <div class="container-fluid pb-5">
     <div class="row px-xl-5">
@@ -260,15 +260,15 @@
                 <div class="carousel-inner bg-light">
                     <!-- عرض صورة واحدة فقط -->
                     <div class="carousel-item active">
-                        <img class="w-100 h-100" src="{{ asset('storage/images/' . $product->image) }}" alt="Image">
+                        <img class="w-100 h-100" src="{{ asset('storage/' . $product->image) }}" alt="Image">
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                {{-- <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                     <i class="fa fa-2x fa-angle-left text-dark"></i>
                 </a>
                 <a class="carousel-control-next" href="#product-carousel" data-slide="next">
                     <i class="fa fa-2x fa-angle-right text-dark"></i>
-                </a>
+                </a> --}}
             </div>
         </div>
 
@@ -316,19 +316,27 @@
                     </form>
                 </div>
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    <div class="input-group quantity mr-3" style="width: 130px;">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
-                                <i class="fa fa-minus"></i>
-                            </button>
+                    {{-- <form action="{{ route('cart.update', $cartItem->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('PATCH')
+                        <div class="d-flex align-items-center mb-4 pt-2">
+                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                <div class="input-group-btn">
+                                    <button type="submit" name="quantity" value="{{ $cartItem->quantity - 1 }}" class="btn btn-primary btn-minus">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control bg-secondary border-0 text-center" value="{{ $cartItem->quantity }}">
+                                <div class="input-group-btn">
+                                    <button type="submit" name="quantity" value="{{ $cartItem->quantity + 1 }}" class="btn btn-primary btn-plus">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
-                        <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
-                                <i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
+                    </form> --}}
+                    
+
                     <a  href="{{ route('cart.add', $product->id) }}"> <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
                         Cart</button></a>
 
@@ -345,7 +353,7 @@
                 <div class="nav nav-tabs mb-4">
                     <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
                   
-                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ $product->reviews_count }})</a>
+                    {{-- <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ $product->reviews_count }})</a> --}}
                 </div>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="tab-pane-1">

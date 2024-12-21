@@ -6,12 +6,15 @@ use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
-
+use App\Models\Cart;
+use App\Models\Wishlist;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Category;
 use App\Models\Store;
+use Illuminate\Support\Facades\Auth;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -43,10 +46,26 @@ class AppServiceProvider extends ServiceProvider
                     View::share('orderItems_' . $order->id, $orderItems);  // مشاركة العناصر في الـ View مع اسم فريد
                 }
                 
-                // $userId = auth()->id(); // الحصول على الـ ID الخاص بالمستخدم الحالي
-                // $orders = Order::where('user_id', $userId)->get(); // جلب الطلبات بناءً على الـ user_id
-                // View::share('orders', $orders); // مشاركة البيانات مع جميع الـ Views}
+                $userId = auth()->id(); // الحصول على الـ ID الخاص بالمستخدم الحالي
+                $orders = Order::where('user_id', $userId)->get(); // جلب الطلبات بناءً على الـ user_id
+                View::share('orders', $orders); // مشاركة البيانات مع جميع الـ Views}
 
+
+                View::composer('*', function ($view) {
+                    // التحقق من إذا كان المستخدم مسجلاً دخوله
+                    $user = Auth::user();
+        
+                    // جلب عدد المنتجات في السلة
+                    $cartCount = $user ? Cart::where('user_id', $user->id)->count() : 0;
+        
+                    // جلب عدد المنتجات في قائمة الرغبات (wishlist)
+                    $wishlistCount = $user ? Wishlist::where('user_id', $user->id)->count() : 0;
+        
+                    // تمرير البيانات إلى الـ View
+                    $view->with(compact('cartCount', 'wishlistCount'));
+
+                });
+            
                 // المتغيرات الافتراضية للصفحة والحجم
                 // $page = request()->query("page", 1);
                 // $size = request()->query("size", 12);
