@@ -9609,10 +9609,11 @@ a.text-dark:hover, a.text-dark:focus {
 
 .cat-item img {
   transition: .5s;
+  height: 100%;
 }
 
 .cat-item:hover img {
-  transform: scale(1.2) rotate(5deg);
+  transform: scale(1.1) ;
 }
 
 .product-item {

@@ -120,7 +120,7 @@
                     <a class="text-decoration-none" href="#">
                         <div class="cat-item d-flex align-items-center mb-4">
                             <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                <img class="img-fluid" src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}">
+                                <img class="img-fluid" src="{{ asset('storage/images/' . $category->image) }}" alt="{{ $category->name }}">
                             </div>
                             <div class="flex-fill pl-3">
                                 <h6>{{ $category->name }}</h6>
@@ -214,7 +214,7 @@
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                    <img class="img-fluid w-100 h-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                     <div class="product-action">
                         <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}"><i class="far fa-heart"></i></a>
                         <!-- رابط إضافة المنتج إلى السلة -->

@@ -63,7 +63,8 @@
                             <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV">
                         </div>
                     </div>
-
+<input type="hidden" name="totalAmount" id="" value="{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }}
+">
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                 </form>
@@ -97,6 +98,7 @@
                 </div>
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
+
                         <h5>Total</h5>
                         <h5>${{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }}</h5>
                     </div>

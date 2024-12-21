@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -29,7 +29,6 @@ class ProductController extends Controller
 
         return view('admin.products.index', compact('products'));
     }
-
 
     public function create()
     {
@@ -52,8 +51,9 @@ class ProductController extends Controller
             'store_id' => 'nullable|numeric', // إضافة التحقق من حقل Store ID
         ]);
 
-        $imagePath = $request->file('image') 
-            ? $request->file('image')->store('products', 'public') 
+        // التعامل مع الصورة: إذا تم رفع صورة جديدة
+        $imagePath = $request->hasFile('image') 
+            ? $request->file('image')->store('images', 'public') 
             : null;
 
         Product::create([
@@ -78,133 +78,140 @@ class ProductController extends Controller
 
         return view('admin.products.edit', compact('product', 'categories', 'stores'));
     }
+
     public function update(Request $request, $id)
-{
-    $product = Product::findOrFail($id);
+    {
+        $product = Product::findOrFail($id);
 
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
-        'price' => 'required|numeric',
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        'category_id' => 'required|exists:categories,id',
-        'color' => 'nullable|string',  // إضافة التحقق من حقل اللون
-        'size' => 'nullable|string',   // إضافة التحقق من حقل الحجم
-        'store_id' => 'nullable|numeric', // إضافة التحقق من حقل Store ID
-    ]);
-    // التعامل مع الصورة: إذا تم رفع صورة جديدة
-    $imagePath = $request->hasFile('image') 
-        ? $request->file('image')->store('products', 'public') 
-        : $product->image; // إذا لم يتم رفع صورة جديدة، احتفظ بالصورة القديمة
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'category_id' => 'required|exists:categories,id',
+            'color' => 'nullable|string',  // إضافة التحقق من حقل اللون
+            'size' => 'nullable|string',   // إضافة التحقق من حقل الحجم
+            'store_id' => 'nullable|numeric', // إضافة التحقق من حقل Store ID
+        ]);
 
-    // تحديث المنتج
-    $product->update([
-        'name' => $request->name,
-        'description' => $request->description,
-        'price' => $request->price,
-        'image' => $imagePath,
-        'category_id' => $request->category_id,
-'color' => $request->color,  // تحديث اللون
+        // التعامل مع الصورة: إذا تم رفع صورة جديدة
+        if ($request->hasFile('image')) {
+            // حذف الصورة القديمة إذا كانت موجودة
+            $destination = storage_path('app/public/images/' . $product->image);
+            if (File::exists($destination)) {
+                File::delete($destination);
+            }
+            
+            // حفظ الصورة الجديدة
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = $product->image; // إذا لم يتم رفع صورة جديدة، احتفظ بالصورة القديمة
+        }
+
+        // تحديث المنتج
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'image' => $imagePath,
+            'category_id' => $request->category_id,
+            'color' => $request->color,  // تحديث اللون
             'size' => $request->size,    // تحديث الحجم
             'store_id' => $request->store_id, // تحديث Store ID
         ]);
 
-    return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
-}
-public function destroy($id)
-{
-    
-    $product = Product::findOrFail($id);
-
-    // حذف الصورة إذا كانت موجودة
-    if ($product->image) {
-        Storage::disk('public')->delete($product->image);
+        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
     }
 
-    // حذف المنتج من قاعدة البيانات
-    $product->delete();
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
 
-    return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
-}
+        // حذف الصورة إذا كانت موجودة
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
 
-public function indexProduct()
-{
-    // جلب جميع المنتجات مع التقييمات
-    $products = Product::with('reviews')->get();
-    
-    // حساب التقييم المتوسط لكل منتج
-    foreach ($products as $product) {
-        $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
+        // حذف المنتج من قاعدة البيانات
+        $product->delete();
+
+        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
     }
 
-    $LastProducts = Product::orderBy('created_at', 'desc')->limit(5)->get();
-    
-    // تمرير البيانات إلى صفحة index
-    return view('front.index', compact('products', 'LastProducts'));
-}
+    public function indexProduct()
+    {
+        // جلب جميع المنتجات مع التقييمات
+        $products = Product::with('reviews')->get();
 
-public function shop()
-{
-    // جلب جميع المنتجات مع التقييمات (التي ستكون خاصة بصفحة الشوب)
-    $products = Product::with('reviews')->get();
-    
-    // حساب التقييم المتوسط لكل منتج
-    foreach ($products as $product) {
-        $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
+        // حساب التقييم المتوسط لكل منتج
+        foreach ($products as $product) {
+            $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
+        }
+
+        $LastProducts = Product::orderBy('created_at', 'desc')->limit(5)->get();
+
+        // تمرير البيانات إلى صفحة index
+        return view('front.index', compact('products', 'LastProducts'));
     }
-    
-    // تمرير البيانات إلى صفحة shop
-    return view('front.shop', compact('products'));
-}
-// ProductController.php
 
-public function show($id)
-{
-  // جلب المنتج حسب الـ ID
-  $product = Product::findOrFail($id);
+    public function shop()
+    {
+        // جلب جميع المنتجات مع التقييمات (التي ستكون خاصة بصفحة الشوب)
+        $products = Product::with('reviews')->get();
 
-  // جلب الأحجام والألوان المتوفرة عبر جميع المنتجات باستخدام distinct
-  $sizes = Product::distinct()->pluck('size');
-  $colors = Product::distinct()->pluck('color');
+        // حساب التقييم المتوسط لكل منتج
+        foreach ($products as $product) {
+            $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
+        }
 
-  // جلب المنتجات المتعلقة بالمنتج الحالي استنادًا إلى نفس الـ category_id
-  $relatedProducts = Product::where('category_id', $product->category_id)
-      ->where('id', '!=', $id)  // استبعاد المنتج نفسه
-      ->take(5) // عدد المنتجات المعروضة
-      ->get();
+        // تمرير البيانات إلى صفحة shop
+        return view('front.shop', compact('products'));
+    }
 
-  // تمرير المنتج مع الأحجام والألوان الفريدة إلى الـ View
-  return view('front.details', [
-      'product' => $product,
-      'sizes' => $sizes,
-      'colors' => $colors,
-      'relatedProducts' => $relatedProducts, // تمرير المنتجات المتعلقة هنا
-  ]);
-}
+    public function show($id)
+    {
+        // جلب المنتج حسب الـ ID
+        $product = Product::findOrFail($id);
 
+        // جلب الأحجام والألوان المتوفرة عبر جميع المنتجات باستخدام distinct
+        $sizes = Product::distinct()->pluck('size');
+        $colors = Product::distinct()->pluck('color');
+
+        // جلب المنتجات المتعلقة بالمنتج الحالي استنادًا إلى نفس الـ category_id
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $id)  // استبعاد المنتج نفسه
+            ->take(5) // عدد المنتجات المعروضة
+            ->get();
+
+        // تمرير المنتج مع الأحجام والألوان الفريدة إلى الـ View
+        return view('front.details', [
+            'product' => $product,
+            'sizes' => $sizes,
+            'colors' => $colors,
+            'relatedProducts' => $relatedProducts, // تمرير المنتجات المتعلقة هنا
+        ]);
+    }
 
     public function showProduct($id)
-{
-    $product = Product::with(['images', 'reviews'])->findOrFail($id); // التأكد من جلب العلاقات
-    return view('front.product.show', compact('product'));
-}
-
-
-public function indexFront(Request $request)
-{
-    $query = $request->input('query'); // الكلمة التي يتم إدخالها في شريط البحث
-
-    // إذا كان هناك كلمة بحث، قم بالبحث في جدول المنتجات
-    if ($query) {
-        $products = Product::where('name', 'like', "%{$query}%")
-                           ->orWhere('description', 'like', "%{$query}%")
-                           ->get();
-    } else {
-        // إذا لم تكن هناك كلمة بحث، عرض كل المنتجات
-        $products = Product::all();
+    {
+        $product = Product::with(['images', 'reviews'])->findOrFail($id); // التأكد من جلب العلاقات
+        return view('front.product.show', compact('product'));
     }
 
-    return view('front.shop', compact('products', 'query'));
-}
-    }
+    public function indexFront(Request $request)
+    {
+        $query = $request->input('query'); // الكلمة التي يتم إدخالها في شريط البحث
 
+        // إذا كان هناك كلمة بحث، قم بالبحث في جدول المنتجات
+        if ($query) {
+            $products = Product::where('name', 'like', "%{$query}%")
+                               ->orWhere('description', 'like', "%{$query}%")
+                               ->get();
+        } else {
+            // إذا لم تكن هناك كلمة بحث، عرض كل المنتجات
+            $products = Product::all();
+        }
+
+        return view('front.shop', compact('products', 'query'));
+    }
+}

@@ -24,7 +24,7 @@
                     @foreach($wishlists as $wishlist)
                         <tr>
                             <td class="align-middle">
-                                <img src="{{ asset('storage/'.$wishlist->product->image) }}" alt="" style="width: 50px;">
+                                <img src="{{ asset('storage/images/'.$wishlist->product->image) }}" alt="" style="width: 50px;">
                                 {{ $wishlist->product->name }}
                             </td>
                             <td class="align-middle">${{ $wishlist->product->price }}</td>

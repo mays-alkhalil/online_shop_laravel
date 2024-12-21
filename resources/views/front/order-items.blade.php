@@ -31,7 +31,7 @@
                                     @foreach(${'orderItems_' . $order->id} as $orderItem)
                                     <tr>
                                         <td class="align-middle">
-                                            <img src="{{ asset('front-assets/img/product-' . $orderItem->product->id . '.jpg') }}" alt="{{ $orderItem->product->name }}" style="width: 50px;">
+                                            <img src="{{ asset('storage/images/' . $orderItem->product->id . '.jpg') }}" alt="{{ $orderItem->product->name }}" style="width: 50px;">
                                             {{ $orderItem->product->name }}
                                         </td>
                                         <td class="align-middle">{{ $orderItem->quantity }}</td>

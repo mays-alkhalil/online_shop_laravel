@@ -73,7 +73,7 @@
                             <td>{{ $item->name }}</td>
                             <td>
                                 @if($item->image)
-                                <img src="{{ asset('storage/'.$item->image) }}" width="50px" height="50px" alt="Store Image">
+                                <img src="{{ asset('storage/images/'.$item->image) }}" width="50px" height="50px" alt="Store Image">
                                 @else
                                 <span>No Image</span>
                                 @endif

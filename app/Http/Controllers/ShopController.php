@@ -82,43 +82,109 @@ class ShopController extends Controller
 
     // في ShopController.php
 public function filterProducts(Request $request)
-{$stores = $request->input('stores', []);
-    $categories = $request->input('categories', []);
-    $colors = $request->input('colors', []);
-    $sizes = $request->input('sizes', []);
+{
+    $page = $request->query("page");
+    $size = $request->query("size");
 
-    // إحضار المنتجات بناءً على الفلاتر
-    $query = Product::query();
+    if(!$page)
+    $page = 1;
+if(!$size)
+    $size = 12;
 
-    if (!empty($stores)) {
-        $query->whereIn('store_id', $stores);
-    }
+    $order = $request->query("order");
+    if(!$order)
+    $order = -1;
+$o_column = "";
+$o_order = "";
+switch($order){
+    case 1:
 
-    if (!empty($categories)) {
-        $query->whereIn('category_id', $categories);
-    }
+        $o_column = "created_at";
+        $o_order = "desc";
+        break;
 
-    if (!empty($colors)) {
-        $query->whereIn('color', $colors);
-    }
+    
 
-    if (!empty($sizes)) {
-        $query->whereIn('size', $sizes);
-    }
+    case 2:
+        $o_column = "created_at";
+        $o_order = "ASC";
+        break;
+       
 
-    // جلب المنتجات
-    $products = $query->get();
+    case 3:
+        $o_column = "price";
+        $o_order = "desc";
+        break;
 
-    // إذا كان الطلب AJAX، إعادة المنتجات فقط
-    if ($request->ajax()) {
-        return response()->json([
-            'products' => view('front.partials.product-list', compact('products'))->render()
-        ]);
-    }
 
-    // عرض الصفحة كاملة إذا لم يكن AJAX
-    return view('front.shop', compact('products', 'stores', 'categories', 'colors', 'sizes'));
+    case 4:
+        $o_column = "price";
+        $o_order = "asc";
+        break;
+
+    default:
+        $o_column = "created_at";
+        $o_order = "desc";
+        break;  
+}
+
+$stores= Store::orderBy("name",'ASC')->get();
+$q_stores = $request->query("stores","");
+$products = Product::where(function($query)use($q_stores){
+    $query->whaereIn('store_id',explode(',',$q_stores))->onWhereRaw("'".$q_stores."'=''");
+  
+}) 
+ ->orderBy('creates_at','DESC')->orderBy($o_column,$o_order)->paginate($size);
+return view('front.shop',['products'=>$products,'page'=>$page,'size'=>$size,'order'=>$order ,'stores'=>$stores,'q_stores'=>$q_stores ]);
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    // $stores = $request->input('stores', []);
+    // $categories = $request->input('categories', []);
+    // $colors = $request->input('colors', []);
+    // $sizes = $request->input('sizes', []);
+
+    // // إحضار المنتجات بناءً على الفلاتر
+    // $query = Product::query();
+
+    // if (!empty($stores)) {
+    //     $query->whereIn('store_id', $stores);
+    // }
+
+    // if (!empty($categories)) {
+    //     $query->whereIn('category_id', $categories);
+    // }
+
+    // if (!empty($colors)) {
+    //     $query->whereIn('color', $colors);
+    // }
+
+    // if (!empty($sizes)) {
+    //     $query->whereIn('size', $sizes);
+    // }
+
+    // // جلب المنتجات
+    // $products = $query->get();
+
+    // // إذا كان الطلب AJAX، إعادة المنتجات فقط
+    // if ($request->ajax()) {
+    //     return response()->json([
+    //         'products' => view('front.partials.product-list', compact('products'))->render()
+    //     ]);
+    // }
+
+    // // عرض الصفحة كاملة إذا لم يكن AJAX
+    // return view('front.shop', compact('products', 'stores', 'categories', 'colors', 'sizes'));
 }
 }
 
-}

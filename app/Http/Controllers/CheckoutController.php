@@ -35,6 +35,7 @@ class CheckoutController extends Controller
         $order->address = $request->address;
         $order->phone_number = $request->phoneNumber;
         $order->payment_method = $request->paymentMethod;
+        $order->total_amount = $request->totalAmount;
         // لا تخزن الكارت نمبر ولا الكسبير ديت ولا الاسم الأول أو الأخير
     
         // حفظ الطلب
@@ -42,5 +43,10 @@ class CheckoutController extends Controller
     
         // إعادة توجيه إلى صفحة الشكر
         return redirect()->route('front.thanks'); // تأكد من أنك قد عرفت هذه الصفحة
+    }
+
+    public function showThanksPage(){
+        return view('front.thanks'); // تأكد من أنك قد عرفت هذه الصفحة
+
     }
     }

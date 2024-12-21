@@ -25,6 +25,7 @@ class StoreController extends Controller
         // تمرير المتاجر المصفاة إلى الـ View
         return view('admin.stores.index', compact('stores'));
     }
+
     // عرض صفحة إضافة متجر جديد
     public function create()
     {
@@ -42,17 +43,16 @@ class StoreController extends Controller
         ]);
 
         $imagePath = $request->file('image') 
-            ? $request->file('image')->store('stores', 'public') 
+            ? $request->file('image')->store('images', 'public') 
             : null;
 
-            Store::create([
-                'name' => $request->name,
-                'owner_id' => auth()->id(), // تأكد من أن auth()->id() تُرجع قيمة
-                'description' => $request->description,
-                'address' => $request->address,
-                'image' => $imagePath,
-            ]);
-            
+        Store::create([
+            'name' => $request->name,
+            'owner_id' => auth()->id(), // تأكد من أن auth()->id() تُرجع قيمة
+            'description' => $request->description,
+            'address' => $request->address,
+            'image' => $imagePath,
+        ]);
 
         return redirect()->route('admin.stores.index')->with('success', 'Store created successfully.');
     }
@@ -80,7 +80,7 @@ class StoreController extends Controller
 
         // التعامل مع الصورة: إذا تم رفع صورة جديدة، قم بتخزينها
         $imagePath = $request->hasFile('image') 
-            ? $request->file('image')->store('stores', 'public') 
+            ? $request->file('image')->store('images', 'public') 
             : $store->image; // إذا لم يتم رفع صورة جديدة، احتفظ بالصورة القديمة
 
         // تحديث بيانات المتجر
@@ -89,9 +89,9 @@ class StoreController extends Controller
             'description' => $request->description,
             'address' => $request->address,
             'image' => $imagePath,
-            'status' => $request->has('status') ? 'active' : 'inactive',  // تعديل هنا
+            'status' => $request->has('status') ? 'active' : 'inactive',
         ]);
-        
+
         return redirect()->route('admin.stores.index')->with('success', 'Store updated successfully.');
     }
 
@@ -109,8 +109,4 @@ class StoreController extends Controller
 
         return redirect()->route('admin.stores.index')->with('success', 'Store deleted successfully.');
     }
-
-
-    // ui
-
 }

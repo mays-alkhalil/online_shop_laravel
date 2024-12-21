@@ -15,6 +15,9 @@ use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
+use App\Http\Livewire\SearchProducts;
+
+Route::get('/front/shop', SearchProducts::class);
 
 
 Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
@@ -33,12 +36,13 @@ Route::get('/logout', function () {
 })->name('logout');
 Route::get('/admin/dashboard', [LoginController::class, 'authenticated'])->name('admin.dashboard');
 
-
+Route::get('/front/checkout', [CheckoutController::class, 'index'])->name('front.checkout.index');
+Route::post('/front/checkout', [CheckoutController::class, 'store'])->name('front.checkout');
 // Route for checkout (POST method)
-Route::post('/front/checkout', [CheckoutController::class, 'checkout'])->name('front.checkout');
-
+// Route::post('/front/checkout', [CheckoutController::class, 'store'])->name('front.checkout');
+// Route::resource('front/checkout', CheckoutController::class)->only(['index', 'store']);
 // Route for the thanks page (GET method)
-Route::get('/front/thanks', [OrderController::class, 'showThanksPage'])->name('front.thanks');
+Route::get('/front/thanks', [CheckoutController::class, 'showThanksPage'])->name('front.thanks');
 
 
 Route::patch('/front/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
@@ -47,17 +51,17 @@ Route::delete('/front/cart/remove/{id}', [CartController::class, 'remove'])->nam
 // عرض صفحة الطلبات
 Route::get('/front/orders', [OrderController::class, 'index'])->name('front.orders');
 
-Route::view('/front/index','front.index');
-Route::view('/','welcome');
-Route::view('/front/shop','front.shop');
-Route::view('/front/details','front.details');
+// Route::view('/front/index','front.index');
+// Route::view('/','welcome');
+// Route::view('/front/shop','front.shop');
+// Route::view('/front/details','front.details');
 Route::view('/front/contact','front.contact');
-Route::view('/front/cart','front.cart');
-Route::view('/front/checkout','front.checkout');
-Route::view('/front/wishlist','front.wishlist');
-Route::view('/front/profile','front.profile');
-Route::view('/front/login','front.login');
-Route::view('/front/register','front.register');
+// Route::view('/front/cart','front.cart');
+// // Route::view('/front/checkout','front.checkout');
+// Route::view('/front/wishlist','front.wishlist');
+// Route::view('/front/profile','front.profile');
+// Route::view('/front/login','front.login');
+// Route::view('/front/register','front.register');
 Route::view('/front/orders','front.orders');
 Route::view('/front/order-items','front.order-items');
 Route::view('/front/coupons','front.coupons');
@@ -121,7 +125,7 @@ Route::get('/front/profile', [ProfileController::class, 'edit'])->name('front.pr
 // تحديث بيانات الملف الشخصي
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 // Route::get('/front/shop', [ShopController::class, 'index'])->name('front.shop');
-Route::get('/checkout', [CheckoutController::class, 'index'])->name('front.checkout');
+// Route::get('/checkout', [CheckoutController::class, 'index'])->name('front.checkout');
 Route::get('/admin/contact', [ContactController::class, 'index'])->name('front.contact');
 
 

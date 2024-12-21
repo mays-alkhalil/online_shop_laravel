@@ -41,7 +41,7 @@ public function index(Request $request)
        if($request->hasfile('image')){
          $file = $request->file('image');
          $filename = time(). '.'. $file->getClientOriginalExtension();
-         $file->move('uploads/categories', $filename);
+         $file->move(storage_path('app/public/images'), $filename);
          $category->image=$filename;
 
        }
@@ -67,13 +67,13 @@ public function index(Request $request)
             $category->description=$data['description'];
      
             if($request->hasfile('image')){
-        $destination = 'uploads/category/' . $category->image;
-        if(File::exists($destination)){
+                $destination = storage_path('app/public/images/' . $category->image);
+                if(File::exists($destination)){
             File::delete($destination);  // حذف الصورة القديمة التي كانت موجودة في المجلد uploads/categories/
         }
               $file = $request->file('image');
               $filename = time(). '.'. $file->getClientOriginalExtension();
-              $file->move('uploads/categories', $filename);
+              $file->move(storage_path('app/public/images'), $filename);
               $category->image=$filename;
      
             }
@@ -89,7 +89,7 @@ public function index(Request $request)
     public function destroy(Request $request){
         $category = Category::find($request->category_delete_id);
         if($category){
-            $destination = 'uploads/categories/'. $category->image;
+            $destination = storage_path('app/public/images/' . $category->image);
             if(File::exists($destination)){
                 File::delete($destination);  // حذف الصورة التي كانت موجودة في المجلد uploads/categories/
             }

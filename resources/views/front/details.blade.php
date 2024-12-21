@@ -260,7 +260,7 @@
                 <div class="carousel-inner bg-light">
                     <!-- عرض صورة واحدة فقط -->
                     <div class="carousel-item active">
-                        <img class="w-100 h-100" src="{{ asset('storage/' . $product->image) }}" alt="Image">
+                        <img class="w-100 h-100" src="{{ asset('storage/images/' . $product->image) }}" alt="Image">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
@@ -409,7 +409,7 @@
                     @foreach($relatedProducts as $relatedProduct)
                         <div class="product-item bg-light">
                             <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="{{ asset('storage/'.$relatedProduct->image) }}" alt="{{ $relatedProduct->name }}">
+                                <img class="img-fluid w-100" src="{{ asset('storage/images/'.$relatedProduct->image) }}" alt="{{ $relatedProduct->name }}">
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $relatedProduct->id) }}">
                                         <i class="fa fa-shopping-cart"></i>

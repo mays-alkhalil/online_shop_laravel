@@ -14,7 +14,7 @@
 <div class="container-fluid">
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
-        <div class="col-lg-3 col-md-4">
+        {{-- <div class="col-lg-3 col-md-4">
             <!-- Filter by Stores -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by Store</span></h5>
             <div class="bg-light p-4 mb-30">
@@ -25,12 +25,18 @@
                     </div>
                     @foreach ($stores as $store)
                         <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                            <input type="checkbox" class="custom-control-input store-checkbox" id="store-{{ $store->id }}" value="{{ $store->id }}">
+                            <input type="checkbox" 
+                                   @if(in_array($store->id, explode(',', $q_stores))) checked="checked" @endif
+                                   onchange="filterProductsByBrand(this)" 
+                                   class="custom-control-input store-checkbox" 
+                                   id="store-{{ $store->id }}" 
+                                   value="{{ $store->id }}">
                             <label class="custom-control-label" for="store-{{ $store->id }}">{{ $store->name }}</label>
                         </div>
                     @endforeach
                 </form>
             </div>
+            
 
             <!-- Filter by Category -->
             <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Filter by Category</span></h5>
@@ -78,18 +84,20 @@
                     @endforeach
                 </form>
             </div>
-        </div>
+        </div> --}}
         <!-- Shop Sidebar End -->
 
         <!-- Shop Product Start -->
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-12 col-md-9">
             <div class="row px-xl-5" id="product-list">
                 <!-- Show Products -->
+                @livewire('search-products')
+
                 @foreach($products as $product)
                     <div class="col-lg-4 col-md-6 col-sm-6 pb-1 product-item">
                         <div class="product-item bg-light mb-4">
                             <div class="product-img position-relative overflow-hidden">
-                                <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"> 
                                 <div class="product-action">
                                     <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}"><i class="far fa-heart"></i></a>
                                     <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $product->id) }}"><i class="fa fa-shopping-cart"></i></a>
@@ -120,36 +128,77 @@
 </div>
 <!-- Shop End -->
 
+{{-- <form id="frmFilter"  method="GET">
+    <input type="hidden" id="stores" name="stores" value="{{ $q_stores }}">
+    <input type="hidden" id="size" name="size" value="{{ $size }}">
+    <input type="hidden" id="order" name="order" value="{{ $order }}">
+</form> --}}
+
+
+
 @endsection
 
 @section('scripts')
 <script>
-    $(document).ready(function() {
-        // عند تغيير الفلاتر
-        $('input[type="checkbox"]').on('change', function() {
-            var stores = [];
-            var categories = [];
-            var colors = [];
-            var sizes = [];
 
-            // جمع الفلاتر المختارة
-            $('input[name="store[]"]:checked').each(function() {
-                stores.push($(this).val());
-            });
+<script>        
+    // $(function(){
+//     // تغيير الحجم بناءً على اختيار المستخدم
+//     $("#pagesize").on("change", function() {
+//         $("#size").val($("#pagesize option:selected").val());
+//         $("#frmFilter").submit(); // إعادة إرسال النموذج
+//     });
+// });
 
-            $('input[name="category[]"]:checked').each(function() {
-                categories.push($(this).val());
-            });
+// // فلترة المنتجات بناءً على المتاجر
+// function filterProductsByBrand(brand) {
+//     var stores = "";
+//     // جمع جميع القيم المحددة
+//     $("input[name='stores']:checked").each(function() {
+//         if (stores == "") {
+//             stores += this.value;
+//         } else {
+//             stores += "," + this.value;
+//         }
+//     });
+//     // تحديث الحقل المخفي في النموذج
+//     $("#stores").val(stores);
+//     $("#frmFilter").submit(); // إعادة إرسال النموذج بعد تحديث القيم
+// }
 
-            $('input[name="color[]"]:checked').each(function() {
-                colors.push($(this).val());
-            });
+</script>
 
-            $('input[name="size[]"]:checked').each(function() {
-                sizes.push($(this).val());
-            });
+
+
+    // $(document).ready(function() {
+    //     // عند تغيير الفلاتر
+    //     $('input[type="checkbox"]').on('change', function() {
+    //         var stores = [];
+    //         var categories = [];
+    //         var colors = [];
+    //         var sizes = [];
+
+    //         // جمع الفلاتر المختارة
+    //         $('input[name="store[]"]:checked').each(function() {
+    //             stores.push($(this).val());
+    //         });
+
+    //         $('input[name="category[]"]:checked').each(function() {
+    //             categories.push($(this).val());
+    //         });
+ 
+    //         $('input[name="color[]"]:checked').each(function() {
+    //             colors.push($(this).val());
+    //         });
+
+    //         $('input[name="size[]"]:checked').each(function() {
+    //             sizes.push($(this).val());
+    //         });
 
     
-    });
-</script>
+    // });
+// </script>
+<script src="{{ mix('js/app.js') }}"></script>
+@livewireScripts
+
 @endsection

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\Order;
@@ -45,5 +46,54 @@ class AppServiceProvider extends ServiceProvider
                 // $userId = auth()->id(); // الحصول على الـ ID الخاص بالمستخدم الحالي
                 // $orders = Order::where('user_id', $userId)->get(); // جلب الطلبات بناءً على الـ user_id
                 // View::share('orders', $orders); // مشاركة البيانات مع جميع الـ Views}
+
+                // المتغيرات الافتراضية للصفحة والحجم
+                // $page = request()->query("page", 1);
+                // $size = request()->query("size", 12);
+            
+                // $order = request()->query("order", -1);
+                // $o_column = "created_at";
+                // $o_order = "desc";
+            
+                // switch ($order) {
+                //     case 1:
+                //         $o_column = "created_at";
+                //         $o_order = "desc";
+                //         break;
+                //     case 2:
+                //         $o_column = "created_at";
+                //         $o_order = "asc";
+                //         break;
+                //     case 3:
+                //         $o_column = "price";
+                //         $o_order = "desc";
+                //         break;
+                //     case 4:
+                //         $o_column = "price";
+                //         $o_order = "asc";
+                //         break;
+                //     default:
+                //         $o_column = "created_at";
+                //         $o_order = "desc";
+                //         break;
+                // }
+            
+                // $stores = Store::orderBy("name", 'ASC')->get();
+                // $q_stores = request()->query("stores", "");
+                // $products = Product::where(function ($query) use ($q_stores) {
+                //     $query->whereIn('store_id', explode(',', $q_stores))->orWhereRaw("'" . $q_stores . "'=''");
+                // })
+                //     ->orderBy('created_at', 'DESC')
+                //     ->orderBy($o_column, $o_order)
+                //     ->paginate($size);
+            
+                // View::share([
+                //     'products' => $products,
+                //     'page' => $page,
+                //     'size' => $size,
+                //     'order' => $order,
+                //     'stores' => $stores,
+                //     'q_stores' => $q_stores,
+                // ]);
 }
 }

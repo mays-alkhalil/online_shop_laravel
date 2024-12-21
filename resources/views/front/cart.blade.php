@@ -31,7 +31,7 @@
                         @foreach($cartItems as $item)
                             <tr id="cart-item-{{ $item->id }}">
                                 <td class="align-middle">
-                                    <img src="{{ asset('img/products/'.$item->product->image) }}" alt="" style="width: 50px;">
+                                    <img src="{{ asset('storage/images/'.$item->product->image) }}" alt="" style="width: 50px;">
                                     {{ $item->product->name }}
                                 </td>
                                 <td class="align-middle">${{ $item->product->price }}</td>
