@@ -30,8 +30,29 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // مشاركة المنتجات مع جميع الـ Views
-        view()->share('products', Product::all());
+        // بداية الكود الذي يتعامل مع البيانات المشتركة بين الـ Views
+    
+        // جلب المنتجات مع الفلاتر (الفئة، اللون، الحجم) في نفس الاستعلام
+        $productsQuery = Product::query();
+    
+        // التصفية حسب الفئة
+        if ($category = request('category')) {
+            $productsQuery->where('category_id', $category);
+        }
+    
+        // التصفية حسب اللون
+        if ($color = request('color')) {
+            $productsQuery->where('color', $color);
+        }
+    
+        // التصفية حسب الحجم
+        if ($size = request('size')) {
+            $productsQuery->where('size', $size);
+        }
+    
+        // جلب المنتجات بعد تطبيق الفلاتر
+        $products = $productsQuery->get();
+        view()->share('products', $products);
     
         // مشاركة الفئات مع جميع الـ Views
         view()->share('categories', Category::all());
@@ -53,6 +74,13 @@ class AppServiceProvider extends ServiceProvider
             view()->share('orderItems_' . $order->id, $orderItems);  // مشاركة العناصر مع الـ View باستخدام اسم فريد
         }
     
+        // جلب الألوان الفريدة من جدول المنتجات
+        $colors = Product::select('color')->distinct()->pluck('color');
+        view()->share('colors', $colors);
+    
+        $sizes = Product::select('size')->distinct()->pluck('size');
+        view()->share('sizes', $sizes);
+    
         // Composer لجميع الـ Views لضمان البيانات المتاحة
         View::composer('*', function ($view) {
             // التحقق من إذا كان المستخدم مسجلاً دخوله
@@ -68,5 +96,4 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('cartCount', 'wishlistCount'));
         });
     }
-    
-}
+    }

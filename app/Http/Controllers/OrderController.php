@@ -38,7 +38,8 @@ class OrderController extends Controller
         $order = Order::create([
             'user_id' => $request->user_id,
             'status' => $request->status,
-            'total_amount' => 0, // سيتم حسابه لاحقًا
+
+            'total_amount' => $request->total_amount, // سيتم حسابه لاحقًا
         ]);
 
         // إضافة العناصر إلى الطلب

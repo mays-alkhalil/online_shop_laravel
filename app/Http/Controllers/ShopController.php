@@ -9,39 +9,39 @@ use App\Models\Product;
 
 class ShopController extends Controller
 {
-    public function index()
-    {
-        return view('front.shop'); // أو أي اسم ملف View مرتبط.
-    }
-    public function shareData()
-    {
-        // جلب أسماء المحلات
-        $stores = Store::select('name')->get();
+    // public function index()
+    // {
+    //     return view('front.shop'); // أو أي اسم ملف View مرتبط.
+    // }
+    // public function shareData()
+    // {
+    //     // جلب أسماء المحلات
+    //     $stores = Store::select('name')->get();
 
-        // جلب أسماء الكاتيجوريز
-        $categories = Category::select('name')->get();
+    //     // جلب أسماء الكاتيجوريز
+    //     $categories = Category::select('name')->get();
 
-        // أعلى خصم
-        $highestDiscount = Coupon::where('expires_at', '>=', now())->max('discount');
+    //     // أعلى خصم
+    //     $highestDiscount = Coupon::where('expires_at', '>=', now())->max('discount');
 
-        // ثاني أعلى خصم
-        $secondHighestDiscount = Coupon::where('expires_at', '>=', now())
-            ->orderBy('discount', 'desc')
-            ->skip(1)
-            ->value('discount');
+    //     // ثاني أعلى خصم
+    //     $secondHighestDiscount = Coupon::where('expires_at', '>=', now())
+    //         ->orderBy('discount', 'desc')
+    //         ->skip(1)
+    //         ->value('discount');
 
-        // جلب المنتجات مع المراجعات
-        $products = Product::with('reviews')->get();
+    //     // جلب المنتجات مع المراجعات
+    //     $products = Product::with('reviews')->get();
 
-        // جلب الألوان المميزة
-        $colors = Product::whereNotNull('color')->distinct()->pluck('color');
+    //     // جلب الألوان المميزة
+    //     $colors = Product::whereNotNull('color')->distinct()->pluck('color');
         
-        // جلب الأحجام المميزة
-        $sizes = Product::whereNotNull('size')->distinct()->pluck('size');
+    //     // جلب الأحجام المميزة
+    //     $sizes = Product::whereNotNull('size')->distinct()->pluck('size');
 
-        // عرض صفحة front.index مع تمرير البيانات المطلوبة
-        return view('front.index', compact('stores', 'categories', 'highestDiscount', 'secondHighestDiscount', 'products', 'colors', 'sizes'));
-    }
+    //     // عرض صفحة front.index مع تمرير البيانات المطلوبة
+    //     return view('front.index', compact('stores', 'categories', 'highestDiscount', 'secondHighestDiscount', 'products', 'colors', 'sizes'));
+    // }
 
         public function Shopindex(Request $request)
         {
@@ -64,45 +64,76 @@ class ShopController extends Controller
             $products = $products->get();
     
             // تحميل الصفحة مع الفلاتر
-            return view('shop.index', compact('products'));
+            return view('front.shop', compact('products'));
         }
+public function filter(Request $request)
+{
+    // التحقق من الفلاتر
+    $categories = $request->input('categories');
+    $colors = $request->input('colors');
+    $sizes = $request->input('sizes');
     
-    
+    // تحقق من البيانات
+    // dd($categories, $colors, $sizes); // سيعرض القيم التي تم إرسالها في الـ request
 
-    public function show(Request $request)
-    {
-        // جلب المنتجات مع المراجعات
-        $products = Product::with('reviews');
+    // إذا كانت الفلاتر موجودة، نقوم بالفلترة
+    $products = Product::query();
 
-        // تصفية المنتجات بناءً على المحلات
-        if ($request->has('stores')) {
-            $products->whereIn('store_id', $request->input('stores'));
-        }
-
-        // تصفية المنتجات بناءً على الفئات
-        if ($request->has('categories')) {
-            $products->whereIn('category_id', $request->input('categories'));
-        }
-
-        // تصفية المنتجات بناءً على الألوان
-        if ($request->has('colors')) {
-            $products->whereIn('color', $request->input('colors'));
-        }
-
-        // تصفية المنتجات بناءً على الأحجام
-        if ($request->has('sizes')) {
-            $products->whereIn('size', $request->input('sizes'));
-        }
-
-        // جلب الألوان المميزة
-        $colors = Product::whereNotNull('color')->distinct()->pluck('color');
-
-        // جلب الأحجام المميزة
-        $sizes = Product::whereNotNull('size')->distinct()->pluck('size');
-
-        // إرجاع البيانات إلى العرض
-        return view('front.shop', compact('products', 'colors', 'sizes'));
+    if (!empty($categories)) {
+        $products->whereIn('category_id', $categories);
     }
+
+    if (!empty($colors)) {
+        $products->whereIn('color', $colors);
+    }
+
+    if (!empty($sizes)) {
+        $products->whereIn('size', $sizes);
+    }
+
+    // جلب المنتجات المفلترة
+    $products = $products->get();
+
+    return view('front.shop', compact('products'));
+}
+                
+                
+    
+
+    // public function show(Request $request)
+    // {
+    //     // جلب المنتجات مع المراجعات
+    //     $products = Product::with('reviews');
+
+    //     // تصفية المنتجات بناءً على المحلات
+    //     if ($request->has('stores')) {
+    //         $products->whereIn('store_id', $request->input('stores'));
+    //     }
+
+    //     // تصفية المنتجات بناءً على الفئات
+    //     if ($request->has('categories')) {
+    //         $products->whereIn('category_id', $request->input('categories'));
+    //     }
+
+    //     // تصفية المنتجات بناءً على الألوان
+    //     if ($request->has('colors')) {
+    //         $products->whereIn('color', $request->input('colors'));
+    //     }
+
+    //     // تصفية المنتجات بناءً على الأحجام
+    //     if ($request->has('sizes')) {
+    //         $products->whereIn('size', $request->input('sizes'));
+    //     }
+
+    //     // جلب الألوان المميزة
+    //     $colors = Product::whereNotNull('color')->distinct()->pluck('color');
+
+    //     // جلب الأحجام المميزة
+    //     $sizes = Product::whereNotNull('size')->distinct()->pluck('size');
+
+    //     // إرجاع البيانات إلى العرض
+    //     return view('front.shop', compact('products', 'colors', 'sizes'));
+    // }
 
     // في ShopController.php
 // public function filterProducts(Request $request)

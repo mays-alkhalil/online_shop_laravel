@@ -20,17 +20,37 @@ use App\Http\Livewire\SearchProducts;
 
 
 
-Route::get('/front/shop', SearchProducts::class);
 
-Route::get('/front/shop', [ShopController::class, 'Shopindex'])->name('shop.index');
 
-Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
 
+// عرض صفحة المتجر الرئيسية
+Route::get('/front/shop', [ShopController::class, 'Shopindex'])->name('front.shop.index');
+Route::get('/shop/filter', [ShopController::class, 'filter'])->name('front.shop.filter');
+
+// // تصفية المنتجات
+// Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
+
+// // عرض الفلاتر
+// Route::get('/front/shop/filters', [FilterController::class, 'showFilters'])->name('front.shop.filters');
+
+// // عرض المنتجات بعد التصفية (تُستخدم Middleware للمشاركة بين المتاجر)
+// Route::middleware(['share.stores'])->get('/front/shop', [FilterController::class, 'showProducts']);
+
+// // عرض صفحة المتجر بواسطة FilterController (إذا لزم الأمر فقط)
+// Route::get('/front/shop', [FilterController::class, 'showShop'])->name('front.shop');
+
+// // عرض منتج معين
+// Route::get('/front/product/{id}', [ProductController::class, 'showProduct'])->name('product.show');
+
+// // عرض المنتجات في واجهة المستخدم (إذا كانت مطلوبة بشكل منفصل)
+// Route::get('/front/shop', [ProductController::class, 'indexFront'])->name('front.shop.products');
+
+// // عرض العناصر الخاصة بطلب معين
 Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('front.order-items');
+Route::get('/front/orders', [OrderController::class, 'orderHistory'])->name('front.orders');
+
 
 // Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
-
-Route::get('/front/shop', [ProductController::class, 'indexFront'])->name('front.shop');
 
 Route::get('/logout', function () {
     Auth::logout(); // تسجيل الخروج
@@ -90,16 +110,11 @@ Route::get('/front/index', [ProductController::class, 'indexProduct'])->name('fr
 Route::get('/shop', [ProductController::class, 'shop']);
 
 
-Route::get('/front/shop', [FilterController::class, 'showFilters'])->name('front.shop');
 
 
 // Route::get('/front/shop', [FilterController::class, 'showFilters'])->name('front.shop');
 
 
-Route::middleware(['share.stores'])->get('/front/shop', [FilterController::class, 'showProducts']);
-Route::get('/front/shop', [FilterController::class, 'showShop'])->name('shop');
-Route::get('/front/shop', [FilterController::class, 'showFilters']);
-Route::get('/front/product/{id}', [ProductController::class, 'showProduct'])->name('product.show');
 
 Route::get('/front/products/{id}', [ProductController::class, 'showRelatedProducts'])->name('products.show');
 // إضافة منتج إلى قائمة الرغبات

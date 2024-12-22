@@ -148,7 +148,7 @@ class ProductController extends Controller
             $product->averageRating = round($product->reviews->avg('rating') ?? 0, 1);
         }
 
-        $LastProducts = Product::orderBy('created_at', 'desc')->limit(5)->get();
+        $LastProducts = Product::orderBy('created_at', 'desc')->limit(4)->get();
 
         // تمرير البيانات إلى صفحة index
         return view('front.index', compact('products', 'LastProducts'));
