@@ -203,6 +203,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\SizeCalculatorController;
+
+Route::get('/size-calculator', [SizeCalculatorController::class, 'index']);
 
 
 Route::post('/front/apply-coupon', [CouponController::class, 'applyCoupon'])->name('front.applyCoupon');
