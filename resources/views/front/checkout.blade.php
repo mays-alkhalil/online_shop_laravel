@@ -63,8 +63,9 @@
                             <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV">
                         </div>
                     </div>
-<input type="hidden" name="totalAmount" id="" value="{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }}
-">
+
+                    <input type="hidden" name="totalAmount" value="{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }}">
+
                     <!-- Submit Button -->
                     <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                 </form>
@@ -77,7 +78,6 @@
             <div class="bg-light p-30 mb-5">
                 <div class="border-bottom">
                     <h6 class="mb-3">Products</h6>
-
                     <!-- Display Cart Items -->
                     @foreach($cartItems as $item)
                     <div class="d-flex justify-content-between">
@@ -89,7 +89,7 @@
                 <div class="border-bottom pt-3 pb-2">
                     <div class="d-flex justify-content-between mb-3">
                         <h6>Subtotal</h6>
-                        <h6>${{ $item->product->price * $item->quantity }}</h6>
+                        <h6>${{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) }}</h6>
                     </div>
                     <div class="d-flex justify-content-between">
                         <h6 class="font-weight-medium">Shipping</h6>
@@ -98,14 +98,45 @@
                 </div>
                 <div class="pt-2">
                     <div class="d-flex justify-content-between mt-2">
-
+                        <h6>Discount</h6>
+                        <h6>{{ session('coupon_discount_value', 0) }}%</h6>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
                         <h5>Total</h5>
-                        <h5>${{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }}</h5>
+                        <h5>
+                            @php
+                                $subtotal = $cartItems->sum(function($item) { return $item->product->price * $item->quantity; });
+                                $discountAmount = $subtotal * (session('coupon_discount_value', 0) / 100);
+                                $totalAmount = $subtotal - $discountAmount + $shipping;
+                            @endphp
+                            ${{ $totalAmount }}
+                        </h5>
                     </div>
                 </div>
+                <!-- Coupon Section -->
+<div class="bg-light p-30 mb-5">
+    <form id="apply-coupon-form" action="{{ route('front.applyCoupon') }}" method="POST">
+        @csrf
+        <div class="input-group">
+            <input type="text" class="form-control" name="couponCode" placeholder="Enter your coupon">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Apply</button>
+            </div>
+        </div>
+        @if (session('coupon_error'))
+            <div class="text-danger mt-2">{{ session('coupon_error') }}</div>
+        @endif
+        @if (session('coupon_success'))
+            <div class="text-success mt-2">{{ session('coupon_success') }}</div>
+        @endif
+    </form>
+</div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 <!-- Checkout End -->
 @endsection

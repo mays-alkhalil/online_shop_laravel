@@ -49,4 +49,42 @@ class CouponController extends Controller
 
         return redirect()->route('admin.coupons.index')->with('success', 'Coupon deleted successfully!');
     }
+
+
+    public function indexFront()
+    {
+        // جلب جميع الكوبونات من قاعدة البيانات
+        $coupons = Coupon::all();
+
+        // تمرير البيانات إلى الـ View
+        return view('front.coupons', compact('coupons'));
+    }
+
+
+
+    public function applyCoupon(Request $request)
+    {
+        $request->validate([
+            'couponCode' => 'required|string',
+        ]);
+    
+        // تحقق من وجود الكوبون في قاعدة البيانات
+        $coupon = Coupon::where('code', $request->couponCode)->first();
+    
+        if (!$coupon) {
+            return redirect()->back()->with('coupon_error', 'Invalid coupon code.');
+        }
+    
+        // تحديث الجلسة بقيمة الخصم ونوع الخصم
+        session([
+            'coupon_discount_value' => $coupon->discount, // قيمة الخصم
+            'coupon_discount_type' => $coupon->discount_type, // نوع الخصم (percentage أو fixed)
+            'coupon_code' => $coupon->code, // لتوضيح الكوبون المستخدم
+        ]);
+    
+        return redirect()->back()->with('coupon_success', 'Coupon applied successfully!');
+    }
+    
+    
+
 }

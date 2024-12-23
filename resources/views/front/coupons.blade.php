@@ -22,34 +22,20 @@
                     </tr>
                 </thead>
                 <tbody class="align-middle">
-                    <!-- Coupon 1 -->
-                    <tr>
-                        <td class="align-middle">Summer Sale</td>
-                        <td class="align-middle">SUMMER20</td>
-                        <td class="align-middle">20% Off</td>
-                        <td class="align-middle">2024-12-31</td>
-                    </tr>
-                    <!-- Coupon 2 -->
-                    <tr>
-                        <td class="align-middle">Black Friday</td>
-                        <td class="align-middle">BLACKFRIDAY50</td>
-                        <td class="align-middle">50% Off</td>
-                        <td class="align-middle">2024-11-30</td>
-                    </tr>
-                    <!-- Coupon 3 -->
-                    <tr>
-                        <td class="align-middle">Free Shipping</td>
-                        <td class="align-middle">FREESHIP</td>
-                        <td class="align-middle">Free Shipping</td>
-                        <td class="align-middle">2025-01-15</td>
-                    </tr>
-                    <!-- Coupon 4 -->
-                    <tr>
-                        <td class="align-middle">Holiday Special</td>
-                        <td class="align-middle">HOLIDAY25</td>
-                        <td class="align-middle">$25 Off</td>
-                        <td class="align-middle">2024-12-25</td>
-                    </tr>
+                    @forelse($coupons as $coupon)
+                        <tr>
+                            <td class="align-middle">{{ $coupon->id }}</td>
+                            <td class="align-middle">{{ $coupon->code }}</td>
+                            <td class="align-middle">
+                                {{ is_numeric($coupon->discount) ? $coupon->discount . '%' : $coupon->discount }}
+                            </td>
+                            <td class="align-middle">{{ $coupon->expires_at ?? 'No Expiration Date' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center">No Coupons Available</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

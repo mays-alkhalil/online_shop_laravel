@@ -16,6 +16,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Livewire\SearchProducts;
+use App\Http\Controllers\CouponController;
 
 
 
@@ -160,6 +161,7 @@ Route::get('/admin/contact', [ContactController::class, 'index'])->name('front.c
 // });
 
 
+Route::get('/front/coupons', [CouponController::class, 'indexFront'])->name('front.coupons');
 
 
 
@@ -193,7 +195,7 @@ use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
 // use App\Http\Controllers\OrderController;
 // use App\Http\Controllers\StoreController;
-use App\Http\Controllers\CouponController;
+// use App\Http\Controllers\CouponController;
 // use App\Http\Controllers\ContactController;
 
 // use App\Http\Controllers\ProductController;
@@ -203,6 +205,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReviewController;
 
 
+Route::post('/front/apply-coupon', [CouponController::class, 'applyCoupon'])->name('front.applyCoupon');
 
 Route::get('/', function () {
     return view('welcome');

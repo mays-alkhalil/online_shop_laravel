@@ -28,7 +28,7 @@ class CheckoutController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {  $user = auth()->user(); 
         // تأكد من أن البيانات التي سيتم حفظها هي فقط التي تريدها
         $order = new Order();
         $order->user_id = auth()->id();
@@ -40,7 +40,8 @@ class CheckoutController extends Controller
     
         // حفظ الطلب
         $order->save();
-    
+        $user->cart()->delete();
+
         // إعادة توجيه إلى صفحة الشكر
         return redirect()->route('front.thanks'); // تأكد من أنك قد عرفت هذه الصفحة
     }
