@@ -252,7 +252,7 @@
     <div class="container-fluid py-5">
         <div class="row px-xl-5">
             <div class="col">
-                <div class="d-flex flex-wrap justify-content-start">
+                <div class="owl-carousel d-flex flex-wrap justify-content-start">
                     @foreach($stores as $store)
                         <div class="bg-light p-4 m-2" style="width: 200px;">
                             <img src="{{ url('storage/' . $store->image) }}" alt="{{ $store->name }}" class="img-fluid">
@@ -260,10 +260,34 @@
                     @endforeach
                 </div>
             </div>
-        </div>  
-    </div> 
+        </div>
+    </div>
+    
             <!-- Vendor End -->
 
+@endsection
+@section('scripts')
+<script>
+    $(document).ready(function(){
+        $(".owl-carousel").owlCarousel({
+            loop: true,                // تفعيل التكرار
+            margin: 10,               // المسافة بين العناصر
+            nav: true,                // إضافة أزرار التنقل
+            dots: true,               // إظهار النقاط السفلية
+            responsive: {
+                0: {
+                    items: 1          // عدد العناصر المعروضة في الشاشات الصغيرة
+                },
+                768: {
+                    items: 2          // عدد العناصر المعروضة في الشاشات المتوسطة
+                },
+                1200: {
+                    items: 4          // عدد العناصر المعروضة في الشاشات الكبيرة
+                }
+            }
+        });
+    });
+</script>
 @endsection
 
 

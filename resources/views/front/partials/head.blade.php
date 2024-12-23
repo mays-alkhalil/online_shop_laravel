@@ -16,8 +16,11 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="{{asset('front-assets')}}/animate/animate.min.css" rel="stylesheet">
-    <link href="{{asset('front-assets')}}/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <!-- Owl Carousel CSS -->
+<link href="{{ asset('front-assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
+    <link href="{{asset('front-assets')}}/lib/animate/animate.min.css" rel="stylesheet">
+    {{-- <link href="{{asset('front-assets')}}/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet"> --}}
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('front-assets') }}/css/style.css" rel="stylesheet">
