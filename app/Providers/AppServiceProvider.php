@@ -13,6 +13,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Category;
 use App\Models\Store;
+use App\Models\Coupon;
 use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +31,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+          // استرجاع أعلى الخصومات من المنتجات
+    $highestDiscount = Coupon::max('discount'); // افتراض أن لديك عمود خصم
+    $secondHighestDiscount = Coupon::where('discount', '<', $highestDiscount)
+                                     ->max('discount');
+
+    View::share('highestDiscount', $highestDiscount);
+    View::share('secondHighestDiscount', $secondHighestDiscount);
+
         // بداية الكود الذي يتعامل مع البيانات المشتركة بين الـ Views
     
         // جلب المنتجات مع الفلاتر (الفئة، اللون، الحجم) في نفس الاستعلام

@@ -12,10 +12,7 @@
     <div class="alert alert-success text-center">
         <h4>You have successfully placed your order.</h4>
         <p>Thank You!</p>
-        <p>Your Order Id is:
-             {{-- <strong>{{ $orderId }}</strong> --}}
-             23
-            </p>
+        
     </div>
 </div>
 

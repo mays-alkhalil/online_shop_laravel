@@ -97,7 +97,7 @@
                         @if(isset($stores) && $stores->count() > 0)
                         @foreach ($stores as $store)
 
-                            <a href="#" class="dropdown-item">{{ $store->name }}</a>
+                            <a href="{{route('store.show',$store->id)}}" class="dropdown-item">{{ $store->name }}</a>
                         @endforeach
                     @else
                         <p>No stores available</p>
@@ -109,7 +109,7 @@
                     @if(isset($categories) && $categories->count() > 0)
 
                     @foreach ($categories as $category)
-                        <a href="#" class="nav-item nav-link">{{ $category->name }}</a>
+                        <a href="{{route('category.show',$category->id)}}" class="nav-item nav-link">{{ $category->name }}</a>
                     @endforeach
                     @else
                     <p>No categories available</p>

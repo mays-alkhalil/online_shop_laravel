@@ -119,39 +119,3 @@
 
 @endsection
 
-@section('scripts')
-<script>
-$('#filterForm').on('submit', function(e) {
-    e.preventDefault();
-
-    // جمع القيم المحددة لكل فئة
-    var categories = $('#category-filter-form input:checkbox:checked').map(function() {
-        return $(this).val();
-    }).get();
-
-    var colors = $('#color-filter-form input:checkbox:checked').map(function() {
-        return $(this).val();
-    }).get();
-
-    var sizes = $('#size-filter-form input:checkbox:checked').map(function() {
-        return $(this).val();
-    }).get();
-
-    $.ajax({
-        url: '{{ route('front.shop.filter') }}',
-        method: 'GET',
-        data: {
-            categories: categories,
-            colors: colors,
-            sizes: sizes
-        },
-        success: function(response) {
-            $('.row.px-xl-5').html(response.products);
-        },
-        error: function() {
-            alert('فشل تطبيق الفلاتر. حاول مرة أخرى.');
-        }
-    });
-});
-</script>
-@endsection

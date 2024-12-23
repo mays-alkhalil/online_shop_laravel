@@ -133,7 +133,9 @@
                     <select name="store_id" class="form-control" required>
                         <option value="">Select Store</option>
                         @foreach($stores as $store)
-                        <option value="{{ $store->id }}" {{ old('store_id') == $store->id ? 'selected' : '' }}>
+                        <option 
+                            value="{{ $store->id }}" 
+                            {{ old('store_id', $store->id == 1 ? $store->id : '') == $store->id ? 'selected' : '' }}>
                             {{ $store->name }}
                         </option>
                         @endforeach
@@ -145,6 +147,7 @@
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
+                
 
                 <div class="mb-3">
                     <label for="color">Color</label>

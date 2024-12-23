@@ -275,13 +275,13 @@
         <div class="col-lg-7 h-auto mb-30">
             <div class="h-100 bg-light p-30">
                 <h3>{{ $product->name }}</h3>
-                <div class="d-flex mb-3">
+                {{-- <div class="d-flex mb-3">
                     @for($i = 0; $i < 5; $i++)
                     <small class="fa fa-star {{ $i < floor($product->averageRating()) ? 'text-primary' : '' }} mr-1"></small>
                 @endfor
                   
                    
-                </div>
+                </div> --}}
                 <h3 class="font-weight-semi-bold mb-4">${{ $product->price }}</h3>
                 <p class="mb-4">{{ $product->description }}</p>
                 
@@ -437,11 +437,11 @@
                                     <h6 class="text-muted ml-2"><del>${{ $relatedProduct->old_price }}</del></h6>
                                 @endif
                             </div>
-                            <div class="d-flex align-items-center justify-content-center mb-1">
+                            {{-- <div class="d-flex align-items-center justify-content-center mb-1">
                                 @for($x = 0; $x < 5; $x++)
                                     <small class="fa fa-star {{ $x < floor($relatedProduct->averageRating()) ? 'text-primary' : '' }} mr-1"></small>
                                 @endfor
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

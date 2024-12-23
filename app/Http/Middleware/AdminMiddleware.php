@@ -18,7 +18,7 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check()) {
-            if (Auth::user()->role_as == '1') {  // 1 هو أدمن
+            if (Auth::user()->role_as == '1'|| Auth::user()->role_as == '2') {  // 1 هو أدمن
                 return $next($request);
             } else {
                 return redirect('/home')->with('message', 'Access Denied! You are not an admin.');

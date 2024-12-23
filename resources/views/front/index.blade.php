@@ -26,7 +26,7 @@
                                 <div class="p-3" style="max-width: 700px;">
                                     <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion</h1>
                                     <p class="mx-md-5 px-5 animate__animated animate__bounceIn">High-quality men’s wear for every moment of your day</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                                 <div class="p-3" style="max-width: 700px;">
                                     <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
                                     <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Women’s fashion that celebrates your beauty and elegance</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                                 <div class="p-3" style="max-width: 700px;">
                                     <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
                                     <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Trendy and comfy kids' fashion for every occasion</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">Shop Now</a>
                                 </div>
                             </div>
                         </div>
@@ -57,17 +57,17 @@
                 <div class="product-offer mb-30" style="height: 200px;">
                     <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-1.jpg" alt="">
                     <div class="offer-text">
-                        {{-- <h6 class="text-white text-uppercase">Save {{ $highestDiscount }}%</h6> --}}
+                        <h6 class="text-white text-uppercase">Save {{ $highestDiscount }}%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="#" class="btn btn-primary">Shop Now</a>
+                        <a href="{{'shop'}}" class="btn btn-primary">Shop Now</a>
                     </div>
                                     </div>
                 <div class="product-offer mb-30" style="height: 200px;">
                     <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-2.jpg" alt="">
                     <div class="offer-text">
-                        {{-- <h6 class="text-white text-uppercase">Save {{ $secondHighestDiscount }}%</h6> --}}
+                        <h6 class="text-white text-uppercase">Save {{ $secondHighestDiscount }}%</h6>
                         <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
+                        <a href="{{'shop'}}" class="btn btn-primary">Shop Now</a>
                     </div>
                                     </div>
             </div>
@@ -117,7 +117,7 @@
             @if ($categories->isNotEmpty())
             @foreach ($categories as $category)
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                    <a class="text-decoration-none" href="#">
+                    <a class="text-decoration-none" href="{{route('category.show',$category->id)}}">
                         <div class="cat-item d-flex align-items-center mb-4">
                             <div class="overflow-hidden" style="width: 100px; height: 100px;">
                                 <img class="img-fluid" src="{{ asset('storage/images/' . $category->image) }}" alt="{{ $category->name }}">
@@ -182,7 +182,7 @@
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-1.jpg" alt="">
                 <div class="offer-text">
-                    {{-- <h6 class="text-white text-uppercase">Save {{ $highestDiscount }}%</h6> --}}
+                    <h6 class="text-white text-uppercase">Save {{ $highestDiscount }}%</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
                     <a href="#" class="btn btn-primary">Shop Now</a>
                 </div>
@@ -194,7 +194,7 @@
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-2.jpg" alt="">
                 <div class="offer-text">
-                    {{-- <h6 class="text-white text-uppercase">Save {{ $secondHighestDiscount }}%</h6> --}}
+                    <h6 class="text-white text-uppercase">Save {{ $secondHighestDiscount }}%</h6>
                     <h3 class="text-white mb-3">Special Offer</h3>
                     <a href="#" class="btn btn-primary">Shop Now</a>
                 </div>
@@ -231,13 +231,13 @@
                             <h6 class="text-muted ml-2"><del>${{ number_format($product->old_price, 2) }}</del></h6>
                         @endif
                     </div>
-                    <div class="d-flex align-items-center justify-content-center mb-1">
+                    {{-- <div class="d-flex align-items-center justify-content-center mb-1">
                             @for($i = 0; $i < 5; $i++)
                                 <small class="fa fa-star {{ $i < floor($product->averageRating()) ? 'text-primary' : '' }} mr-1"></small>
                             @endfor
                        
                         <small>({{ $product->reviews_count }})</small>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

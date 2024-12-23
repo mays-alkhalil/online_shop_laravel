@@ -19,6 +19,8 @@ use App\Http\Livewire\SearchProducts;
 
 
 
+Route::get('/category/{id}', [FrontCategoryController::class, 'show'])->name('category.show');
+Route::get('/store/{id}', [FrontCategoryController::class, 'showStoresProducts'])->name('store.show');
 
 
 
