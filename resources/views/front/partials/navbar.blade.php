@@ -166,8 +166,8 @@
                             @if(Auth::check()) <!-- إذا كان المستخدم مسجل دخوله -->
                                 <a class="dropdown-item" href="{{ url('/profile') }}">My Profile</a>
                                 <a class="dropdown-item" href="{{ url('/front/orders') }}">My Orders</a>
-                                {{-- <a class="dropdown-item" href="{{ url('/front/coupons') }}">My Coupons</a>
-                                <a class="dropdown-item" href="{{ url('/front/points') }}">My Points</a> --}}
+                                 <a class="dropdown-item" href="{{ url('/front/coupons') }}">My Coupons</a>
+                                {{-- <a class="dropdown-item" href="{{ url('/front/points') }}">My Points</a> --}} 
                                 <!-- رابط تسجيل الخروج -->
                                 <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                             @else <!-- إذا كان المستخدم غير مسجل دخوله -->
