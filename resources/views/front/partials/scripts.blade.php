@@ -3,7 +3,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('front-assets') }}/lib/easing/easing.min.js"></script>
     <script src="{{ asset('front-assets') }}/lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="{{ asset('front-assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    {{-- <script src="{{ asset('front-assets/lib/owlcarousel/owl.carousel.min.js') }}"></script> --}}
 
     <!-- Contact Javascript File -->
     {{-- <script src="{{ asset('front-assets') }}/mail/jqBootstrapValidation.min.js"></script> --}}
@@ -14,7 +14,7 @@
 
 
     <!-- jQuery Library -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
 <script src="{{ asset('front-assets/mail/jqBootstrapValidation.min.js') }}"></script>
 
 <!-- Owl Carousel JS -->
@@ -25,11 +25,11 @@
     $(document).ready(function() {
         $(".owl-carousel").owlCarousel({
             loop: true,             // التكرار التلقائي للعناصر
-            margin: 10,             // المسافة بين العناصر
+            margin: 5,             // المسافة بين العناصر
             // nav: true,              // أزرار التنقل
             // dots: true,             // النقاط السفلية
             autoplay: true,         // التفعيل التلقائي للحركة
-            autoplayTimeout: 2000,  // المدة بين كل حركة (3 ثوانٍ)
+            autoplayTimeout: 1500,  // المدة بين كل حركة (3 ثوانٍ)
             autoplayHoverPause: true, // إيقاف الحركة عند تمرير المؤشر
             responsive: {
                 0: { items: 2 },    // عدد العناصر للشاشات الصغيرة
