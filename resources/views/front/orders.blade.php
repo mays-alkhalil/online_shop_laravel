@@ -33,7 +33,15 @@
                         @foreach($orders as $order)
                         <tr>
                             <td class="align-middle">#{{ $order->id }}</td>
-                            <td class="align-middle">${{ $order->total_amount }}</td>
+                            <td class="align-middle">
+                                @if($order->total_amount == 0)
+                                    $20.00
+                                @else
+                                    ${{ number_format($order->total_amount, 2) }}
+                                @endif
+                            </td>
+                                                        </td>
+
                             <td class="align-middle">{{ $order->order_date }}</td>
                             <td class="align-middle">{{ $order->payment_method }}</td>
                             <td class="align-middle">{{ $order->address }}</td>

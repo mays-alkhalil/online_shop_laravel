@@ -77,6 +77,7 @@ class AppServiceProvider extends ServiceProvider
         // جلب جميع الطلبات مع العناصر المرتبطة بها
         $orders = Order::with('orderItems')->get();
         view()->share('orders', $orders);
+        
     
         // مشاركة العناصر المرتبطة بكل طلب (OrderItems) مع الـ View
         foreach ($orders as $order) {

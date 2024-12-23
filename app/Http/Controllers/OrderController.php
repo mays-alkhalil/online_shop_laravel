@@ -41,6 +41,7 @@ class OrderController extends Controller
 
             'total_amount' => $request->total_amount, // سيتم حسابه لاحقًا
         ]);
+        
 
         // إضافة العناصر إلى الطلب
         foreach ($request->items as $item) {
@@ -48,7 +49,7 @@ class OrderController extends Controller
         }
 
         // حساب total_amount
-        $total = $order->items->sum(function ($item) {
+        $total_amount = $order->items->sum(function ($item) {
             return $item->unit_price * $item->quantity;
         });
 
@@ -61,7 +62,7 @@ class OrderController extends Controller
             }
         }
 
-        $order->update(['total_amount' => $total - $discountAmount]);
+        $order->update(['total_amount' => $total_amount - $discountAmount]);
 
         return redirect()->route('admin.orders.index')->with('success', 'Order created successfully.');
     }
