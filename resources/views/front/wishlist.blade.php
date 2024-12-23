@@ -36,10 +36,12 @@
                                         <i class="fa fa-times"></i> Remove
                                     </button>
                                 </form>
-                            
-                                <a href="{{ route('cart.add', $wishlist->product->id) }}" class="btn btn-sm btn-primary d-inline-block">
+                                <a href="{{ route('cart.add', $wishlist->product->id) }}" 
+                                    class="btn btn-sm btn-primary d-inline-block" 
+                                    onclick="showSweetAlert(event, {{ $wishlist->product->id }}); return false;">
                                     <i class="fa fa-cart-plus"></i> Add to Cart
-                                </a>
+                                 </a>
+                                 
                             </td>
                             
                         </tr>

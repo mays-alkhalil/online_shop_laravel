@@ -20,6 +20,12 @@
 <!-- Owl Carousel JS -->
 <script src="{{ asset('front-assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
+
+
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <!-- Initialize Owl Carousel -->
 <script>
     $(document).ready(function() {
@@ -39,3 +45,67 @@
         });
     });
 </script>
+
+
+
+<script>
+function showSweetAlert(event, productId) {
+    event.preventDefault(); // منع تحميل الصفحة
+
+    // إرسال الطلب باستخدام AJAX لإضافة المنتج إلى السلة
+    $.ajax({
+        url: '/cart/add/' + productId,  // أو استخدم route Laravel المناسبة هنا
+        type: 'GET', // أو 'POST' حسب الطريقة التي يستخدمها تطبيقك
+        success: function(response) {
+            // عرض SweetAlert عند النجاح
+            Swal.fire({
+                title: 'Added!',
+                text: 'The product has been successfully added to your cart.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        },
+        error: function(xhr, status, error) {
+            // في حال حدوث خطأ
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error adding the product to the cart.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
+
+function showSweetAlertWishlist(event, productId) {
+    event.preventDefault(); // منع تحميل الصفحة
+
+    // إرسال الطلب باستخدام AJAX لإضافة المنتج إلى السلة
+    $.ajax({
+        url: '/wishlist/add/' + productId,  // أو استخدم route Laravel المناسبة هنا
+        type: 'GET', // أو 'POST' حسب الطريقة التي يستخدمها تطبيقك
+        success: function(response) {
+            // عرض SweetAlert عند النجاح
+            Swal.fire({
+                title: 'Added!',
+                text: 'The product has been successfully added to your wishlist.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        },
+        error: function(xhr, status, error) {
+            // في حال حدوث خطأ
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error adding the product to the wishlist.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+}
+
+
+
+</script>
+

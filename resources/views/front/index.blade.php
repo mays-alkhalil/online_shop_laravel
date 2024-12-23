@@ -152,10 +152,16 @@
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                         <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}"><i class="far fa-heart"></i></a>
-                            <!-- رابط إضافة المنتج إلى السلة -->
-                            <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $product->id) }}"><i class="fa fa-shopping-cart"></i></a>
-                            <!-- رابط عرض تفاصيل المنتج -->
+                            
+                            <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}" onclick="showSweetAlertWishlist(event, {{ $product->id }}); return false;">
+                                <i class="far fa-heart"></i>
+                            </a>
+                            
+                            <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $product->id) }}" onclick="showSweetAlert(event, {{ $product->id }}); return false;">
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                            
+                                                                                    <!-- رابط عرض تفاصيل المنتج -->
                             <a class="btn btn-outline-dark btn-square" href="{{ route('front.details.show', $product->id) }}"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
@@ -216,10 +222,15 @@
                 <div class="product-img position-relative overflow-hidden">
                     <img class="img-fluid w-100 " src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                     <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}"><i class="far fa-heart"></i></a>
-                        <!-- رابط إضافة المنتج إلى السلة -->
-                        <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $product->id) }}"><i class="fa fa-shopping-cart"></i></a>
-                        <!-- رابط عرض تفاصيل المنتج -->
+                        <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}" onclick="showSweetAlertWishlist(event, {{ $product->id }}); return false;">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        
+                        <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $product->id) }}" onclick="showSweetAlert(event, {{ $product->id }}); return false;">
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        
+                                                <!-- رابط عرض تفاصيل المنتج -->
                         <a class="btn btn-outline-dark btn-square" href="{{ route('front.details.show', $product->id) }}"><i class="fa fa-search"></i></a>
                 </div>
                 </div>
