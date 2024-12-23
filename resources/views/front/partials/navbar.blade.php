@@ -45,6 +45,53 @@
             color: #FFD333; /* نفس لون الأيقونات، يمكنك تغييره حسب الحاجة */
         }
 
+/* Topbar styling */
+.topbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 10px 30px;
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo .logo-text {
+    margin-left: 10px;
+    font-size: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Language flags */
+.language-flags {
+    display: flex;
+    /* gap: 15px; */
+    align-items: center;
+    justify-content: flex-start; /* تغييرها من flex-end إلى flex-start */
+    margin-left: 15px; /* إضافة بعض المسافة بين "Customer Service" واللغات */
+}
+
+
+.language-flag {
+    text-align: center;
+}
+
+.language-flag img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.language-flag p {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #333;
+}
 
 
 </style>
@@ -55,12 +102,11 @@
      
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
-                <a href="{{ route('setLocale', 'en') }}">English</a>
-                <a href="{{ route('setLocale', 'ar') }}">العربية</a>
                 
                 <a href{{ url('/front/index')}}" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">Shop</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Area</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">{{ __('messages.area') }}</span>
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">{{ __('messages.shop') }}</span>
+                    
                 </a>
             </div>
             <div class="col-lg-4 col-6 text-left">
@@ -74,10 +120,28 @@
                 </div> 
             </form> --}}
                         </div>
-            <div class="col-lg-4 col-6 text-right">
-                <p class="m-0">Customer Service</p>
-                <h5 class="m-0">+962 796 532 179 </h5>
-            </div>
+                        <div class="col-lg-4 col-6 d-flex">
+                            <div class="customer">
+                                <p class="m-0">{{ __('messages.customerService') }}</p>
+                                <h5 class="m-0">+962 796 532 179 </h5>
+                            </div>
+                            <div class="language-flags d-flex">
+                                <a href="{{ route('setLocale', 'en') }}" class="mr-3">
+                                    <div class="language-flag">
+                                        <img src="{{ asset('front-assets/img/usajpeg.jpeg') }}" alt="USA Flag" class="img-fluid">
+                                        <p>English</p>
+                                    </div>
+                                </a>
+                                <a href="{{ route('setLocale', 'ar') }}">
+                                    <div class="language-flag">
+                                        <img src="{{ asset('front-assets/img/jordanjpeg.jpeg') }}" alt="Jordan Flag" class="img-fluid">
+                                        <p>العربية</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        
         </div>
     </div>
     <!-- Topbar End -->
@@ -88,14 +152,14 @@
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
+                <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>{{ __('messages.categories') }}</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
                   <!-- Store Categories -->
                   <div class="nav-item dropdown dropright">
-                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Stores</a>
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{{ __('messages.stores') }}</a>
                     <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
                         @if(isset($stores) && $stores->count() > 0)
                         @foreach ($stores as $store)
@@ -103,7 +167,7 @@
                             <a href="{{route('store.show',$store->id)}}" class="dropdown-item">{{ $store->name }}</a>
                         @endforeach
                     @else
-                        <p>No stores available</p>
+                        <p>{{ __('messages.noStoresAvailable') }}</p>
                     @endif                    </div>
                   </div>
               
@@ -115,78 +179,73 @@
                         <a href="{{route('category.show',$category->id)}}" class="nav-item nav-link">{{ $category->name }}</a>
                     @endforeach
                     @else
-                    <p>No categories available</p>
+                    <p>{{ __('messages.noCategoriesAvailable') }}</p>
                 @endif           
                 </div>
                 
                                 </div>
  </nav>
                       </div>
-        <div class="col-lg-9">
-            <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-              
-                <a href="{{ url('/front/index')}}" class="text-decoration-none d-block d-lg-none">
-                    <span class="h1 text-uppercase text-dark bg-light px-2">Shop</span>
-                    <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Area</span>
-                </a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                    <div class="navbar-nav mr-auto py-0">
-                        <a href="{{ url('/front/index')}}" class="nav-item nav-link @yield('index-active') ">Home</a>
-                        <a href="{{ url('/front/shop')}}" class="nav-item nav-link @yield('shop-active') ">Shop</a>
-                        <a href="{{ url('/front/contact')}}" class="nav-item nav-link @yield('contact-active') ">Contact</a>
-                    </div>
-                    <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-<!-- Wishlist Icon -->
-<a href="{{ url('/front/wishlist') }}" class="btn px-0">
-    <i class="fas fa-heart text-primary"></i>
-    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
-        {{ $wishlistCount }}
-    </span>
-    <br>
-    <small class="d-block text-center" style="font-size: 12px; color:white;margin-right:15px;">Wishlist</small>
-</a>
-
-<!-- Cart Icon -->
-<a href="{{ url('/front/cart') }}" class="btn px-0 ml-3">
-    <i class="fas fa-shopping-cart text-primary"></i>
-    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
-        {{ $cartCount }}
-    </span>
-    <br>
-    <small class="d-block text-center" style="font-size: 12px; color:white; margin-right:15px;">Cart</small>
-</a>
-
-                       <!-- User Icon with Dropdown -->
-                       <a href="#" class="btn px-0 ml-3 position-relative" id="userIcon">
-                        <i class="fas fa-user text-primary"></i> <!-- أيقونة المستخدم -->
-                        <i class="fas fa-chevron-down ml-2 arrow-icon"></i> <!-- السهم -->
+                      <div class="col-lg-9">
+                        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
+                            <a href="{{ url('/front/index') }}" class="text-decoration-none d-block d-lg-none">
+                                <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">{{ __('messages.area') }}</span>
+                                <span class="h1 text-uppercase text-dark bg-light px-2">{{ __('messages.shop') }}</span>
+                            </a>
+                            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav mr-auto py-0">
+                                    <a href="{{ url('/front/index') }}" class="nav-item nav-link @yield('index-active')">{{ __('messages.home') }}</a>
+                                    <a href="{{ url('/front/shop') }}" class="nav-item nav-link @yield('shop-active')">{{ __('messages.shop') }}</a>
+                                    <a href="{{ url('/front/contact') }}" class="nav-item nav-link @yield('contact-active')">{{ __('messages.contact') }}</a>
+                                </div>
+                                <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
+                                    <!-- Wishlist Icon -->
+                                    <a href="{{ url('/front/wishlist') }}" class="btn px-0">
+                                        <i class="fas fa-heart text-primary"></i>
+                                        <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                            {{ $wishlistCount }}
+                                        </span>
+                                        <br>
+                                        <small class="d-block text-center" style="font-size: 12px; color:white;margin-right:15px;">{{ __('messages.wishlist') }}</small>
+                                    </a>
                     
-                        <!-- Dropdown Menu -->
-                        <div class="dropdown-menu" id="userDropdown">
-                            @if(Auth::check()) <!-- إذا كان المستخدم مسجل دخوله -->
-                                <a class="dropdown-item" href="{{ url('/profile') }}">My Profile</a>
-                                <a class="dropdown-item" href="{{ url('/front/orders') }}">My Orders</a>
-                                 <a class="dropdown-item" href="{{ url('/front/coupons') }}">My Coupons</a>
-                                {{-- <a class="dropdown-item" href="{{ url('/front/points') }}">My Points</a> --}} 
-                                <!-- رابط تسجيل الخروج -->
-                                <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
-                            @else <!-- إذا كان المستخدم غير مسجل دخوله -->
-                                <a class="dropdown-item" href="{{ url('/login') }}">{{ __('messages.login') }}</a>
-                                <a class="dropdown-item" href="{{ url('/register') }}">Register</a>
-                            @endif
-                        </div>
-                                            </a>
+                                    <!-- Cart Icon -->
+                                    <a href="{{ url('/front/cart') }}" class="btn px-0 ml-3">
+                                        <i class="fas fa-shopping-cart text-primary"></i>
+                                        <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                            {{ $cartCount }}
+                                        </span>
+                                        <br>
+                                        <small class="d-block text-center" style="font-size: 12px; color:white; margin-right:15px;">{{ __('messages.cart') }}</small>
+                                    </a>
                     
+                                    <!-- User Icon with Dropdown -->
+                                    <a href="#" class="btn px-0 ml-3 position-relative" id="userIcon">
+                                        <i class="fas fa-user text-primary"></i> <!-- User Icon -->
+                                        <i class="fas fa-chevron-down ml-2 arrow-icon"></i> <!-- Arrow Icon -->
+                                        
+                                        <!-- Dropdown Menu -->
+                                        <div class="dropdown-menu" id="userDropdown">
+                                            @if(Auth::check()) <!-- If user is logged in -->
+                                                <a class="dropdown-item" href="{{ url('/profile') }}">{{ __('messages.myProfile') }}</a>
+                                                <a class="dropdown-item" href="{{ url('/front/orders') }}">{{ __('messages.myOrders') }}</a>
+                                                <a class="dropdown-item" href="{{ url('/front/coupons') }}">{{ __('messages.myCoupons') }}</a>
+                                                <a class="dropdown-item" href="{{ route('logout') }}">{{ __('messages.logout') }}</a>
+                                            @else <!-- If user is not logged in -->
+                                                <a class="dropdown-item" href="{{ url('/login') }}">{{ __('messages.login') }}</a>
+                                                <a class="dropdown-item" href="{{ url('/register') }}">{{ __('messages.register') }}</a>
+                                            @endif
                                         </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
-
-            </nav>
-        </div>
-    </div>
-</div>
+            </div>                    
 <!-- Navbar End -->
 
 
