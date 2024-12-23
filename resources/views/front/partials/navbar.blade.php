@@ -55,6 +55,9 @@
      
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
+                <a href="{{ route('setLocale', 'en') }}">English</a>
+                <a href="{{ route('setLocale', 'ar') }}">العربية</a>
+                
                 <a href{{ url('/front/index')}}" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-dark px-2">Shop</span>
                     <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Area</span>
@@ -171,7 +174,7 @@
                                 <!-- رابط تسجيل الخروج -->
                                 <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                             @else <!-- إذا كان المستخدم غير مسجل دخوله -->
-                                <a class="dropdown-item" href="{{ url('/login') }}">Login</a>
+                                <a class="dropdown-item" href="{{ url('/login') }}">{{ __('messages.login') }}</a>
                                 <a class="dropdown-item" href="{{ url('/register') }}">Register</a>
                             @endif
                         </div>

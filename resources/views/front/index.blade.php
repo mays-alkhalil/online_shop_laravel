@@ -24,9 +24,9 @@
                             <img class="position-absolute w-100 h-100" src="{{ asset('front-assets') }}/img/carousel-1.jpg" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">High-quality men’s wear for every moment of your day</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ __('messages.heroMen') }}</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{ __('messages.heroMenH') }}</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">{{ __('messages.shopNow') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -34,9 +34,9 @@
                             <img class="position-absolute w-100 h-100" src="{{ asset('front-assets') }}/img/carousel-2.jpg" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Women’s fashion that celebrates your beauty and elegance</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ __('messages.heroWomen') }}</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{ __('messages.heroWomenH') }}</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">{{ __('messages.shopNow') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -44,9 +44,9 @@
                             <img class="position-absolute w-100 h-100" src="{{ asset('front-assets') }}/img/carousel-3.jpg" style="object-fit: cover;">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Trendy and comfy kids' fashion for every occasion</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">Shop Now</a>
+                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">{{ __('messages.heroKids') }}</h1>
+                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">{{ __('messages.heroKidsH') }}</p>
+                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="{{'shop'}}">{{ __('messages.shopNow') }}</a>
                                 </div>
                             </div>
                         </div>
@@ -57,17 +57,20 @@
                 <div class="product-offer mb-30" style="height: 200px;">
                     <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-1.jpg" alt="">
                     <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save {{ $highestDiscount }}%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="{{'shop'}}" class="btn btn-primary">Shop Now</a>
+                        <h6 class="text-white text-uppercase">{{ __('messages.save') }} {{ $highestDiscount }}%</h6>
+                        <h3 class="text-white mb-3">{{ __('messages.specialOffer') }}</h3>
+
+
+
+                        <a href="{{'shop'}}" class="btn btn-primary">{{ __('messages.shopNow') }}</a>
                     </div>
                                     </div>
                 <div class="product-offer mb-30" style="height: 200px;">
                     <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-2.jpg" alt="">
                     <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save {{ $secondHighestDiscount }}%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="{{'shop'}}" class="btn btn-primary">Shop Now</a>
+                        <h6 class="text-white text-uppercase">{{ __('messages.save') }} {{ $secondHighestDiscount }}%</h6>
+                        <h3 class="text-white mb-3">{{ __('messages.specialOffer') }}</h3>
+                        <a href="{{'shop'}}" class="btn btn-primary">{{ __('messages.shopNow') }}</a>
                     </div>
                                     </div>
             </div>
@@ -188,9 +191,9 @@
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-1.jpg" alt="">
                 <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save {{ $highestDiscount }}%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
+                    <h6 class="text-white text-uppercase">{{ __('messages.save') }} {{ $highestDiscount }}%</h6>
+                    <h3 class="text-white mb-3">{{ __('messages.specialOffer') }}</h3>
+                    <a href="#" class="btn btn-primary">{{ __('messages.shopNow') }}</a>
                 </div>
             </div>
         </div>
@@ -200,9 +203,8 @@
             <div class="product-offer mb-30" style="height: 200px;">
                 <img class="img-fluid" src="{{ asset('front-assets') }}/img/offer-2.jpg" alt="">
                 <div class="offer-text">
-                    <h6 class="text-white text-uppercase">Save {{ $secondHighestDiscount }}%</h6>
-                    <h3 class="text-white mb-3">Special Offer</h3>
-                    <a href="#" class="btn btn-primary">Shop Now</a>
+                    <h6 class="text-white text-uppercase">{{ __('messages.save') }} {{ $secondHighestDiscount }}%</h6>                        <h3 class="text-white mb-3">{{ __('messages.specialOffer') }}</h3>
+                    <a href="#" class="btn btn-primary">{{ __('messages.shopNow') }}</a>
                 </div>
             </div>
         </div>

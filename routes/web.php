@@ -20,6 +20,22 @@ use App\Http\Controllers\CouponController;
 
 
 
+Route::get('/set-locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        // حفظ اللغة في الجلسة
+        session(['locale' => $locale]);
+
+        // تعيين اللغة في التطبيق
+        app()->setLocale($locale);
+    }
+
+    // العودة إلى الصفحة السابقة
+    return redirect()->back();
+})->name('setLocale');
+
+
+
+
 Route::get('/category/{id}', [FrontCategoryController::class, 'show'])->name('category.show');
 Route::get('/store/{id}', [FrontCategoryController::class, 'showStoresProducts'])->name('store.show');
 
