@@ -24,7 +24,7 @@ public function index(Request $request)
     $categories = Category::when($search, function ($query, $search) {
         return $query->where('name', 'like', '%' . $search . '%');
     })
-    ->paginate(1);  // يمكن تغيير 10 إلى العدد الذي تريده لكل صفحة
+    ->paginate(5);  // يمكن تغيير 10 إلى العدد الذي تريده لكل صفحة
 
     return view('admin.category.index', compact('categories'));
 }

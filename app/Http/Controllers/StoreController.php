@@ -20,7 +20,7 @@ class StoreController extends Controller
                 return $query->where('name', 'like', '%' . $search . '%')
                              ->orWhere('address', 'like', '%' . $search . '%');  // يمكنك إضافة شروط أخرى للبحث مثل العنوان
             })
-            ->paginate(1); // عدد المتاجر في الصفحة
+            ->paginate(4); // عدد المتاجر في الصفحة
 
         // تمرير المتاجر المصفاة إلى الـ View
         return view('admin.stores.index', compact('stores'));
