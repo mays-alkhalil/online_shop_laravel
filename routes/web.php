@@ -19,6 +19,9 @@ use App\Http\Livewire\SearchProducts;
 use App\Http\Controllers\CouponController;
 
 
+// web.php
+Route::get('/front/index', [WishlistController::class, 'showWishlistAndCart']);
+
 
 Route::get('/set-locale/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ar'])) {

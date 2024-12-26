@@ -31,17 +31,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // استرجاع أعلى الخصومات من المنتجات
+        $highestDiscount = Coupon::max('discount'); // افتراض أن لديك عمود خصم
+        $secondHighestDiscount = Coupon::where('discount', '<', $highestDiscount)
+                                         ->max('discount');
 
-          // استرجاع أعلى الخصومات من المنتجات
-    $highestDiscount = Coupon::max('discount'); // افتراض أن لديك عمود خصم
-    $secondHighestDiscount = Coupon::where('discount', '<', $highestDiscount)
-                                     ->max('discount');
-
-    View::share('highestDiscount', $highestDiscount);
-    View::share('secondHighestDiscount', $secondHighestDiscount);
+        View::share('highestDiscount', $highestDiscount);
+        View::share('secondHighestDiscount', $secondHighestDiscount);
 
         // بداية الكود الذي يتعامل مع البيانات المشتركة بين الـ Views
-    
+        
         // جلب المنتجات مع الفلاتر (الفئة، اللون، الحجم) في نفس الاستعلام
         $productsQuery = Product::query();
     
@@ -78,7 +77,6 @@ class AppServiceProvider extends ServiceProvider
         $orders = Order::with('orderItems')->get();
         view()->share('orders', $orders);
         
-    
         // مشاركة العناصر المرتبطة بكل طلب (OrderItems) مع الـ View
         foreach ($orders as $order) {
             $orderItems = OrderItem::where('order_id', $order->id)->get();
@@ -91,20 +89,25 @@ class AppServiceProvider extends ServiceProvider
     
         $sizes = Product::select('size')->distinct()->pluck('size');
         view()->share('sizes', $sizes);
-    
+
         // Composer لجميع الـ Views لضمان البيانات المتاحة
         View::composer('*', function ($view) {
             // التحقق من إذا كان المستخدم مسجلاً دخوله
             $user = Auth::user();
-    
+
             // جلب عدد المنتجات في السلة
             $cartCount = $user ? Cart::where('user_id', $user->id)->count() : 0;
-    
+
             // جلب عدد المنتجات في قائمة الرغبات (wishlist)
             $wishlistCount = $user ? Wishlist::where('user_id', $user->id)->count() : 0;
-    
+
+            // جلب الـ wishlist و الـ cart للمستخدم
+            $wishlist = $user ? Wishlist::where('user_id', $user->id)->get() : [];
+            $cart = $user ? Cart::where('user_id', $user->id)->get() : [];
+
             // تمرير البيانات إلى الـ View
-            $view->with(compact('cartCount', 'wishlistCount'));
+            $view->with(compact('cartCount', 'wishlistCount', 'wishlist', 'cart'));
         });
     }
-    }
+}
+

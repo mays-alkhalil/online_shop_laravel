@@ -60,5 +60,15 @@ class WishlistController extends Controller
     //     // إرجاع العدد إلى الـ view
     //     return view('front.patials.navbar', compact('wishlistCount'));
     // }
-        
+        // Controller
+public function showWishlistAndCart()
+{
+    // الحصول على الـ wishlist و الـ cart للمستخدم
+    $wishlist = Wishlist::where('user_id', auth()->id())->get();
+    $cart = Cart::where('user_id', auth()->id())->get();
+
+    // تمرير البيانات إلى الـ view
+    return view('front.index', compact('wishlist', 'cart'));
+}
+
 }

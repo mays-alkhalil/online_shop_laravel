@@ -49,61 +49,62 @@
 
 
 <script>
-function showSweetAlert(event, productId) {
+function toggleWishlist(event, productId) {
     event.preventDefault(); // منع تحميل الصفحة
 
-    // إرسال الطلب باستخدام AJAX لإضافة المنتج إلى السلة
+    var icon = $(event.target); // الحصول على الأيقونة التي تم النقر عليها
+    var isFilled = icon.hasClass('fas'); // التحقق مما إذا كانت الأيقونة مملوءة
+
+    var url = isFilled ? '/wishlist/remove/' + productId : '/wishlist/add/' + productId;  // تحديد URL الإضافة أو الإزالة
+
+    // إرسال الطلب باستخدام AJAX لإضافة أو إزالة المنتج من قائمة الرغبات
     $.ajax({
-        url: '/cart/add/' + productId,  // أو استخدم route Laravel المناسبة هنا
+        url: url,
         type: 'GET', // أو 'POST' حسب الطريقة التي يستخدمها تطبيقك
         success: function(response) {
-            // عرض SweetAlert عند النجاح
-            Swal.fire({
-                title: 'Added!',
-                text: 'The product has been successfully added to your cart.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+            if (isFilled) {
+                icon.removeClass('fas').addClass('far'); // تحويل الأيقونة إلى فارغة عند الحذف
+            } else {
+                icon.removeClass('far').addClass('fas'); // تحويل الأيقونة إلى مملوءة عند الإضافة
+            }
+
+            // تحديث عدد المنتجات في قائمة الرغبات بعد الإضافة أو الإزالة
+            $('#wishlist-count').text(response.wishlistCount);
         },
         error: function(xhr, status, error) {
-            // في حال حدوث خطأ
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was an error adding the product to the cart.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
+            console.error('Error adding/removing from wishlist:', error);
         }
     });
 }
 
-function showSweetAlertWishlist(event, productId) {
+function toggleCart(event, productId) {
     event.preventDefault(); // منع تحميل الصفحة
 
-    // إرسال الطلب باستخدام AJAX لإضافة المنتج إلى السلة
+    var icon = $(event.target); // الحصول على الأيقونة التي تم النقر عليها
+    var isFilled = icon.hasClass('fas'); // التحقق مما إذا كانت الأيقونة مملوءة
+
+    var url = isFilled ? '/cart/remove/' + productId : '/cart/add/' + productId;  // تحديد URL الإضافة أو الإزالة
+
+    // إرسال الطلب باستخدام AJAX لإضافة أو إزالة المنتج من السلة
     $.ajax({
-        url: '/wishlist/add/' + productId,  // أو استخدم route Laravel المناسبة هنا
+        url: url,
         type: 'GET', // أو 'POST' حسب الطريقة التي يستخدمها تطبيقك
         success: function(response) {
-            // عرض SweetAlert عند النجاح
-            Swal.fire({
-                title: 'Added!',
-                text: 'The product has been successfully added to your wishlist.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
+            if (isFilled) {
+                icon.removeClass('fas').addClass('far'); // تحويل الأيقونة إلى فارغة عند الحذف
+            } else {
+                icon.removeClass('far').addClass('fas'); // تحويل الأيقونة إلى مملوءة عند الإضافة
+            }
+
+            // تحديث عدد المنتجات في السلة بعد الإضافة أو الإزالة
+            $('#cart-count').text(response.cartCount);
         },
         error: function(xhr, status, error) {
-            // في حال حدوث خطأ
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was an error adding the product to the wishlist.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
+            console.error('Error adding/removing from cart:', error);
         }
     });
 }
+
 
 
 
