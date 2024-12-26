@@ -4,6 +4,22 @@
 
 @section('title','Home')
 
+<style>
+    .col-lg-3 .position-relative:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+        .position-relative {
+            height: auto;
+        }
+
+        .position-relative img {
+            height: auto;
+        }
+    }
+</style>
 
 
 
@@ -110,49 +126,43 @@
     <!-- Featured End -->
 
 
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
-            <span class="bg-secondary pr-3">{{ __('messages.categories') }}</span>
-        </h2>
-        <div class="row px-xl-5 pb-3">
-            @if ($categories->isNotEmpty())
-                @foreach ($categories as $category)
-                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                        <a class="text-decoration-none" href="{{ route('category.show', $category->id) }}">
-                            <div class="cat-item d-flex align-items-center mb-4" style="transition: background-color 0.3s; border-radius: 15px; overflow: hidden;">
-                                <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                                    <img class="img-fluid" src="{{ asset('storage/images/' . $category->image) }}" alt="{{ $category->name }}">
-                                </div>
-                                <div class="flex-fill pl-3">
-                                    <h6>{{ $category->name }}</h6>
-                                </div>
+   <!-- Categories Start -->
+   <div class="container-fluid pt-5">
+    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4">
+        <span class="bg-secondary pr-3 ">{{ __('messages.categories') }}</span>
+    </h2>
+    <div class="row px-xl-5 pb-3">
+        @if ($categories->isNotEmpty())
+            @foreach ($categories as $category)
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <a class="text-decoration-none" href="{{ route('category.show', $category->id) }}">
+                        <div class="position-relative" 
+                             style="border-radius: 20px; overflow: hidden; width: 100%; height: 300px; transition: transform 0.3s, box-shadow 0.3s;">
+                            <!-- الصورة -->
+                            <img class="img-fluid position-absolute" 
+                                 src="{{ asset('storage/images/' . $category->image) }}" 
+                                 alt="{{ $category->name }}" 
+                                 style="width: 100%; height: auto; object-fit: cover; z-index: 1;">
+                            <!-- النص فوق الصورة -->
+                            <div class="text-white position-absolute w-100 h-100 d-flex flex-column justify-content-center align-items-center" 
+                                 style="background: rgba(0, 0, 0, 0.5); z-index: 10;">
+                                <h5 class="text-uppercase text-white mb-2" style="font-size: 1.2rem;">{{ $category->name }}</h5>
+                                <p class="mb-0" style="font-size: 0.9rem;">Explore more in this category</p>
                             </div>
-                        </a>
-                    </div>
-                @endforeach
-            @else
-                <div class="col-12">
-                    <p class="text-center text-muted">No categories available.</p>
+                        </div>
+                    </a>
                 </div>
-            @endif
-        </div>
-        
-        <script>
-            // إضافة التأثير عند التمرير على العنصر
-            const categoryItems = document.querySelectorAll('.cat-item');
-            categoryItems.forEach(item => {
-                item.addEventListener('mouseenter', () => {
-                    item.style.backgroundColor = '#F1E7E7';
-                });
-                item.addEventListener('mouseleave', () => {
-                    item.style.backgroundColor = '';
-                });
-            });
-        </script>
+            @endforeach
+        @else
+            <div class="col-12">
+                <p class="text-center text-muted">No categories available.</p>
             </div>
-    
-    <!-- Categories End -->
+        @endif
+    </div>
+</div>
+
+
+
 
 
     <!-- Products Start -->
@@ -193,7 +203,9 @@
 
 
   
-<!-- Offer Start -->
+
+
+        <!-- Offer Start -->
 <div class="container-fluid pt-5 pb-3">
     <div class="row px-xl-5">
         <!-- العرض الأول -->
@@ -316,6 +328,7 @@
         });
     });
 </script>
+
 @endsection
 
 

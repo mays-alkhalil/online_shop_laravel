@@ -257,11 +257,12 @@
     <div class="row px-xl-5">
         <div class="col-lg-5 mb-30">
             <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner bg-light">
+                <div class="carousel-inner bg-light" style="border-radius: 30px; overflow: hidden;height: 350px;">
                     <!-- عرض صورة واحدة فقط -->
-                    <div class="carousel-item active">
-                        <img class="w-100 h-100" src="{{ asset('storage/' . $product->image) }}" alt="Image">
+                    <div class="carousel-item active" >
+                        <img class="w-100" src="{{ asset('storage/' . $product->image) }}" alt="Image" >
                     </div>
+                    
                 </div>
                 {{-- <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                     <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -272,23 +273,17 @@
             </div>
         </div>
 
-        <div class="col-lg-7 h-auto mb-30">
-            <div class="h-100 bg-light p-30">
+        <div class="col-lg-7 h-auto mb-30" >
+            <div class="h-100 bg-light p-30" style="border-radius: 30px; overflow: hidden;">
                 <h3>{{ $product->name }}</h3>
-                {{-- <div class="d-flex mb-3">
-                    @for($i = 0; $i < 5; $i++)
-                    <small class="fa fa-star {{ $i < floor($product->averageRating()) ? 'text-primary' : '' }} mr-1"></small>
-                @endfor
-                  
-                   
-                </div> --}}
                 <h3 class="font-weight-semi-bold mb-4">${{ $product->price }}</h3>
                 <p class="mb-4">{{ $product->description }}</p>
-                
+        
+                <!-- Sizes -->
                 <div class="d-flex mb-3">
-                    <strong class="text-dark mr-3">Sizes:</strong>
+                    <strong class="text-primary mr-3">Sizes:</strong>
                     <form>
-                        @if($sizes->isNotEmpty()) <!-- التحقق من أن المصفوفة تحتوي على قيم -->
+                        @if($sizes->isNotEmpty())
                             @foreach($sizes as $size)
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="size-{{ $size }}" name="size">
@@ -296,14 +291,16 @@
                                 </div>
                             @endforeach
                         @else
-                            <p>No sizes available.</p> <!-- في حالة عدم وجود أحجام -->
+                            <p>No sizes available.</p>
                         @endif
                     </form>
                 </div>
+        
+                <!-- Colors -->
                 <div class="d-flex mb-4">
-                    <strong class="text-dark mr-3">Colors:</strong>
+                    <strong class="text-primary mr-3">Colors:</strong>
                     <form>
-                        @if($colors->isNotEmpty()) <!-- التحقق من أن المصفوفة تحتوي على قيم -->
+                        @if($colors->isNotEmpty())
                             @foreach($colors as $color)
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input type="radio" class="custom-control-input" id="color-{{ $color }}" name="color">
@@ -311,47 +308,29 @@
                                 </div>
                             @endforeach
                         @else
-                            <p>No colors available.</p> <!-- في حالة عدم وجود ألوان -->
+                            <p>No colors available.</p>
                         @endif
                     </form>
                 </div>
+        
+                <!-- Add to Cart Button -->
                 <div class="d-flex align-items-center mb-4 pt-2">
-                    {{-- <form action="{{ route('cart.update', $cartItem->id) }}" method="POST" class="d-inline">
-                        @csrf
-                        @method('PATCH')
-                        <div class="d-flex align-items-center mb-4 pt-2">
-                            <div class="input-group quantity mr-3" style="width: 130px;">
-                                <div class="input-group-btn">
-                                    <button type="submit" name="quantity" value="{{ $cartItem->quantity - 1 }}" class="btn btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                                <input type="text" class="form-control bg-secondary border-0 text-center" value="{{ $cartItem->quantity }}">
-                                <div class="input-group-btn">
-                                    <button type="submit" name="quantity" value="{{ $cartItem->quantity + 1 }}" class="btn btn-primary btn-plus">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form> --}}
-                    
-
-                    <a  href="{{ route('cart.add', $product->id) }}"> <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> Add To
-                        Cart</button></a>
-
-                   
+                    <a href="{{ route('cart.add', $product->id) }}">
+                        <button class="btn btn-primary px-3">
+                            <i class="fa fa-shopping-cart mr-1"></i> Add To Cart
+                        </button>
+                    </a>
                 </div>
-                
-             </div>
+            </div>
         </div>
+        
     </div>
     
     <div class="row px-xl-5">
         <div class="col">
             <div class="bg-light p-30">
                 <div class="nav nav-tabs mb-4">
-                    <a class="nav-item nav-link text-dark active" data-toggle="tab" href="#tab-pane-1">Description</a>
+                    <p class="nav-item  text-primary active"  href="#tab-pane-1">Description</p>
                   
                     {{-- <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews ({{ $product->reviews_count }})</a> --}}
                 </div>
@@ -414,8 +393,8 @@
         <div class="row px-xl-5">
             @foreach($relatedProducts as $relatedProduct)
                 <div class="col-12 col-sm-4 col-md-4 mb-4">
-                    <div class="product-item bg-light">
-                        <div class="product-img position-relative overflow-hidden">
+                    <div class="product-item bg-light" style="border-radius: 30px; overflow: hidden;">
+                        <div class="product-img position-relative overflow-hidden" style="border-radius: 30px;">
                             <img class="img-fluid w-100" src="{{ asset('storage/'.$relatedProduct->image) }}" alt="{{ $relatedProduct->name }}">
                             <div class="product-action">
                                 <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $relatedProduct->id) }}">
@@ -447,9 +426,8 @@
                 </div>
             @endforeach
         </div>
-        
     </div>
-    
+        
     <!-- Products End -->
 
 
