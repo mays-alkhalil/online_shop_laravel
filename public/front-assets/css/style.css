@@ -2566,8 +2566,8 @@ fieldset:disabled a.btn {
 .btn-danger:focus, .btn-danger.focus {
   color: #fff;
   background-color: #f0e1e1;
-  border-color: #bd2130;
-  box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
+  border-color: #A87676;
+  box-shadow: #784949;
 }
 
 .btn-danger.disabled, .btn-danger:disabled {
@@ -2579,13 +2579,13 @@ fieldset:disabled a.btn {
 .btn-danger:not(:disabled):not(.disabled):active, .btn-danger:not(:disabled):not(.disabled).active,
 .show > .btn-danger.dropdown-toggle {
   color: #fff;
-  background-color: #bd2130;
-  border-color: #b21f2d;
+  background-color: #A87676;
+  border-color: #784949;
 }
 
 .btn-danger:not(:disabled):not(.disabled):active:focus, .btn-danger:not(:disabled):not(.disabled).active:focus,
 .show > .btn-danger.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(128, 56, 63, 0.5);
 }
 
 .btn-light {
@@ -4753,7 +4753,7 @@ a.badge-warning:focus, a.badge-warning.focus {
 
 a.badge-danger:hover, a.badge-danger:focus {
   color: #fff;
-  background-color: #bd2130;
+  background-color: #A87676;
 }
 
 a.badge-danger:focus, a.badge-danger.focus {
@@ -6156,7 +6156,7 @@ button.bg-warning:focus {
 a.bg-danger:hover, a.bg-danger:focus,
 button.bg-danger:hover,
 button.bg-danger:focus {
-  background-color: #bd2130 !important;
+  background-color: #A87676 !important;
 }
 
 .bg-light {

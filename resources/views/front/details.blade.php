@@ -397,16 +397,34 @@
                         <div class="product-img position-relative overflow-hidden" style="border-radius: 30px;">
                             <img class="img-fluid w-100" src="{{ asset('storage/'.$relatedProduct->image) }}" alt="{{ $relatedProduct->name }}">
                             <div class="product-action">
-                                <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $relatedProduct->id) }}">
-                                    <i class="fa fa-shopping-cart"></i>
+                                <!-- Wishlist Button -->
+                                <a class="btn btn-outline-dark btn-square" 
+                                   href="{{ route('wishlist.add', $relatedProduct->id) }}" 
+                                   onclick="showSweetAlertWishlist(event, {{ $relatedProduct->id }}); return false;">
+                                    <i class="{{ $wishlist->contains('product_id', $relatedProduct->id) ? 'fas fa-heart' : 'far fa-heart' }}"></i>
                                 </a>
-                                <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $relatedProduct->id) }}">
-                                    <i class="far fa-heart"></i>
+                                
+                                <!-- Cart Button -->
+                                <a class="btn btn-outline-dark btn-square" 
+                                   href="{{ route('cart.add', $relatedProduct->id) }}" 
+                                   onclick="showSweetAlert(event, {{ $relatedProduct->id }}); return false;">
+                                   
+                                   <i class="{{ $cart->contains('product_id', $relatedProduct->id) ? 'fas fa-shopping-cart' : 'fas fa-cart-plus' }}"></i>
+    
+    
+    
+    
+    
+    
                                 </a>
+                                
+                                <!-- Product Details -->
                                 <a class="btn btn-outline-dark btn-square" href="{{ route('front.details.show', $relatedProduct->id) }}">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </div>
+
+    
                         </div>
                         <div class="text-center py-4">
                             <a class="h6 text-decoration-none text-truncate" href="">{{ $relatedProduct->name }}</a>
