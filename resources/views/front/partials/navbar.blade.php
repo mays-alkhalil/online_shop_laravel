@@ -256,7 +256,7 @@
                                     <!-- Wishlist Icon -->
                                     <a href="{{ url('/front/wishlist') }}" class="btn px-0">
                                         <i class="fas fa-heart text-primary"></i>
-                                        <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                        <span class="badge text-primary border border-primary rounded-circle" style="padding-bottom: 2px;">
                                             {{ $wishlistCount }}
                                         </span>
                                         <br>
@@ -266,7 +266,7 @@
                                     <!-- Cart Icon -->
                                     <a href="{{ url('/front/cart') }}" class="btn px-0 ml-3">
                                         <i class="fas fa-shopping-cart text-primary"></i>
-                                        <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">
+                                        <span class="badge text-primary border border-primary rounded-circle" style="padding-bottom: 2px;">
                                             {{ $cartCount }}
                                         </span>
                                         <br>
