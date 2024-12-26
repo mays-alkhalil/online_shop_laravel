@@ -146,7 +146,7 @@
         <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
             <div class="col-lg-4">
                 
-                <a href{{ url('/front/index')}}" class="text-decoration-none">
+                <a href="{{ url('/front/index')}}" class="text-decoration-none">
                     <span class="h1 text-uppercase text-primary bg-dark px-2">jory</span>
                     <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">moda</span>
                    
@@ -170,12 +170,15 @@
                                 <h5 class="m-0">+962 796 532 179 </h5>
                             </div>
                             <div class="language-flags d-flex">
+                                <!-- English Language Link -->
                                 <a href="{{ route('setLocale', 'en') }}" class="mr-3">
                                     <div class="language-flag">
                                         <img src="{{ asset('front-assets/img/usajpeg.jpeg') }}" alt="USA Flag" class="img-fluid">
                                         <p>English</p>
                                     </div>
                                 </a>
+                            
+                                <!-- Arabic Language Link -->
                                 <a href="{{ route('setLocale', 'ar') }}">
                                     <div class="language-flag">
                                         <img src="{{ asset('front-assets/img/jordanjpeg.jpeg') }}" alt="Jordan Flag" class="img-fluid">
@@ -183,6 +186,8 @@
                                     </div>
                                 </a>
                             </div>
+                            
+                              
                         </div>
                         
                         
