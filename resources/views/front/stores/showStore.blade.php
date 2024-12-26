@@ -13,7 +13,6 @@
 <!-- Shop Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
-       
 
         <!-- Shop Product Start -->
         @if($products->isEmpty())
@@ -23,9 +22,9 @@
         @else
         @foreach($products as $product)
         <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
-            <div class="product-item bg-light mb-4">
-                <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+            <div class="product-item bg-light mb-4" style="border-radius: 15px; overflow: hidden; ">
+                <div class="product-img position-relative overflow-hidden" style="border-radius: 15px;">
+                    <img class="img-fluid w-100" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="border-radius: 15px;">
                     <div class="product-action">
                         <a class="btn btn-outline-dark btn-square" href="{{ route('wishlist.add', $product->id) }}" onclick="showSweetAlertWishlist(event, {{ $product->id }}); return false;">
                             <i class="far fa-heart"></i>
@@ -33,7 +32,10 @@
                         
                         <a class="btn btn-outline-dark btn-square" href="{{ route('cart.add', $product->id) }}" onclick="showSweetAlert(event, {{ $product->id }}); return false;">
                             <i class="fa fa-shopping-cart"></i>
-                        </a>                        <a class="btn btn-outline-dark btn-square" href="{{ route('front.details.show', $product->id) }}"><i class="fa fa-search"></i></a>
+                        </a>                        
+                        <a class="btn btn-outline-dark btn-square" href="{{ route('front.details.show', $product->id) }}">
+                            <i class="fa fa-search"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="text-center py-4">
@@ -55,8 +57,8 @@
         @endforeach    
         @endif
         <!-- Shop Product End -->
-    </div>
-</div>
+    </div> 
+</div> 
 <!-- Shop End -->
 
 @endsection

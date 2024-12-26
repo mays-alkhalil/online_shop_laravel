@@ -42,7 +42,7 @@
 
         /* تحديد لون السهم بنفس لون الأيقونات */
         #userIcon .arrow-icon {
-            color: #FFD333; /* نفس لون الأيقونات، يمكنك تغييره حسب الحاجة */
+            color: #A87676 ; /* نفس لون الأيقونات، يمكنك تغييره حسب الحاجة */
         }
 
 /* Topbar styling */
@@ -93,6 +93,49 @@
     color: #333;
 }
 
+.navbar {
+    background-color: #333;
+}
+
+.navbar-nav {
+    margin: 0 auto; /* لجعل العناصر في المنتصف */
+}
+
+.nav-item {
+    padding: 0 15px;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-collapse {
+    justify-content: center; /* لضمان أن العناصر تبقى في المنتصف */
+}
+
+
+.navbar-nav .nav-link {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #ffd333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column; /* العناصر تصبح عمودية في الشاشات الصغيرة */
+    }
+    .nav-item {
+        text-align: center; /* لتوسيط النصوص */
+        padding: 10px 0;
+    }
+}
+
 
 </style>
     
@@ -104,8 +147,8 @@
             <div class="col-lg-4">
                 
                 <a href{{ url('/front/index')}}" class="text-decoration-none">
-                    <span class="h1 text-uppercase text-primary bg-dark px-2">shop</span>
-                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">area</span>
+                    <span class="h1 text-uppercase text-primary bg-dark px-2">jory</span>
+                    <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">moda</span>
                    
                     
                 </a>
@@ -149,12 +192,13 @@
  
  
  <!-- Navbar Start -->
+ <div>
  <div class="container-fluid bg-dark mb-30">
     <div class="row px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
             <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>{{ __('messages.categories') }}</h6>
-                <i class="fa fa-angle-down text-dark"></i>
+                <h6 class="text-light m-0"><i class="fa fa-bars mr-2"></i>{{ __('messages.categories') }}</h6>
+                <i class="fa fa-angle-down text-light"></i>
             </a>
             <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
                 <div class="navbar-nav w-100">
@@ -190,8 +234,8 @@
                       <div class="col-lg-9">
                         <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
                             <a href="{{ url('/front/index') }}" class="text-decoration-none d-block d-lg-none">
-                                <span class="h1 text-uppercase text-dark bg-light px-2">shop</span>
-                                <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">area</span>
+                                <span class="h1 text-uppercase text-dark bg-light px-2">jory</span>
+                                <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">moda</span>
                                
                             </a>
                             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -211,7 +255,7 @@
                                             {{ $wishlistCount }}
                                         </span>
                                         <br>
-                                        <small class="d-block text-center" style="font-size: 12px; color:white;margin-right:15px;">{{ __('messages.wishlist') }}</small>
+                                        <small class="d-block text-center" style="font-size: 12px; color:#713030;margin-right:15px;">{{ __('messages.wishlist') }}</small>
                                     </a>
                     
                                     <!-- Cart Icon -->
@@ -221,7 +265,7 @@
                                             {{ $cartCount }}
                                         </span>
                                         <br>
-                                        <small class="d-block text-center" style="font-size: 12px; color:white; margin-right:15px;">{{ __('messages.cart') }}</small>
+                                        <small class="d-block text-center" style="font-size: 12px; color:#713030; margin-right:15px;">{{ __('messages.cart') }}</small>
                                     </a>
                     
                                     <!-- User Icon with Dropdown -->
@@ -247,7 +291,8 @@
                         </nav>
                     </div>
                 </div>
-            </div>                    
+            </div>          
+                      
 <!-- Navbar End -->
 
 

@@ -32,9 +32,9 @@
                     <p>{{ __('messages.fashion_quote') }}</p>
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Your Email Address">
+                            <input type="text" class="form-control" placeholder="Your Email" style="border-radius: 25px 0 0 25px;">
                             <div class="input-group-append">
-                                <button class="btn btn-primary">{{ __('messages.sign_up') }}</button>
+                                <button class="btn btn-primary" style="border-radius: 0 25px 25px 0;">{{ __('messages.sign_up') }}</button>
                             </div>
                         </div>
                     </form>
@@ -46,7 +46,7 @@
                         <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-            </div>
+                            </div>
         </div>
     </div>
 @include('front.partials.copyright')
