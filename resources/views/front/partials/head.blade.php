@@ -4,9 +4,10 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
+{{-- website icon --}}
 
     <!-- Favicon -->
-    <link href="{{ asset('front-assets') }}/img/favicon.ico" rel="icon">
+    <link href="{{ asset('/images/mobile-shopping.png') }}" rel="icon" type="image/x-icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

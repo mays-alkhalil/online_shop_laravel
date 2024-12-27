@@ -322,13 +322,27 @@ Route::prefix('admin')->group(function () {
 
 
 
-Route::get('/image/{path}', function ($path) {
-    $path = storage_path('app/public/' . $path);
-    if (file_exists($path)) {
-        return response()->file($path);
-    }
-    return abort(404);
+// Route::get('/image/{path}', function ($path) {
+//     $path = storage_path('app/public/' . $path);
+
+//     // تحقق مما إذا كانت الصورة موجودة
+//     if (file_exists($path)) {
+//         return response()->file($path);
+//     }
+
+//     // إذا لم تكن الصورة موجودة، عرض صورة 404 مخصصة من resources/views
+//     $errorImagePath = resource_path('views/error404.jpg'); // المسار إلى صورة الخطأ في resources/views
+//     return response()->file($errorImagePath);
+// })->where('path', '.*');
+
+Route::get('/{path}', function () {
+    // إرجاع صفحة الخطأ باستخدام Blade
+    return view('error404');
 })->where('path', '.*');
+
+
+
+
 
 
 

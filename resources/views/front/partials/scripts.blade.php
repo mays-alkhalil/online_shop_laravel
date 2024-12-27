@@ -25,6 +25,11 @@
 <!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+{{-- حساب مقاسات --}}
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+{{-- انيمشين --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.10.2/lottie.min.js"></script>
 
 <!-- Initialize Owl Carousel -->
 <script>
@@ -45,9 +50,77 @@
         });
     });
 </script>
+{{-- انيميشن --}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Lottie Loaded:', typeof lottie); // تحقق إذا كانت مكتبة lottie محملة بنجاح
+      const animationContainer = document.getElementById('empty-cart-animation');
+      if (animationContainer) {
+          lottie.loadAnimation({
+              container: animationContainer, // العنصر الذي ستعرض فيه الرسوم
+              renderer: 'svg', // نوع الرسوم (SVG)
+              loop: true, // تكرار الرسوم
+              autoplay: true, // تشغيل تلقائي
+              path: '/front-assets/animations/HdKTC8eZWS.json' // مسار ملف JSON
+          });
+      } else {
+          console.log('Animation container not found');
+      }
+  });
+  
+  
+  </script>
+
+<script>
+    // Initialize the Lottie animation for empty orders
+    @if($orders instanceof \Illuminate\Support\Collection && $orders->isEmpty())
+        var animation = bodymovin.loadAnimation({
+            container: document.getElementById('empty-orders-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: '/front-assets/animations/BHD4atWtSz.json'
+        });
+    @endif
+</script>
+<script >
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('Lottie Loaded:', typeof lottie); // تحقق إذا كانت مكتبة lottie محملة بنجاح
+    const animationContainer = document.getElementById('empty-wishlist-animation');
+    if (animationContainer) {
+        lottie.loadAnimation({
+            container: animationContainer, // العنصر الذي ستعرض فيه الرسوم
+            renderer: 'svg', // نوع الرسوم (SVG)
+            loop: true, // تكرار الرسوم
+            autoplay: true, // تشغيل تلقائي
+            path: '/front-assets/animations/tkZ8v2CtU2.json' // مسار ملف JSON
+        });
+    } else {
+        console.log('Animation container not found');
+    }
+});
+</script>
+
+<script >
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Lottie Loaded:', typeof lottie); // تحقق إذا كانت مكتبة lottie محملة بنجاح
+        const animationContainer = document.getElementById('no-products-animation');
+        if (animationContainer) {
+            lottie.loadAnimation({
+                container: animationContainer, // العنصر الذي ستعرض فيه الرسوم
+                renderer: 'svg', // نوع الرسوم (SVG)
+                loop: true, // تكرار الرسوم
+                autoplay: true, // تشغيل تلقائي
+                path: '/front-assets/animations/1HM2DaVcfW (2).json' // مسار ملف JSON
+            });
+        } else {
+            console.log('Animation container not found');
+        }
+    });
+    </script>
 
 
-
+{{--  add to wish list and cart--}}
 <script>
 function toggleWishlist(event, productId) {
     event.preventDefault(); // منع تحميل الصفحة

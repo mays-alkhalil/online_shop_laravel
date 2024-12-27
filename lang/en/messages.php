@@ -68,7 +68,7 @@ return [
     'quantity' => 'Quantity',
     'total' => 'Total',
     'action' => 'Action',
-    'empty_cart' => 'Your cart is empty.',
+    'empty_cart' => 'Your cart is empty',
     'subtotal' => 'Subtotal',
     'shipping' => 'Shipping',
     'total_price' => 'Total Price',
@@ -98,7 +98,7 @@ return [
     'coupon_applied' => 'Coupon applied successfully',
     'coupon_error' => 'Invalid coupon code',
     'place_order' => 'Place Order',
-    'empty_cart' => 'Your cart is empty.',
+    'empty_cart' => 'Your cart is empty',
 
     'profile' => 'Profile',
     'user_profile' => 'User Profile',
@@ -140,5 +140,7 @@ return [
 'BuildingNameorVillaNumber' => 'Building Name or Villa Number',
 'SaveAddressInfo' => 'Save Address Information',
 'AddressInformation'=>'Address Information ',
+'AdditionalDescription'=>' Additional Description',
+'empty_wishlist'=>'Your Wishlist is empty',
 
 ];

@@ -181,7 +181,7 @@
                             <a class="btn btn-outline-dark btn-square" 
                                href="{{ route('wishlist.add', $product->id) }}" 
                                onclick="showSweetAlertWishlist(event, {{ $product->id }}); return false;">
-                                <i class="{{ $wishlist->contains('product_id', $product->id) ? 'fas fa-heart' : 'far fa-heart' }}"></i>
+                               <i class="{{ collect($wishlist)->contains('product_id', $product->id) ? 'fas fa-heart' : 'far fa-heart' }}"></i>
                             </a>
                             
                             <!-- Cart Button -->
@@ -189,7 +189,8 @@
                                href="{{ route('cart.add', $product->id) }}" 
                                onclick="showSweetAlert(event, {{ $product->id }}); return false;">
                                
-                               <i class="{{ $cart->contains('product_id', $product->id) ? 'fas fa-shopping-cart' : 'fas fa-cart-plus' }}"></i>
+                               {{-- <i class="{{ $cart->contains('product_id', $product->id) ? 'fas fa-shopping-cart' : 'fas fa-cart-plus' }}"></i> --}}
+                               <i class="{{ collect($cart)->contains('product_id', $product->id) ? 'fas fa-shopping-cart' : 'fas fa-cart-plus' }}"></i>
 
 
 

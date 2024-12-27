@@ -13,30 +13,30 @@
         <!-- Left Column (Shipping Information) -->
         <div class="col-lg-8">
             <div class="bg-light p-30 mb-5">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ __('messages.shipping_address') }}</span></h5>
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class=" pr-3">{{ __('messages.shipping_address') }}</span></h5>
                 <form id="checkout-form" action="{{route('front.checkout')}}" method="POST">
                     @csrf  <!-- Adding CSRF token for security -->
                     <div class="form-row">
                         <div class="col-md-6 form-group">
                             <label for="firstName">{{ __('messages.first_name') }}</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{ __('messages.first_name') }}" required>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{ __('messages.first_name') }}" required style="border-radius: 30px !important;">
                         </div>
                         <div class="col-md-6 form-group">
                             <label for="lastName">{{ __('messages.last_name') }}</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="{{ __('messages.last_name') }}" required>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="{{ __('messages.last_name') }}" required style="border-radius: 30px !important;">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="address">{{ __('messages.address') }}</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="{{ __('messages.address') }}" required>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="{{ __('messages.address') }}" required style="border-radius: 30px !important;">
                     </div>
                     <div class="form-group">
                         <label for="phoneNumber">{{ __('messages.phone_number') }}</label>
-                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="{{ __('messages.phone_number') }}" required>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="{{ __('messages.phone_number') }}" required style="border-radius: 30px !important;">
                     </div>
 
                     <!-- Payment Method Selection -->
-                    <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ __('messages.payment_information') }}</span></h5>
+                    <h5 class="section-title position-relative text-uppercase mb-3"><span class=" pr-3">{{ __('messages.payment_information') }}</span></h5>
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input checked type="radio" class="custom-control-input" name="paymentMethod" id="payment_method_two" value="cash" onclick="document.getElementById('cardPaymentForm').classList.add('d-none');">
@@ -52,22 +52,22 @@
                     <div id="cardPaymentForm" class="d-none">
                         <div class="form-group">
                             <label for="cardNumber">{{ __('messages.card_number') }}</label>
-                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="{{ __('messages.card_number') }}">
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="{{ __('messages.card_number') }}" style="border-radius: 30px !important;">
                         </div>
                         <div class="form-group">
                             <label for="expiryDate">{{ __('messages.expiry_date') }}</label>
-                            <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="{{ __('messages.expiry_date') }}">
+                            <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="{{ __('messages.expiry_date') }}" style="border-radius: 30px !important;">
                         </div>
                         <div class="form-group">
                             <label for="cvv">{{ __('messages.cvv') }}</label>
-                            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="{{ __('messages.cvv') }}">
+                            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="{{ __('messages.cvv') }}" style="border-radius: 30px !important;">
                         </div>
                     </div>
 
                     <input type="hidden" name="totalAmount" value="{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }}">
 
                     <!-- Submit Button -->
-                    <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3">{{ __('messages.place_order') }}</button>
+                    <button type="submit" class="btn btn-block btn-primary font-weight-bold py-3" style="border-radius: 30px !important;">{{ __('messages.place_order') }}</button>
                 </form>
             </div>
         </div>
@@ -115,12 +115,12 @@
                 </div>
                 <!-- Coupon Section -->
                 <div class="bg-light p-30 mb-5">
-                    <form id="apply-coupon-form" action="{{ route('front.applyCoupon') }}" method="POST">
+                    <form id="apply-coupon-form" action="{{ route('front.applyCoupon') }}" method="POST" >
                         @csrf
                         <div class="input-group">
-                            <input type="text" class="form-control" name="couponCode" placeholder="{{ __('messages.enter_coupon') }}">
+                            <input type="text" class="form-control" name="couponCode" placeholder="{{ __('messages.enter_coupon') }}"style="border-radius: 25px 0 0 25px; !important;">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">{{ __('messages.apply_coupon') }}</button>
+                                <button type="submit" class="btn btn-primary" style="border-radius: 0 25px 25px 0;!important;">{{ __('messages.apply_coupon') }}</button>
                             </div>
                         </div>
                         @if (session('coupon_error'))
@@ -136,5 +136,5 @@
     </div>
 </div>
 
-<!-- Checkout End -->
+<!-- Checkout End --> 
 @endsection

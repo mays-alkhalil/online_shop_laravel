@@ -11,25 +11,27 @@
 <!-- Cart Start -->
 <div class="container-fluid">
     <div class="row px-xl-5">
-        <!-- Cart Table -->
-        <div class="col-lg-8 mb-5">
-            <div class="table-responsive">
-                <table class="table table-light table-borderless table-hover text-center mb-0">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th>{{ __('messages.products') }}</th>
-                            <th>{{ __('messages.price') }}</th>
-                            <th>{{ __('messages.quantity') }}</th>
-                            <th>{{ __('messages.total') }}</th>
-                            <th>{{ __('messages.action') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle">
-                        @if($cartItems->isEmpty())
+        @if($cartItems->isEmpty())
+            <!-- Empty Cart Animation -->
+            <div class="col-12 text-center">
+                <div id="empty-cart-animation" style="width: 300px; height: 300px; margin: 0 auto;"></div>
+                <h1>{{ __('messages.empty_cart') }}</h1>
+            </div>
+        @else
+            <!-- Cart Table -->
+            <div class="col-lg-8 mb-5">
+                <div class="table-responsive">
+                    <table class="table table-light table-borderless table-hover text-center mb-0">
+                        <thead class="thead-dark">
                             <tr>
-                                <td colspan="5">{{ __('messages.empty_cart') }}</td>
+                                <th>{{ __('messages.products') }}</th>
+                                <th>{{ __('messages.price') }}</th>
+                                <th>{{ __('messages.quantity') }}</th>
+                                <th>{{ __('messages.total') }}</th>
+                                <th>{{ __('messages.action') }}</th>
                             </tr>
-                        @else
+                        </thead>
+                        <tbody class="align-middle">
                             @foreach($cartItems as $item)
                                 <tr id="cart-item-{{ $item->id }}">
                                     <td class="align-middle d-flex align-items-center">
@@ -72,39 +74,39 @@
                                     </td>
                                 </tr>
                             @endforeach
-                        @endif
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
-        <!-- Cart Summary -->
-        <div class="col-lg-4">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ __('messages.summary') }}</span></h5>
-            <div class="bg-light p-4 rounded">
-                <div class="border-bottom pb-3">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h6>{{ __('messages.subtotal') }}</h6>
-                        <h6 id="subtotal">{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) }} JOD</h6>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">{{ __('messages.shipping') }}</h6>
-                        <h6 class="font-weight-medium">$10</h6>
-                    </div>
-                </div>
-                <div class="pt-3">
-                    <div class="d-flex justify-content-between">
-                        <h5>{{ __('messages.total_price') }}</h5>
-                        <h5 id="total">{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }} JOD</h5>
-                    </div>
-                    <a href="{{ route('front.checkout') }}">
-                        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">{{ __('messages.proceed_checkout') }}</button>
-                    </a>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
+            
+            <!-- Cart Summary -->
+            <div class="col-lg-4">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">{{ __('messages.summary') }}</span></h5>
+                <div class="bg-light p-4 rounded">
+                    <div class="border-bottom pb-3">
+                        <div class="d-flex justify-content-between mb-3">
+                            <h6>{{ __('messages.subtotal') }}</h6>
+                            <h6 id="subtotal">{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) }} JOD</h6>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">{{ __('messages.shipping') }}</h6>
+                            <h6 class="font-weight-medium">$10</h6>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <div class="d-flex justify-content-between">
+                            <h5>{{ __('messages.total_price') }}</h5>
+                            <h5 id="total">{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }} JOD</h5>
+                        </div>
+                        <a href="{{ route('front.checkout') }}">
+                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">{{ __('messages.proceed_checkout') }}</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 <!-- Cart End -->
- 
+
 @endsection

@@ -68,7 +68,7 @@ return [
     'quantity' => 'الكمية',
     'total' => 'الإجمالي',
     'action' => 'العمل',
-    'empty_cart' => 'عربتك فارغة.',
+    'empty_cart' => 'عربتك فارغة',
     'subtotal' => 'المجموع الفرعي',
     'shipping' => 'الشحن',
     'total_price' => 'الإجمالي',
@@ -98,7 +98,7 @@ return [
     'coupon_applied' => 'تم تطبيق الكوبون بنجاح',
     'coupon_error' => 'رمز الكوبون غير صالح',
     'place_order' => 'إتمام الطلب',
-    'empty_cart' => 'عربتك فارغة.',
+    'empty_cart' => 'عربتك فارغة',
 
     'profile' => 'الملف الشخصي',
     'user_profile' => 'الملف الشخصي للمستخدم',
@@ -130,6 +130,7 @@ return [
 'SaveAddressInfo'=>'حفظ معلومات المكان',
 'AdditionalDescription'=>'وصف اضافي',
 'AddressInformation'=>'معلومات الموقع',
+'empty_wishlist' => 'المفضلة فارغة',
 ];
 
 
