@@ -5,7 +5,7 @@
 
 @section('content')
   <div class="container py-5">
-    <h1 class="text-center mb-4">Shirt Size Calculator</h1>
+    <h1 class="text-center mb-4"> Size Calculator</h1>
 
     <div class="row justify-content-center">
       <div class="col-md-6">
@@ -17,7 +17,7 @@
         <button id="startCamera" class="btn btn-primary w-100 mb-3" style="display: none;">Use Camera</button>
         
         <!-- Upload Image Button -->
-        <button id="uploadImage" class="btn btn-primary w-100 mb-3">Upload Image</button>
+        <button id="uploadImage" class="btn btn-primary w-100 mb-3 mt-2">Upload Image</button>
         
         <!-- Calculate Size Button (hidden initially) -->
         <button id="calculateSize" class="btn btn-success w-100 mb-3" style="display: none;">Calculate Size</button>
@@ -31,6 +31,10 @@
           <div class="form-group">
             <label for="weight">Weight (kg):</label>
             <input type="number" id="weight" class="form-control" min="0">
+          </div>
+          <div class="form-group">
+            <label for="FootLength">Foot Length (cm):</label>
+            <input type="number" id="FootLength" class="form-control" min="0">
           </div>
           <button id="manualCalculate" class="btn btn-primary w-100 mt-3">Calculate Size Manually</button>
         </div>
@@ -153,6 +157,59 @@
           </tr>
         </tbody>
       </table>
+
+      <h3 class="text-center mb-4">Shoe Size Chart (CM)</h3>
+      <table class="table table-bordered text-center">
+        <thead>
+          <tr>
+            <th>Foot Length (CM)</th>
+            <th>Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>22.5</td>
+            <td>35</td>
+          </tr>
+          <tr>
+            <td>23</td>
+            <td>36</td>
+          </tr>
+          <tr>
+            <td>23.5</td>
+            <td>37</td>
+          </tr>
+          <tr>
+            <td>24</td>
+            <td>38</td>
+          </tr>
+          <tr>
+            <td>24.5</td>
+            <td>39</td>
+          </tr>
+          <tr>
+            <td>25</td>
+            <td>40</td>
+          </tr>
+          <tr>
+            <td>25.5</td>
+            <td>41</td>
+          </tr>
+          <tr>
+            <td>26</td>
+            <td>42</td>
+          </tr>
+          <tr>
+            <td>26.5</td>
+            <td>43</td>
+          </tr>
+          <tr>
+            <td>27</td>
+            <td>44</td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 
@@ -171,19 +228,6 @@
         multiplier: 0.75,
       });
       console.log('PoseNet model loaded');
-    }
-
-    async function startCamera() {
-      const video = document.getElementById('camera');
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
-        video.style.display = 'block';
-        document.getElementById('uploadedImage').style.display = 'none';
-        document.getElementById('calculateSize').style.display = 'inline-block';
-      } catch (error) {
-        console.error('Error accessing the camera: ', error);
-      }
     }
 
     function handleImageUpload(event) {
@@ -207,14 +251,15 @@
       const uploadedImage = document.getElementById('uploadedImage');
       let pose;
 
-      if (video.style.display === 'block') {
-        pose = await net.estimateSinglePose(video, { flipHorizontal: false });
-      } else if (uploadedImage.style.display === 'block') {
+    //   if (video.style.display === 'block') {
+    //     pose = await net.estimateSinglePose(video, { flipHorizontal: false });
+    //   } else 
+      if (uploadedImage.style.display === 'block') {
         const img = new Image();
         img.src = uploadedImage.src;
         pose = await net.estimateSinglePose(img, { flipHorizontal: false });
       } else {
-        resultDiv.textContent = 'Please select an input method first.';
+        resultDiv.textContent = 'Please Upload a new image';
         return;
       }
 
@@ -227,66 +272,137 @@
         resultDiv.textContent = 'Could not detect keypoints. Please make sure you are visible and try again.';
         return;
       }
+      let leftFoot = { position: { x: 25 } }; // قم بتغيير القيم حسب الحالة
+let rightFoot = { position: { x: 30 } }; // قم بتغيير القيم حسب الحالة
 
       const shoulderWidth = Math.abs(leftShoulder.position.x - rightShoulder.position.x);
       const waistWidth = Math.abs(leftHip.position.x - rightHip.position.x);
+      const footLength = Math.abs(leftFoot.position.x - rightFoot.position.x); // افترضنا أن لديك متغير لحساب طول القدم
+      
 
-      let size = '';
-      if (shoulderWidth > 60.5 && waistWidth > 37) {
-        size = 'Large (L)';
-      } else if (shoulderWidth > 58.7 && waistWidth > 35) {
-        size = 'Medium (M)';
-      } else {
-        size = 'Small (S)';
-      }
+      let shirtSize = '';
+let pantSize = '';
+let shoeSize = '';
+if (shoulderWidth > 60.5 && waistWidth > 37) {
+  shirtSize = 'Large (L)';
+} else if (shoulderWidth > 58.5 && waistWidth > 34) {
+  shirtSize = 'Medium (M)';
+} else if (shoulderWidth <= 58.5 && waistWidth <= 34) {
+  shirtSize = 'Small (S)';
+} else {
+  shirtSize = 'Undefined'; // إذا كانت القياسات غير كافية
+}
 
-      // SweetAlert2 Alert
+// تحديد حجم الـ Pants
+if (waistWidth > 37) {
+  pantSize = 'Large (L)';
+} else if (waistWidth > 34) {
+  pantSize = 'Medium (M)';
+} else if (waistWidth <= 34) {
+  pantSize = 'Small (S)';
+} else {
+  pantSize = 'Undefined'; // إذا كانت القياسات غير كافية
+}
+
+// تحديد حجم الـ Shoes
+if (footLength > 27) {
+  shoeSize = 'Large (L)';
+} else if (footLength > 24) {
+  shoeSize = 'Medium (M)';
+} else if (footLength <= 24) {
+  shoeSize = 'Small (S)';
+} else {
+  shoeSize = 'Undefined'; // إذا كانت القياسات غير كافية
+}
+
+
+
       Swal.fire({
-        title: 'Your Shirt Size',
-        text: `Your shirt size is: ${size}`,
-        icon: 'success',
-        confirmButtonText: 'OK',
-        width: '300px', // Set the alert size
+        title: 'Calculated Size',
+        text: `Based on your image, your estimated sizes are:
+  Shirt: ${shirtSize}
+  Pants: ${pantSize}
+  Shoes: ${shoeSize}`,
+          icon: 'success',
       });
     }
 
-    function calculateManualSize() {
-      const height = parseInt(document.getElementById('height').value);
-      const weight = parseInt(document.getElementById('weight').value);
+    function handleManualCalculate() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const FootLength = parseFloat(document.getElementById('FootLength').value);
       const resultDiv = document.getElementById('result');
 
-      let size = '';
-      if (height >= 150 && height <= 164 && weight >= 45 && weight <= 55) {
-        size = 'S';
-      } else if (height >= 164 && height <= 173 && weight >= 56 && weight <= 70) {
-        size = 'M';
-      } else if (height >= 174 && height <= 179 && weight >= 70 && weight <= 85) {
-        size = 'L';
-      } else if (height >= 180 && weight >= 85) {
-        size = 'XL';
-      } else {
-        size = 'Unable to determine size based on the entered data.';
+      if (!height || !weight || !FootLength) {
+        resultDiv.textContent = 'Please enter valid height , weight and foot length.';
+        return;
       }
 
-      // SweetAlert2 Alert
+      let size = '';
+  let pantSize = '';
+  let shoeSize = '';
+  let shirtSize = '';
+
+     // تحديد حجم الشيرت
+  if (height >= 160 && weight >= 70) {
+    shirtSize = 'Large (L)';
+  } else if (height >= 150 && weight >= 50) {
+    shirtSize = 'Medium (M)';
+  } else {
+    shirtSize = 'Small (S)';
+  }
+
+  // تحديد حجم البانت
+  if (weight >= 70 && height >= 175) {
+    pantSize = 'Large (L)';
+  } else if (weight >= 50 && height >= 160) {
+    pantSize = 'Medium (M)';
+  } else {
+    pantSize = 'Small (S)';
+  }
+
+  // تحديد حجم الشوز بناءً على طول القدم
+// تحديد حجم الشوز بناءً على طول القدم
+if (FootLength >= 22.5 && FootLength < 23) {
+    shoeSize = '35';
+  } else if (FootLength >= 23 && FootLength < 23.5) {
+    shoeSize = '36';
+  } else if (FootLength >= 23.5 && FootLength < 24) {
+    shoeSize = '37';
+  } else if (FootLength >= 24 && FootLength < 24.5) {
+    shoeSize = '38';
+  } else if (FootLength >= 24.5 && FootLength < 25) {
+    shoeSize = '39';
+  } else if (FootLength >= 25 && FootLength < 25.5) {
+    shoeSize = '40';
+  } else if (FootLength >= 25.5 && FootLength < 26) {
+    shoeSize = '41';
+  } else if (FootLength >= 26 && FootLength < 26.5) {
+    shoeSize = '42';
+  } else if (FootLength >= 26.5 && FootLength < 27) {
+    shoeSize = '43';
+  } else if (FootLength >= 27) {
+    shoeSize = '44';
+  } else {
+    shoeSize = 'Invalid foot length';
+  }
       Swal.fire({
-        title: 'Your Shirt Size',
-        text: `Your size is: ${size}`,
+        title: 'Calculated Size',
+      
+        text: `Your calculated Shirt size is: ${shirtSize} and Pant size is: ${pantSize} and Shoe size is: ${shoeSize}`,
         icon: 'success',
-        confirmButtonText: 'OK',
-        width: '300px', // Set the alert size
       });
     }
 
-    window.onload = () => {
-      loadPoseNet();
+    document.getElementById('uploadImage').addEventListener('click', () => {
+      document.getElementById('imageInput').click();
+    });
 
-      document.getElementById('uploadImage').addEventListener('click', () => {
-        document.getElementById('imageInput').click();
-      });
-      document.getElementById('imageInput').addEventListener('change', handleImageUpload);
-      document.getElementById('calculateSize').addEventListener('click', calculateSize);
-      document.getElementById('manualCalculate').addEventListener('click', calculateManualSize);
-    };
+    document.getElementById('imageInput').addEventListener('change', handleImageUpload);
+    document.getElementById('startCamera').addEventListener('click', startCamera);
+    document.getElementById('calculateSize').addEventListener('click', calculateSize);
+    document.getElementById('manualCalculate').addEventListener('click', handleManualCalculate);
+
+    loadPoseNet();
   </script>
 @endsection
