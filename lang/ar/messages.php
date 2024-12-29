@@ -131,6 +131,7 @@ return [
 'AdditionalDescription'=>'وصف اضافي',
 'AddressInformation'=>'معلومات الموقع',
 'empty_wishlist' => 'المفضلة فارغة',
+'calculateYourSize'=>'احسب مقاسك',
 ];
 
 

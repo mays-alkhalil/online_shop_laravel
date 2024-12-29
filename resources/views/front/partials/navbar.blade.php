@@ -258,7 +258,10 @@
                                 <div class="navbar-nav mr-auto py-0">
                                     <a href="{{ url('/front/index') }}" class="nav-item nav-link @yield('index-active')">{{ __('messages.home') }}</a>
                                     <a href="{{ url('/front/shop') }}" class="nav-item nav-link @yield('shop-active')">{{ __('messages.shop') }}</a>
+                                    <a href="{{ url('/size-calculator') }}" class="nav-item nav-link">{{ __('messages.calculateYourSize') }}</a>
                                     <a href="{{ url('/front/contact') }}" class="nav-item nav-link @yield('contact-active')">{{ __('messages.contact') }}</a>
+                                    <!-- Add the new size calculation link -->
+                                 
                                 </div>
                                 <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
                                     <!-- Wishlist Icon -->
@@ -270,7 +273,7 @@
                                         <br>
                                         <small class="d-block text-center" style="font-size: 12px; color:#713030;margin-right:15px;">{{ __('messages.wishlist') }}</small>
                                     </a>
-                    
+                            
                                     <!-- Cart Icon -->
                                     <a href="{{ url('/front/cart') }}" class="btn px-0 ml-3">
                                         <i class="fas fa-shopping-cart text-primary"></i>
@@ -280,7 +283,7 @@
                                         <br>
                                         <small class="d-block text-center" style="font-size: 12px; color:#713030; margin-right:15px;">{{ __('messages.cart') }}</small>
                                     </a>
-                    
+                            
                                     <!-- User Icon with Dropdown -->
                                     <a href="#" class="btn px-0 ml-3 position-relative" id="userIcon">
                                         <i class="fas fa-user text-primary"></i> <!-- User Icon -->
@@ -301,6 +304,7 @@
                                     </a>
                                 </div>
                             </div>
+                            
                         </nav>
                     </div>
                 </div>

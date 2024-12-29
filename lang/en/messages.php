@@ -142,5 +142,6 @@ return [
 'AddressInformation'=>'Address Information ',
 'AdditionalDescription'=>' Additional Description',
 'empty_wishlist'=>'Your Wishlist is empty',
+'calculateYourSize'=>'calculate your size',
 
 ];
