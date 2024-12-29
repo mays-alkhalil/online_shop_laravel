@@ -251,9 +251,6 @@
       const uploadedImage = document.getElementById('uploadedImage');
       let pose;
 
-    //   if (video.style.display === 'block') {
-    //     pose = await net.estimateSinglePose(video, { flipHorizontal: false });
-    //   } else 
       if (uploadedImage.style.display === 'block') {
         const img = new Image();
         img.src = uploadedImage.src;
@@ -272,17 +269,17 @@
         resultDiv.textContent = 'Could not detect keypoints. Please make sure you are visible and try again.';
         return;
       }
-      let leftFoot = { position: { x: 25 } }; // قم بتغيير القيم حسب الحالة
-let rightFoot = { position: { x: 30 } }; // قم بتغيير القيم حسب الحالة
 
       const shoulderWidth = Math.abs(leftShoulder.position.x - rightShoulder.position.x);
       const waistWidth = Math.abs(leftHip.position.x - rightHip.position.x);
-      const footLength = Math.abs(leftFoot.position.x - rightFoot.position.x); // افترضنا أن لديك متغير لحساب طول القدم
       
 
       let shirtSize = '';
 let pantSize = '';
-let shoeSize = '';
+// if (shoulderWidth === undefined || waistWidth === undefined) {
+//   shirtSize = 'Undefined';  // الشيرت غير معرف
+//   pantSize = 'Undefined';   // البانت غير معرف
+// }else {
 if (shoulderWidth > 60.5 && waistWidth > 37) {
   shirtSize = 'Large (L)';
 } else if (shoulderWidth > 58.5 && waistWidth > 34) {
@@ -304,16 +301,7 @@ if (waistWidth > 37) {
   pantSize = 'Undefined'; // إذا كانت القياسات غير كافية
 }
 
-// تحديد حجم الـ Shoes
-if (footLength > 27) {
-  shoeSize = 'Large (L)';
-} else if (footLength > 24) {
-  shoeSize = 'Medium (M)';
-} else if (footLength <= 24) {
-  shoeSize = 'Small (S)';
-} else {
-  shoeSize = 'Undefined'; // إذا كانت القياسات غير كافية
-}
+
 
 
 
@@ -322,7 +310,7 @@ if (footLength > 27) {
         text: `Based on your image, your estimated sizes are:
   Shirt: ${shirtSize}
   Pants: ${pantSize}
-  Shoes: ${shoeSize}`,
+  `,
           icon: 'success',
       });
     }
