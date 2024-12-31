@@ -119,7 +119,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     </script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+<script>
+    // تحميل الأنيميشن الأول
+    const animationOne = lottie.loadAnimation({
+        container: document.getElementById('animationOne'), // العنصر الهدف
+        renderer: 'svg',
+        loop: false,
+        autoplay: true,
+        path: '/front-assets/animations/lDJTO0WlTQ.json', // مسار ملف JSON الخاص بالأنيميشن الأول
+        speed: 0.9 // تقليل السرعة إلى 50% (يمكنك تعديل هذه القيمة حسب الحاجة)
+    });
 
+    // عند انتهاء الأنيميشن الأول، قم بتشغيل الثاني بسلاسة
+    animationOne.addEventListener('complete', () => {
+        // إخفاء الأنيميشن الأول تدريجيًا (اختياري)
+        document.getElementById('animationOne').style.opacity = '0';
+
+        // بعد مهلة قصيرة، عرض الأنيميشن الثاني بسلاسة
+        setTimeout(() => {
+            const animationTwoElement = document.getElementById('animationTwo');
+            animationTwoElement.style.opacity = '1'; // اجعل الأنيميشن الثاني مرئيًا
+
+            // تحميل الأنيميشن الثاني
+            lottie.loadAnimation({
+                container: animationTwoElement, // العنصر الهدف
+                renderer: 'svg',
+                loop: false,
+                autoplay: true,
+                path: '/front-assets/animations/sBt67xgwkC.json', // مسار ملف JSON الخاص بالأنيميشن الثاني
+                // speed: 0.5 // تقليل السرعة إلى 50% (يمكنك تعديل هذه القيمة حسب الحاجة)
+            });
+        }, 1000); // مهلة للتأثير التدريجي، يمكن زيادتها لتبطئة العرض
+    });
+</script>
 {{--  add to wish list and cart--}}
 <script>
 function toggleWishlist(event, productId) {

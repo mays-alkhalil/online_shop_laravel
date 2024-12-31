@@ -25,7 +25,7 @@
                             <tr>
                                 <th>Order ID</th>
                                 <th>Total Price</th>
-                                <th>Items Count</th>
+                                {{-- <th>Items Count</th> --}}
                                 <th>Payment Method</th>
                                 <th>Address</th>
                             </tr>
@@ -41,7 +41,7 @@
                                         ${{ number_format($order->total_amount, 2) }}
                                     @endif
                                 </td>
-                                <td class="align-middle">{{ $order->items_count }}</td>
+                                {{-- <td class="align-middle">{{ $order->items_count }}</td> --}}
                                 <td class="align-middle">{{ $order->payment_method }}</td>
                                 <td class="align-middle">{{ $order->address }}</td>
                             </tr>

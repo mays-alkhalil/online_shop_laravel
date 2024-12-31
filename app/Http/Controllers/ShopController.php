@@ -66,39 +66,69 @@ class ShopController extends Controller
             // تحميل الصفحة مع الفلاتر
             return view('front.shop', compact('products'));
         }
+// public function filter(Request $request)
+// {
+//     // التحقق من الفلاتر
+//     $categories = $request->input('categories');
+//     $colors = $request->input('colors');
+//     $sizes = $request->input('sizes');
+    
+//     // تحقق من البيانات
+//     // dd($categories, $colors, $sizes); // سيعرض القيم التي تم إرسالها في الـ request
+
+//     // إذا كانت الفلاتر موجودة، نقوم بالفلترة
+//     $products = Product::query();
+
+//     if (!empty($categories)) {
+//         $products->whereIn('category_id', $categories);
+//     }
+
+//     if (!empty($colors)) {
+//         $products->whereIn('color', $colors);
+//     }
+
+//     if (!empty($sizes)) {
+//         $products->whereIn('size', $sizes);
+//     }
+
+//     // جلب المنتجات المفلترة
+//     $products = $products->get();
+
+//     return view('front.shop', compact('products'));
+// }
+                
+                
+    
 public function filter(Request $request)
 {
-    // التحقق من الفلاتر
-    $categories = $request->input('categories');
-    $colors = $request->input('colors');
-    $sizes = $request->input('sizes');
-    
-    // تحقق من البيانات
-    // dd($categories, $colors, $sizes); // سيعرض القيم التي تم إرسالها في الـ request
+    $query = Product::query();
 
-    // إذا كانت الفلاتر موجودة، نقوم بالفلترة
-    $products = Product::query();
-
-    if (!empty($categories)) {
-        $products->whereIn('category_id', $categories);
+    // فلترة حسب المتجر
+    if ($request->has('stores')) {
+        $query->whereIn('store_id', $request->stores);
     }
 
-    if (!empty($colors)) {
-        $products->whereIn('color', $colors);
+    // فلترة حسب الفئة
+    if ($request->has('categories')) {
+        $query->whereIn('category_id', $request->categories);
     }
 
-    if (!empty($sizes)) {
-        $products->whereIn('size', $sizes);
+    // فلترة حسب اللون
+    if ($request->has('colors')) {
+        $query->whereIn('color', $request->colors);
     }
 
-    // جلب المنتجات المفلترة
-    $products = $products->get();
+    // فلترة حسب الحجم
+    if ($request->has('sizes')) {
+        $query->whereIn('size', $request->sizes);
+    }
 
-    return view('front.shop', compact('products'));
+    // الحصول على المنتجات بناءً على الفلاتر
+    $products = $query->get();
+
+    // عرض النتائج في نفس الصفحة (HTML فقط)
+    return view('front.product-list', compact('products'));
 }
-                
-                
-    
 
     // public function show(Request $request)
     // {

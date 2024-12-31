@@ -341,6 +341,7 @@ Route::get('/{path}', function () {
 })->where('path', '.*');
 
 
+Route::get('/shop/filter', [ShopController::class, 'filter'])->name('shop.filter');
 
 
 

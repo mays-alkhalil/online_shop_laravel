@@ -58,11 +58,11 @@
                             <h6 class="text-muted ml-2"><del>${{ number_format($product->old_price, 2) }}</del></h6>
                         @endif
                     </div>
-                    <div class="d-flex align-items-center justify-content-center mb-1">
+                    {{-- <div class="d-flex align-items-center justify-content-center mb-1">
                         @for($i = 0; $i < 5; $i++)
                             <small class="fa fa-star {{ $i < floor($product->averageRating()) ? 'text-primary' : '' }} mr-1"></small>
                         @endfor
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
