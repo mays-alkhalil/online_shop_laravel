@@ -4,25 +4,27 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\FrontStoreController;
 use App\Http\Controllers\FrontCategoryController;
-
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FilterController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
-
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
 use App\Http\Livewire\SearchProducts;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\SizeCalculatorController;
 
 
-// web.php
-Route::get('/front/index', [WishlistController::class, 'showWishlistAndCart']);
 
 
+// ------------------------------------------
+// المسارات الخاصة بالصفحات الأمامية (Front Routes)
+// ------------------------------------------
+
+// language
 Route::get('/set-locale/{locale}', function ($locale) {
     if (in_array($locale, ['en', 'ar'])) {
         // حفظ اللغة في الجلسة
@@ -38,42 +40,8 @@ Route::get('/set-locale/{locale}', function ($locale) {
 
 
 
-
-Route::get('/category/{id}', [FrontCategoryController::class, 'show'])->name('category.show');
-Route::get('/store/{id}', [FrontCategoryController::class, 'showStoresProducts'])->name('store.show');
-
-
-
-
-// عرض صفحة المتجر الرئيسية
-Route::get('/front/shop', [ShopController::class, 'Shopindex'])->name('front.shop.index');
-Route::get('/shop/filter', [ShopController::class, 'filter'])->name('front.shop.filter');
-
-// // تصفية المنتجات
-// Route::post('/front/shop', [ShopController::class, 'filterProducts'])->name('shop.filter');
-
-// // عرض الفلاتر
-// Route::get('/front/shop/filters', [FilterController::class, 'showFilters'])->name('front.shop.filters');
-
-// // عرض المنتجات بعد التصفية (تُستخدم Middleware للمشاركة بين المتاجر)
-// Route::middleware(['share.stores'])->get('/front/shop', [FilterController::class, 'showProducts']);
-
-// // عرض صفحة المتجر بواسطة FilterController (إذا لزم الأمر فقط)
-// Route::get('/front/shop', [FilterController::class, 'showShop'])->name('front.shop');
-
-// // عرض منتج معين
-// Route::get('/front/product/{id}', [ProductController::class, 'showProduct'])->name('product.show');
-
-// // عرض المنتجات في واجهة المستخدم (إذا كانت مطلوبة بشكل منفصل)
-// Route::get('/front/shop', [ProductController::class, 'indexFront'])->name('front.shop.products');
-
-// // عرض العناصر الخاصة بطلب معين
-Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('front.order-items');
-Route::get('/front/orders', [OrderController::class, 'orderHistory'])->name('front.orders');
-
-
-// Route::get('/front/order', [OrderController::class, 'orderHistory'])->name('front.order');
-
+// ---------------------------------------------------------
+// login and logout and register
 Route::get('/logout', function () {
     Auth::logout(); // تسجيل الخروج
     session()->invalidate(); // تدمير الجلسة
@@ -82,115 +50,113 @@ Route::get('/logout', function () {
 })->name('logout');
 Route::get('/admin/dashboard', [LoginController::class, 'authenticated'])->name('admin.dashboard');
 
-Route::get('/front/checkout', [CheckoutController::class, 'index'])->name('front.checkout.index');
-Route::post('/front/checkout', [CheckoutController::class, 'store'])->name('front.checkout');
-// Route for checkout (POST method)
-// Route::post('/front/checkout', [CheckoutController::class, 'store'])->name('front.checkout');
-// Route::resource('front/checkout', CheckoutController::class)->only(['index', 'store']);
-// Route for the thanks page (GET method)
-Route::get('/front/thanks', [CheckoutController::class, 'showThanksPage'])->name('front.thanks');
 
 
-Route::patch('/front/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
-Route::delete('/front/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-
-// عرض صفحة الطلبات
-// Route::get('/front/orders', [OrderController::class, 'index'])->name('front.orders');
-
-// Route::view('/front/index','front.index');
-// Route::view('/','welcome');
-// Route::view('/front/shop','front.shop');
-// Route::view('/front/details','front.details');
-Route::view('/front/contact','front.contact');
-// Route::view('/front/cart','front.cart');
-// // Route::view('/front/checkout','front.checkout');
-// Route::view('/front/wishlist','front.wishlist');
-// Route::view('/front/profile','front.profile');
-// Route::view('/front/login','front.login');
-// Route::view('/front/register','front.register');
-Route::view('/front/orders','front.orders');
-Route::view('/front/order-items','front.order-items');
-Route::view('/front/coupons','front.coupons');
-Route::view('/front/points','front.points');
 
 
-// Route::get('/front/shop', [FrontStoreController::class, 'ShopStore'])->name('front.shop');
 
-// Route::get('/front/index', [FrontStoreController::class, 'showStores'])->name('front.partials.navbar');
 
+
+
+// -----------------------------------------------------------
+// categoyy
+Route::get('/category/{id}', [FrontCategoryController::class, 'show'])->name('category.show');
+Route::get('/store/{id}', [FrontCategoryController::class, 'showStoresProducts'])->name('store.show');
 Route::get('/front/navbar', [FrontCategoryController::class, 'showCategoriesInNavbar'])->name('front.activeCategories');
 
-// Route::get('/front/index', [FrontCategoryController::class, 'index'])->name('front.index');
 
 
-// Route::get('/front/index', [FrontStoreController::class, 'getStores'])->name('front.activeStores');
+// -----------------------------------------------------------
+// shop
+Route::get('/front/shop', [ShopController::class, 'Shopindex'])->name('front.shop.index');
+Route::get('/shop/filter', [ShopController::class, 'filter'])->name('front.shop.filter');
 
+
+
+
+
+// -------------------------------------------------------------
+// products
 
 Route::get('/front/index', [ProductController::class, 'indexProduct'])->name('front.index');
-
-// Route::get('/stores', [StoreController::class, 'getStores']);
 Route::get('/shop', [ProductController::class, 'shop']);
-
-
-
-
-// Route::get('/front/shop', [FilterController::class, 'showFilters'])->name('front.shop');
-
-
-
 Route::get('/front/products/{id}', [ProductController::class, 'showRelatedProducts'])->name('products.show');
-// إضافة منتج إلى قائمة الرغبات
-Route::get('/wishlist/add/{id}', [WishlistController::class, 'add'])->name('wishlist.add');
-Route::get('/front/wishlist', [WishlistController::class, 'index'])->name('front.wishlist');
-Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
-
-// إضافة منتج إلى السلة
-Route::get('/front/cart', [CartController::class, 'showCart'])->name('front.cart');
-
-Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
-// Route::post('/cart/update', [CartController::class, 'updateQuantity'])->name('cart.update');
-// Route::delete('cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
-
 Route::get('front/details/{id}', [ProductController::class, 'show'])->name('front.details.show');
 Route::post('/product/{product}/review', [ProductController::class, 'storeReview'])->name('product.review');
 
-// عرض النموذج
+
+
+// -----------------------------------------------------------
+// orders
+
+Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('front.order-items');
+Route::get('/front/orders', [OrderController::class, 'orderHistory'])->name('front.orders');
+
+
+
+
+
+// -----------------------------------------------------------
+// checkout
+
+Route::get('/front/checkout', [CheckoutController::class, 'index'])->name('front.checkout.index');
+Route::post('/front/checkout', [CheckoutController::class, 'store'])->name('front.checkout');
+Route::get('/front/thanks', [CheckoutController::class, 'showThanksPage'])->name('front.thanks');
+
+
+// -----------------------------------------------------------
+// cart
+
+Route::patch('/front/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
+Route::delete('/front/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+// إضافة منتج إلى السلة
+Route::get('/front/cart', [CartController::class, 'showCart'])->name('front.cart');
+Route::get('/cart/add/{id}', [CartController::class, 'add'])->name('cart.add');
+
+
+// -------------------------------------------------------
+// wishlist
+
+Route::get('/wishlist/add/{id}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::get('/front/wishlist', [WishlistController::class, 'index'])->name('front.wishlist');
+Route::delete('/wishlist/remove/{id}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/front/index', [WishlistController::class, 'showWishlistAndCart']);
+
+
+
+// -------------------------------------------------------------------------------------
+// profile
+
 Route::get('/profile', [ProfileController::class, 'edit'])->name('personal.info');
-
-// تحديث البيانات
-
-// عرض ملف التعريف
-// عرض صفحة الملف الشخصي
 Route::get('/front/profile', [ProfileController::class, 'edit'])->name('front.profile');
-
-// تحديث بيانات الملف الشخصي
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-// Route::get('/front/shop', [ShopController::class, 'index'])->name('front.shop');
-// Route::get('/checkout', [CheckoutController::class, 'index'])->name('front.checkout');
-Route::get('/admin/contact', [ContactController::class, 'index'])->name('front.contact');
 
 
-// Route::get('/', function () {
-//     // جلب عدد العناصر في الويش ليست والكارت
-//     $wishlistCount = (new WishlistController)->countWishlist();
-//     $cartCount = (new CartController)->countCart();
-
-//     // تمرير الأعداد إلى الـ view
-//     return view('front.patials.navbar', compact('wishlistCount', 'cartCount'));
-// });
-
+// -------------------------------------------------------------------------------------
+// coupon
 
 Route::get('/front/coupons', [CouponController::class, 'indexFront'])->name('front.coupons');
 
 
 
 
+// ------------------------------------------------------------------------------------
+// size calcuater
+
+Route::get('/size-calculator', [SizeCalculatorController::class, 'index']);
 
 
 
 
 
 
+// ------------------------------------------
+// view pages
+Route::view('/front/contact','front.contact');
+Route::view('/front/orders','front.orders');
+Route::view('/front/order-items','front.order-items');
+Route::view('/front/coupons','front.coupons');
+Route::view('/front/points','front.points');
 
 
 
@@ -212,19 +178,10 @@ Route::get('/front/coupons', [CouponController::class, 'indexFront'])->name('fro
 
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserController;
-// use App\Http\Controllers\OrderController;
-// use App\Http\Controllers\StoreController;
-// use App\Http\Controllers\CouponController;
-// use App\Http\Controllers\ContactController;
-
-// use App\Http\Controllers\ProductController;
-
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\SizeCalculatorController;
 
-Route::get('/size-calculator', [SizeCalculatorController::class, 'index']);
 
 
 Route::post('/front/apply-coupon', [CouponController::class, 'applyCoupon'])->name('front.applyCoupon');
@@ -302,6 +259,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Corrected the delete route
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy'])->name('contacts.destroy');
 });
+Route::get('/admin/contact', [ContactController::class, 'index'])->name('front.contact');
 
 
 // كوبونات
@@ -322,18 +280,6 @@ Route::prefix('admin')->group(function () {
 
 
 
-// Route::get('/image/{path}', function ($path) {
-//     $path = storage_path('app/public/' . $path);
-
-//     // تحقق مما إذا كانت الصورة موجودة
-//     if (file_exists($path)) {
-//         return response()->file($path);
-//     }
-
-//     // إذا لم تكن الصورة موجودة، عرض صورة 404 مخصصة من resources/views
-//     $errorImagePath = resource_path('views/error404.jpg'); // المسار إلى صورة الخطأ في resources/views
-//     return response()->file($errorImagePath);
-// })->where('path', '.*');
 
 Route::get('/{path}', function () {
     // إرجاع صفحة الخطأ باستخدام Blade
@@ -341,7 +287,6 @@ Route::get('/{path}', function () {
 })->where('path', '.*');
 
 
-Route::get('/shop/filter', [ShopController::class, 'filter'])->name('shop.filter');
 
 
 

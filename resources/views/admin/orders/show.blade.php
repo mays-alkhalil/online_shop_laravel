@@ -10,7 +10,7 @@
             <h5>Order #{{ $order->id }}</h5>
             <p>User: {{ $order->user->name }}</p>
             <p>Status: {{ $order->status }}</p>
-            <p>Total Amount: ${{ $order->total_amount }}</p>
+            <p>Total Amount: {{ $order->total_amount }} JOD</p>
         </div>
         <div class="card-body">
             <h5>Items:</h5>

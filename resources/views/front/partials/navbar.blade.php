@@ -294,7 +294,7 @@
                                             @if(Auth::check()) <!-- If user is logged in -->
                                                 <a class="dropdown-item" href="{{ url('/profile') }}">{{ __('messages.myProfile') }}</a>
                                                 <a class="dropdown-item" href="{{ url('/front/orders') }}">{{ __('messages.myOrders') }}</a>
-                                                <a class="dropdown-item" href="{{ url('/front/coupons') }}">{{ __('messages.myCoupons') }}</a>
+                                                {{-- <a class="dropdown-item" href="{{ url('/front/coupons') }}">{{ __('messages.myCoupons') }}</a> --}}
                                                 <a class="dropdown-item" href="{{ route('logout') }}">{{ __('messages.logout') }}</a>
                                             @else <!-- If user is not logged in -->
                                                 <a class="dropdown-item" href="{{ url('/login') }}">{{ __('messages.login') }}</a>

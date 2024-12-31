@@ -12,11 +12,21 @@ class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        $orders = Order::paginate(10); // Or whatever pagination logic you are using
-        $order = $orders->first(); // Get the first order, or any logic to select an order
+        // إضافة منطق البحث إذا كان موجودًا
+        $orders = Order::query();
     
-        return view('admin.orders.index', compact('orders', 'order'));
+        if ($request->has('search')) {
+            $orders = $orders->where('status', 'like', '%'.$request->search.'%')
+                             ->orWhereHas('user', function($query) use ($request) {
+                                 $query->where('name', 'like', '%'.$request->search.'%');
+                             });
+        }
+    
+        $orders = $orders->paginate(10);
+    
+        return view('admin.orders.index', compact('orders'));
     }
+    
     
 
     public function show($id)
@@ -35,11 +45,13 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+
+        
         $order = Order::create([
             'user_id' => $request->user_id,
             'status' => $request->status,
 
-            'total_amount' => $request->total_amount, // سيتم حسابه لاحقًا
+            'total_amount' => 0, // سيتم حسابه لاحقًا
         ]);
         
 
@@ -63,7 +75,6 @@ class OrderController extends Controller
         }
 
         $order->update(['total_amount' => $total_amount - $discountAmount]);
-
         return redirect()->route('admin.orders.index')->with('success', 'Order created successfully.');
     }
 
@@ -87,10 +98,7 @@ class OrderController extends Controller
             return redirect()->route('admin.orders.index')->with('error', 'Invalid or expired coupon.');
         }
     
-        // التحقق من تاريخ انتهاء صلاحية الكوبون
-        // if ($coupon->expires_at && Carbon::parse($coupon->expires_at)->isBefore(Carbon::now())) {
-        //     return redirect()->route('admin.orders.index')->with('error', 'Coupon has expired.');
-        // }
+    
     
         // الحصول على قيمة الخصم من الكوبون
         $discount = $coupon->discount;
@@ -123,30 +131,10 @@ class OrderController extends Controller
     {
         return view('front.thanks');
 
-        // // الحصول على بيانات الطلب من جدول orders بناءً على user_id أو طريقة أخرى
-        // $order = Order::where('user_id', auth()->id())->latest()->first();  // هذا يفترض أنك تجلب آخر طلب للمستخدم الحالي
-        
-        // // التحقق إذا كان هناك طلب
-        
-        //     $orderId = $order->id; // جلب order_id من الجدول
-            // return view('front.thanks', compact('orderId'));  // تمرير order_id إلى الـ view
-        
-    
+  
     }
     
 
-    // public function orderHistory()
-    // {
-    //     // تحقق من معرف المستخدم
-    //     $userId = auth()->id();
-    //     \Log::info('User ID: ' . $userId); // تسجيل المعرف في الـ log
-    
-    //     // جلب جميع الطلبات الخاصة بالمستخدم
-    //     $orders = Order::where('user_id', $userId)->get();
-    
-    //     // إرسال المتغير إلى الـ View
-    //     return view('front.orders', compact('orders'));
-    // }
 
     public function showOrderItems($orderId)
     {
@@ -159,3 +147,63 @@ class OrderController extends Controller
     
                     
 }
+
+
+
+
+
+
+// app/Http/Controllers/Admin/OrderController.php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\OrderItem;
+use Illuminate\Http\Request;
+
+class OrderController extends Controller
+{
+    public function index(Request $request)
+    {
+        $orders = Order::with('user')->paginate(10);
+        
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $orders = Order::where('status', 'like', "%$search%")
+                ->orWhere('user_id', 'like', "%$search%")
+                ->paginate(10);
+        }
+
+        return view('admin.orders.index', compact('orders'));
+    }
+
+    public function show($id)
+    {
+        $order = Order::with('orderItems.product')->findOrFail($id);
+        return view('admin.orders.show', compact('order'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::findOrFail($id);
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Order status updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        $order->delete();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully');
+    }
+
+    public function applyCoupon(Request $request)
+    {
+        // Add coupon application logic
+    }
+}
+

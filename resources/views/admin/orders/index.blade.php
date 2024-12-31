@@ -79,12 +79,12 @@
                             <td>{{ $order->status }}</td>
                             <td>{{ $order->delivery_method == 'delivery' ? 'Delivery' : 'Pickup' }}</td>
                             <td>
-                                @if($order->total_amount < $order->original_amount) 
+                                {{-- @if($order->total_amount < $order->original_amount) 
                                     <span style="text-decoration: line-through;">${{ $order->original_amount }}</span>
                                     <span style="color: red;">${{ $order->total_amount }}</span>
-                                @else
-                                    ${{ $order->total_amount }}
-                                @endif
+                                @else --}}
+                                    {{ $order->total_amount }} JOD
+                                {{-- @endif --}}
                             </td>
                             <td>{{ $order->items->sum('quantity') }}</td>
                             <td>

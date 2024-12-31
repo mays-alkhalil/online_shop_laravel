@@ -12,7 +12,7 @@
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">{{ __('messages.quick_shop') }}</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="{{ route('front.index') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.home') }}</a>
+                        {{-- <a class="text-secondary mb-2" href="{{ route('front.index') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.home') }}</a> --}}
                         <a class="text-secondary mb-2" href="{{ route('front.cart') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.shopping_cart') }}</a>
                         <a class="text-secondary mb-2" href="{{ route('front.checkout') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.checkout') }}</a>
                         <a class="text-secondary" href="{{ route('front.contact') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.contact_us') }}</a>
@@ -21,7 +21,7 @@
                 <div class="col-md-4 mb-5">
                     <h5 class="text-secondary text-uppercase mb-4">{{ __('messages.my_account') }}</h5>
                     <div class="d-flex flex-column justify-content-start">
-                        <a class="text-secondary mb-2" href="{{ route('front.index') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.home') }}</a>
+                        {{-- <a class="text-secondary mb-2" href="{{ route('front.index') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.home') }}</a> --}}
                         <a class="text-secondary mb-2" href="{{ route('front.profile') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.my_profile') }}</a>
                         <a class="text-secondary mb-2" href="{{ route('front.wishlist') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.my_wishlist') }}</a>
                         <a class="text-secondary mb-2" href="{{ route('front.cart') }}"><i class="fa fa-angle-right mr-2"></i>{{ __('messages.my_cart') }}</a>

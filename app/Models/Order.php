@@ -11,7 +11,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'status', 'total_amount', // الحقول التي تريد تعديلها
+        'user_id', 'status', 'total_amount','payment_method', 'order_date', 'coupon_id', 'discounted_amount', 'address', 'phone_number', 'cvv' // الحقول التي تريد تعديلها
     ];
 
    // في موديل Order

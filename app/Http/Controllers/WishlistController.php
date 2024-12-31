@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Wishlist;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Cart;
 
 
 class WishlistController extends Controller
