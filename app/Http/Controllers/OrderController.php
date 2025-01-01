@@ -27,7 +27,8 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
     
-    
+   
+
 
     public function show($id)
     {
@@ -145,7 +146,18 @@ class OrderController extends Controller
         return view('front.order-items', compact('order'));
     }
     
-                    
+    public function orderHistory()
+    {
+        // الحصول على المستخدم الحالي
+        $user = auth()->user();
+        
+        // استرجاع الأوردرات الخاصة بالمستخدم فقط
+        $orderss = $user->orders;
+    
+        // إرسال الأوردرات إلى الـ View
+        return view('front.orders', compact('orderss'));
+    }
+              
 }
 
 
@@ -155,55 +167,55 @@ class OrderController extends Controller
 
 // app/Http/Controllers/Admin/OrderController.php
 
-namespace App\Http\Controllers\Admin;
+// namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Models\OrderItem;
-use Illuminate\Http\Request;
+// use App\Http\Controllers\Controller;
+// use App\Models\Order;
+// use App\Models\OrderItem;
+// use Illuminate\Http\Request;
 
-class OrderController extends Controller
-{
-    public function index(Request $request)
-    {
-        $orders = Order::with('user')->paginate(10);
+// class OrderController extends Controller
+// {
+//     public function index(Request $request)
+//     {
+//         $orders = Order::with('user')->paginate(10);
         
-        if ($request->has('search')) {
-            $search = $request->input('search');
-            $orders = Order::where('status', 'like', "%$search%")
-                ->orWhere('user_id', 'like', "%$search%")
-                ->paginate(10);
-        }
+//         if ($request->has('search')) {
+//             $search = $request->input('search');
+//             $orders = Order::where('status', 'like', "%$search%")
+//                 ->orWhere('user_id', 'like', "%$search%")
+//                 ->paginate(10);
+//         }
 
-        return view('admin.orders.index', compact('orders'));
-    }
+//         return view('admin.orders.index', compact('orders'));
+//     }
 
-    public function show($id)
-    {
-        $order = Order::with('orderItems.product')->findOrFail($id);
-        return view('admin.orders.show', compact('order'));
-    }
+//     public function show($id)
+//     {
+//         $order = Order::with('orderItems.product')->findOrFail($id);
+//         return view('admin.orders.show', compact('order'));
+//     }
 
-    public function updateStatus(Request $request, $id)
-    {
-        $order = Order::findOrFail($id);
-        $order->status = $request->status;
-        $order->save();
+//     public function updateStatus(Request $request, $id)
+//     {
+//         $order = Order::findOrFail($id);
+//         $order->status = $request->status;
+//         $order->save();
 
-        return redirect()->route('admin.orders.index')->with('success', 'Order status updated successfully');
-    }
+//         return redirect()->route('admin.orders.index')->with('success', 'Order status updated successfully');
+//     }
 
-    public function destroy($id)
-    {
-        $order = Order::findOrFail($id);
-        $order->delete();
+//     public function destroy($id)
+//     {
+//         $order = Order::findOrFail($id);
+//         $order->delete();
 
-        return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully');
-    }
+//         return redirect()->route('admin.orders.index')->with('success', 'Order deleted successfully');
+//     }
 
-    public function applyCoupon(Request $request)
-    {
-        // Add coupon application logic
-    }
-}
+//     public function applyCoupon(Request $request)
+//     {
+//         // Add coupon application logic
+//     }
+// }
 

@@ -63,10 +63,7 @@ class CartController extends Controller
             $cartItem->quantity = $request->quantity;
             $cartItem->save();
     
-            // حساب المجموع الفرعي والإجمالي
-            // $subtotal = Cart::sum(function($item) { return $item->product->price * $item->quantity; });
-            // $total = $subtotal + 10; // إضافة تكلفة الشحن
-    
+            
             return redirect()->route('front.cart');
            
         

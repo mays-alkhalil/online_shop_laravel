@@ -2,8 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -13,7 +14,7 @@ class CheckoutController extends Controller
         if (auth()->check()) {
             $user = auth()->user();
         } else {
-            $user = User::find(3); // إذا لم يكن المستخدم مسجلاً
+            $user = User::find(3); 
         }
 
         $cartItems = Cart::where('user_id', $user->id)->get();
@@ -29,7 +30,6 @@ class CheckoutController extends Controller
 
     public function store(Request $request)
     {  $user = auth()->user(); 
-        // تأكد من أن البيانات التي سيتم حفظها هي فقط التي تريدها
         $order = new Order();
         $order->user_id = auth()->id();
         $order->address = $request->address;
@@ -40,14 +40,27 @@ class CheckoutController extends Controller
     
         // حفظ الطلب
         $order->save();
-        $user->cart()->delete();
+                // جلب العناصر من عربة التسوق الخاصة بالمستخدم
+            $cartItems = $user->cart;
 
-        // إعادة توجيه إلى صفحة الشكر
-        return redirect()->route('front.thanks'); // تأكد من أنك قد عرفت هذه الصفحة
+            foreach ($cartItems as $item) {
+                // إنشاء سجل جديد في order_items
+                $orderItem = new OrderItem();
+                $orderItem->order_id = $order->id; // ربط العنصر بالطلب
+                $orderItem->product_id = $item->product_id; // معرف المنتج
+                $orderItem->quantity = $item->quantity; // الكمية
+                $orderItem->unit_price = $item->product->price; // سعر الوحدة
+                $orderItem->total_price = $item->quantity * $item->product->price; // السعر الإجمالي
+                $orderItem->save();
+            }
+
+                $user->cart()->delete();
+
+                return redirect()->route('front.thanks'); 
     }
 
     public function showThanksPage(){
-        return view('front.thanks'); // تأكد من أنك قد عرفت هذه الصفحة
+        return view('front.thanks'); 
 
     }
     }

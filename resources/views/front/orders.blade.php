@@ -1,6 +1,6 @@
 @extends('front.master')
 
-@section('order-history-active','active') <!-- يمكن تعديل الكلاس لتحديد الصفحة النشطة في الـ Navigation -->
+@section('order-history-active','active') 
 
 @section('title','Order History')
 
@@ -19,15 +19,18 @@
                     <strong>No orders found!</strong> You haven't placed any orders yet.
                 </h1>
             @else
+              
+
                 <div class="table-responsive mb-5">
                     <table class="table table-light table-borderless table-hover text-center mb-0">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Order ID</th>
                                 <th>Total Price</th>
-                                {{-- <th>Items Count</th> --}}
+                                <th>Items Count</th>
                                 <th>Payment Method</th>
                                 <th>Address</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="align-middle">
@@ -38,21 +41,36 @@
                                     @if($order->total_amount == 0)
                                         $20.00
                                     @else
-                                        ${{ number_format($order->total_amount, 2) }}
+                                        {{ number_format($order->total_amount, 2) }} JOD
                                     @endif
                                 </td>
-                                {{-- <td class="align-middle">{{ $order->items_count }}</td> --}}
+                                <td class="align-middle">{{ $order->items->sum('quantity') }}</td>
                                 <td class="align-middle">{{ $order->payment_method }}</td>
                                 <td class="align-middle">{{ $order->address }}</td>
+                                <td class="align-middle">
+                                        <a href="{{ route('front.orders-items', $order->id) }}" class="btn btn-primary">
+                                            View Details
+                                        </a>
+                                    </td>
+                                    
+                                    
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+
+        
+
+
             @endif
         </div>
     </div>
 </div>
 <!-- Order History End -->
 
+
 @endsection
+
+

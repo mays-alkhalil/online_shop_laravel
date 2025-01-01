@@ -27,12 +27,14 @@
                         @foreach($order->orderItems as $orderItem)
                         <tr>
                             <td class="align-middle">
-                                <img src="{{ asset('storage/' . $orderItem->product->id . '.jpg') }}" alt="{{ $orderItem->product->name }}" style="width: 50px;">
+                                <!-- استخدام العلاقة بين الـ orderItem و الـ product -->
+                                <img src="{{ asset('storage/' . $orderItem->product->image) }}" alt="{{ $orderItem->product->name }}" style="width: 50px;">
                                 {{ $orderItem->product->name }}
                             </td>
+                            
                             <td class="align-middle">{{ $orderItem->quantity }}</td>
-                            <td class="align-middle">${{ number_format($orderItem->unit_price, 2) }}</td>
-                            <td class="align-middle">${{ number_format($orderItem->total_price, 2) }}</td>
+                            <td class="align-middle">{{ number_format($orderItem->unit_price, 2) }} JOD</td>
+                            <td class="align-middle">{{ number_format($orderItem->total_price, 2) }} JOD</td>
                         </tr>
                         @endforeach
                     </tbody>

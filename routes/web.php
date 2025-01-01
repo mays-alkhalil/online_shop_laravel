@@ -89,7 +89,7 @@ Route::post('/product/{product}/review', [ProductController::class, 'storeReview
 // -----------------------------------------------------------
 // orders
 
-Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('front.order-items');
+Route::get('/front/order-items/{order_id}', [OrderController::class, 'showOrderItems'])->name('front.orders-items');
 Route::get('/front/orders', [OrderController::class, 'orderHistory'])->name('front.orders');
 
 

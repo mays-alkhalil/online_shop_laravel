@@ -7,6 +7,6 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard'); // تأكد من أن هذه الـ view موجودة أيضًا
+        return view('admin.dashboard'); 
     }
 }

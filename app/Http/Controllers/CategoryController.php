@@ -11,26 +11,30 @@ use App\Http\Requests\CategoryFormRequest;
 
 class CategoryController extends Controller
 {
-    public function products()
-{
-    return $this->hasMany(Product::class);
-}
+//     public function products()
+// {
+//     return $this->hasMany(Product::class);
+// }
 
 public function index(Request $request)
 {
-    $search = $request->input('search');  // الحصول على قيمة البحث إن وُجدت
 
-    // استخدام paginate مع دعم البحث إذا كان هناك
+    // search category
+    $search = $request->input('search'); 
     $categories = Category::when($search, function ($query, $search) {
         return $query->where('name', 'like', '%' . $search . '%');
     })
-    ->paginate(5);  // يمكن تغيير 10 إلى العدد الذي تريده لكل صفحة
+    ->paginate(5);  
 
     return view('admin.category.index', compact('categories'));
 }
     public function create(){
-        return view('admin.category.create'); // عرض الصفحة المرتبطة
+        return view('admin.category.create'); 
     }
+
+    
+// CategoryFormRequest هو طلب مخصص (Form Request) يتم استخدامه للتحقق من صحة البيانات (Validation) قبل تنفيذ العملية.
+// يتم التأكد من أن البيانات المستلمة متوافقة مع القواعد التي تم تعريفها في CategoryFormRequest.
 
     public function store(CategoryFormRequest $request){
        $data = $request->validated();
@@ -45,12 +49,17 @@ public function index(Request $request)
          $category->image=$filename;
 
        }
+
        $category->created_by = Auth::user()->id;
        $category->save();
        return redirect()->route('admin.category')->with('message', 'Category Added Successfully');
 
-        // return view('admin.category.create'); // عرض الصفحة المرتبطة
+      
     }
+
+
+
+
 
     public function edit($category_id){
         $category = Category::find($category_id);
@@ -69,7 +78,8 @@ public function index(Request $request)
             if($request->hasfile('image')){
                 $destination = storage_path('app/public/images/' . $category->image);
                 if(File::exists($destination)){
-            File::delete($destination);  // حذف الصورة القديمة التي كانت موجودة في المجلد uploads/categories/
+            File::delete($destination); 
+             //حذف الصورة القديمة ة /
         }
               $file = $request->file('image');
               $filename = time(). '.'. $file->getClientOriginalExtension();
@@ -81,7 +91,7 @@ public function index(Request $request)
             $category->update();
             return redirect()->route('admin.category')->with('message', 'Category updated Successfully');
      
-             // return view('admin.category.create'); // عرض الصفحة المرتبطة
+            
         
      
     }
