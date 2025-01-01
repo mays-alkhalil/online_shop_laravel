@@ -69,7 +69,7 @@ img{
         <img src="{{ asset('images/error404.jpg') }}" alt="Error 404" style="width: 40%; max-width: 600px; margin-bottom: 30px;">
         <h4>Oops! You're lost...</h4>
         <p>The page you are looking are looking for might have been moved, renamed, or might never existed.</p>
-        <!-- زر لإعادة التوجيه إلى صفحة الفاونت -->
+        <!-- زر لإعادة التوجيه إلى صفحة الفرونت -->
         <a href="{{ route('front.index') }}">
             <button class="btn btn-custom">Go to Homepage</button>
         </a>

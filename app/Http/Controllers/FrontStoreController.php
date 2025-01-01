@@ -11,7 +11,7 @@ class FrontStoreController extends Controller
     public function ShopStore()
     {
         $stores = Store::all(); // جلب جميع المتاجر من قاعدة البيانات
-        dd($stores);
+        // dd($stores);
         return view('front.shop', compact('stores')); // عرض المتاجر في الـ view
     }
 

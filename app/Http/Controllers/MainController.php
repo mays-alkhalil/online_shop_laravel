@@ -16,7 +16,7 @@ class MainController extends Controller
            'model' => 'App\Models\User',
            'group_by_field' => 'created_at',
            'group_by_period' => 'day',
-           'chart_type' => 'bar',
+           'chart_type' => 'pie',
            
        ];
        $chart1 = new LaravelChart($chart1_options);
@@ -28,10 +28,21 @@ class MainController extends Controller
            'model' => 'App\Models\Order', // اسم الموديل الخاص بالطلبات
            'group_by_field' => 'order_date',
            'group_by_period' => 'day',
-           'chart_type' => 'bar',
+           'chart_type' => 'line',
        ];
        $chart2 = new LaravelChart($chart2_options);
 
-       return view('chart', compact('chart1', 'chart2'));
+            // رسم بياني  contact
+            $chart3_options = [
+                'chart_title' => 'contacts by Day',
+                'report_type' => 'group_by_date',
+                'model' => 'App\Models\Contact', // اسم الموديل الخاص بالطلبات
+                'group_by_field' => 'created_at',
+                'group_by_period' => 'day',
+                'chart_type' => 'line',
+            ];
+            $chart3 = new LaravelChart($chart3_options);
+
+       return view('chart', compact('chart1', 'chart2','chart3'));
    }
 }

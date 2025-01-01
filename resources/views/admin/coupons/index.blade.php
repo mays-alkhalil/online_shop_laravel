@@ -57,10 +57,23 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <span class="badge {{ $coupon->is_active ? 'bg-success' : 'bg-danger' }}">
-                                {{ $coupon->is_active ? 'Active' : 'Inactive' }}
-                            </span>
+                            @if($coupon->expires_at)
+                                <?php
+                                $expiryDate = \Carbon\Carbon::parse($coupon->expires_at);
+                                $today = \Carbon\Carbon::today();
+                                ?>
+                                
+                                <!-- إذا كان تاريخ الانتهاء قبل اليوم، الكوبون غير نشط -->
+                                @if($expiryDate->isBefore($today))
+                                    <span class="badge bg-danger">Inactive</span>
+                                @else
+                                    <span class="badge bg-success">Active</span>
+                                @endif
+                            @else
+                                <span class="text-muted">No expiration date set</span>
+                            @endif
                         </td>
+                        
                         <td>
                             <!-- Trigger the modal with the delete button -->
                             <button class="btn btn-danger btn-sm deleteCouponBtn" data-id="{{ $coupon->id }}">

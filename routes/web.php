@@ -16,6 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Livewire\SearchProducts;
 use App\Http\Controllers\CouponController;
 use App\Http\Controllers\SizeCalculatorController;
+use App\Http\Controllers\FrontController;
 
 
 
@@ -146,6 +147,13 @@ Route::get('/front/coupons', [CouponController::class, 'indexFront'])->name('fro
 Route::get('/size-calculator', [SizeCalculatorController::class, 'index']);
 
 
+
+
+// -----------------------------------------
+// contact
+
+
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 
 
@@ -279,12 +287,14 @@ Route::prefix('admin')->group(function () {
 });
 
 
-
+// -------------------------------------------
+// error routes
 
 Route::get('/{path}', function () {
-    // إرجاع صفحة الخطأ باستخدام Blade
     return view('error404');
 })->where('path', '.*');
+
+Route::get('/front/index', [FrontController::class, 'index'])->name('front.index');
 
 
 

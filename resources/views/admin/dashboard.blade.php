@@ -96,7 +96,5 @@
 
 
 @endsection
-@section('scripts')
 
-@endsection
 

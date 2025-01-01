@@ -11,22 +11,7 @@ class FrontCategoryController extends Controller
 {
 
 
-    // public function showCategoriesInNavbar()
-    // {
-    //     dd('tt');
-    //     $categories = Category::select('name')->get(); 
-    //     return view('front.partials.navbar', compact('categories')); 
-    // }
-
-
-
-    // public function index(){
-    //     dd('tt');
-
-    //     $categories = Category::all();
-    //     dd($categories);
-    //     return view('front.index', compact('categories'));
-    // }
+   
     public function show($id)
     {
         // جلب الكاتيجوري بناءً على الـ ID

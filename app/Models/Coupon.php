@@ -9,12 +9,10 @@ class Coupon extends Model
 {
     use HasFactory;
 
-    // تحديد الأعمدة القابلة للتعديل
     protected $fillable = [
-        'code', 'discount', 'expiry_date', 'is_active',
+        'code', 'discount', 'expires_at', 'is_active',
     ];
 
-    // إذا كنت تستخدم تواريخ مثل expiry_date
-    protected $dates = ['expiry_date']; // تحويل هذا الحقل إلى Carbon instance
+    protected $dates = ['expires_at']; // تحويل هذا الحقل إلى Carbon instance
     
 }

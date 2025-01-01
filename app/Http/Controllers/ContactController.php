@@ -15,26 +15,29 @@ class ContactController extends Controller
         return view('admin.contacts.index', compact('contacts'));
     }
 
-    // تخزين الرسالة
+ 
     public function store(Request $request)
-    {
-        // التحقق من المدخلات
-        $validated = $request->validate([
-            'code' => 'required|unique:coupons,code',
-            'discount' => 'required|numeric',
-            'expires_at' => 'required|date',
-        ]);
-    
-        // حفظ الكوبون في قاعدة البيانات
-        Coupon::create([
-            'code' => $validated['code'],
-            'discount' => $validated['discount'],
-            'expires_at' => $validated['expires_at'],  // التأكد من إرسال expires_at
-        ]);
-    
-        // إعادة التوجيه إلى صفحة عرض الكوبونات مع رسالة نجاح
-        return redirect()->route('admin.coupons.index')->with('success', 'Coupon added successfully!');
-    }
+{
+    // التحقق من المدخلات
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'message' => 'required|string',
+    ]);
+
+    // حفظ البيانات في قاعدة البيانات
+    Contact::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'message' => $validated['message'],
+    ]);
+
+    // إعادة التوجيه مع رسالة نجاح
+    return redirect()->back()->with('success', 'Your message has been sent successfully.');
+}
+
+
+
     
    // Delete a contact message
    public function destroy($id)
@@ -53,7 +56,6 @@ class ContactController extends Controller
    }
 
 
-//    ui
 public function indexFront()
 {
     // Return the view for the contact page
