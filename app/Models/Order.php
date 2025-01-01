@@ -14,7 +14,6 @@ class Order extends Model
         'user_id', 'status', 'total_amount','payment_method', 'order_date', 'coupon_id', 'discounted_amount', 'address', 'phone_number', 'cvv' // الحقول التي تريد تعديلها
     ];
 
-   // في موديل Order
 public function items()
 {
     return $this->hasMany(OrderItem::class);
@@ -26,7 +25,6 @@ public function items()
         return $this->belongsTo(User::class);
     }
 
-    // في موديل Order
 public function getTotalAmountAttribute()
 {
     return $this->items->sum(function ($item) {

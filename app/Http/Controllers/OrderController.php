@@ -6,13 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Carbon\Carbon;
-use App\Models\Coupon; // استيراد موديل الكوبونات إذا كنت قد أنشأت موديل للكوبونات
+use App\Models\Coupon; 
 
 class OrderController extends Controller
 {
     public function index(Request $request)
     {
-        // إضافة منطق البحث إذا كان موجودًا
         $orders = Order::query();
     
         if ($request->has('search')) {
@@ -29,7 +28,7 @@ class OrderController extends Controller
     
    
 
-
+// view details
     public function show($id)
     {
         $order = Order::with('items.product')->findOrFail($id);

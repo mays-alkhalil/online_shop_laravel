@@ -12,7 +12,6 @@ class Store extends Model
     protected $fillable = ['name', 'description', 'address', 'image', 'owner_id', 'status'];
 
 
-    // علاقة المتجر مع المستخدم (المالك)
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');

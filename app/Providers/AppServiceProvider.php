@@ -32,34 +32,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // استرجاع أعلى الخصومات من المنتجات
-        $highestDiscount = Coupon::max('discount'); // افتراض أن لديك عمود خصم
+        $highestDiscount = Coupon::max('discount');
         $secondHighestDiscount = Coupon::where('discount', '<', $highestDiscount)
                                          ->max('discount');
 
         View::share('highestDiscount', $highestDiscount);
         View::share('secondHighestDiscount', $secondHighestDiscount);
 
-        // بداية الكود الذي يتعامل مع البيانات المشتركة بين الـ Views
-        
-        // جلب المنتجات مع الفلاتر (الفئة، اللون، الحجم) في نفس الاستعلام
         $productsQuery = Product::query();
     
-        // التصفية حسب الفئة
-        if ($category = request('category')) {
-            $productsQuery->where('category_id', $category);
-        }
-    
-        // التصفية حسب اللون
-        if ($color = request('color')) {
-            $productsQuery->where('color', $color);
-        }
-    
-        // التصفية حسب الحجم
-        if ($size = request('size')) {
-            $productsQuery->where('size', $size);
-        }
-    
-        // جلب المنتجات بعد تطبيق الفلاتر
+       
         $products = $productsQuery->get();
         view()->share('products', $products);
     

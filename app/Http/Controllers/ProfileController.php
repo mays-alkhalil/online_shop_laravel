@@ -1,25 +1,23 @@
 <?php
 namespace App\Http\Controllers;
 
+namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 use App\Models\User;
 
 class ProfileController extends Controller
 {
-
-
-    
-    // عرض النموذج مع البيانات الحالية
     public function edit()
     {
-        // جلب بيانات المستخدم ذو ID=3
-        $user = auth()->check() ? auth()->user() : User::find(3); // تعيين المستخدم 3 بشكل مبدئي
+        // جلب بيانات المستخدم الحالي المسجل
+        $user = auth()->user();
         
         // التأكد من وجود المستخدم
         if ($user) {
             return view('front.profile', compact('user')); // تمرير البيانات إلى الـ View
         }
-        
+
         // في حالة عدم وجود المستخدم
         return redirect()->route('front.login')->with('error', 'User not found.');
     }
@@ -27,11 +25,11 @@ class ProfileController extends Controller
     // تحديث البيانات
     public function update(Request $request)
     {
-        // التحقق من صحة البيانات
+        // التحقق من صحة البيانات المدخلة
         $request->validate([
             'name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . 3, // التحقق من تميز الإيميل مع استثناء الـ ID=3
+            'email' => 'required|email|unique:users,email,' . auth()->id(), // التحقق من الـ email للمستخدم الحالي
             'phone' => 'nullable|string|max:15',
             'city' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
@@ -39,8 +37,8 @@ class ProfileController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        // جلب بيانات المستخدم ذو ID=3
-        $user = User::find(3); 
+        // جلب بيانات المستخدم الحالي
+        $user = auth()->user();
         
         // التأكد من وجود المستخدم
         if ($user) {
@@ -65,3 +63,4 @@ class ProfileController extends Controller
         }
     } 
 }
+

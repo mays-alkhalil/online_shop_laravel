@@ -134,10 +134,11 @@
                         <option value="">Select Store</option>
                         @foreach($stores as $store)
                         <option 
-                            value="{{ $store->id }}" 
-                            {{ old('store_id', $store->id == 1 ? $store->id : '') == $store->id ? 'selected' : '' }}>
-                            {{ $store->name }}
-                        </option>
+                        value="{{ $store->id }}" 
+                        {{ old('store_id', 1) == $store->id ? 'selected' : '' }}>
+                        {{ $store->name }}
+                    </option>
+                    
                         @endforeach
                     </select>
                     @else

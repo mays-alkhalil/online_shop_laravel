@@ -13,6 +13,5 @@ class Coupon extends Model
         'code', 'discount', 'expires_at', 'is_active',
     ];
 
-    protected $dates = ['expires_at']; // تحويل هذا الحقل إلى Carbon instance
-    
+    protected $dates = ['expires_at']; 
 }

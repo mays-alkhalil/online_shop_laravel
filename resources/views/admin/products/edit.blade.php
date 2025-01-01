@@ -109,9 +109,12 @@
                     <label for="store_id" class="form-label">Store</label>
                     <select class="form-control" id="store_id" name="store_id">
                         @foreach($stores as $store)
-                            <option value="{{ $store->id }}" {{ $store->id == $product->store_id ? 'selected' : '' }}>
-                                {{ $store->name }}
-                            </option>
+                        <option 
+                        value="{{ $store->id }}" 
+                        {{ old('store_id', 1) == $store->id ? 'selected' : '' }}>
+                        {{ $store->name }}
+                    </option>
+                    
                         @endforeach
                     </select>
                 </div>

@@ -38,30 +38,15 @@ class WishlistController extends Controller
 
     public function remove($id)
     {
-        $user = auth()->check() ? auth()->user() : User::find(3); // تعيين المستخدم إلى ID 3 إذا لم يكن مسجل دخول
-    
-        // العثور على سجل المفضلة باستخدام الـ ID و الـ user_id
+        $user = auth()->check() ? auth()->user() : User::find(3); 
         $wishlist = $user->wishlists()->where('product_id', $id)->first();
     
-        // إذا تم العثور على المفضلة، قم بحذفها
         if ($wishlist) {
             $wishlist->delete();
         }
     
-        // إعادة التوجيه إلى صفحة المفضلة بعد الحذف
         return redirect()->route('front.wishlist');
     }
-    
-    // دالة لحساب عدد المنتجات في الويش ليست
-    // public function countWishlist()
-    // {
-    //     // جلب عدد المنتجات في الـ Wishlist للمستخدم الحالي
-    //     $wishlistCount = Wishlist::where('user_id', 3)->count();
-
-    //     // إرجاع العدد إلى الـ view
-    //     return view('front.patials.navbar', compact('wishlistCount'));
-    // }
-        // Controller
 public function showWishlistAndCart()
 {
     // الحصول على الـ wishlist و الـ cart للمستخدم

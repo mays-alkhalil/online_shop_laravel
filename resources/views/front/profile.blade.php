@@ -25,7 +25,7 @@
                 <form method="POST" action="{{ route('profile.update') }}" id="personalInfoForm" novalidate="novalidate">
                     @csrf <!-- لحماية النموذج -->
                     <div class="control-group mb-3">
-                        <input type="text" class="form-control" name="first_name" value="{{ old('first_name', $user->first_name) }}" placeholder="{{ __('messages.EnterYourFirstName') }}" required />
+                        <input type="text" class="form-control" name="first_name" value="{{ old('first_name', $user->name) }}" placeholder="{{ __('messages.EnterYourFirstName') }}" required />
                     </div>
                     <div class="control-group mb-3">
                         <input type="text" class="form-control" name="last_name" value="{{ old('last_name', $user->last_name) }}" placeholder="{{ __('messages.EnterYourLastName') }}" required />
@@ -47,6 +47,7 @@
         <h4 class="mb-4">{{ __('messages.AddressInformation') }}</h4>
         <form method="POST" action="{{ route('profile.update') }}" id="addressForm">
             @csrf
+            
             <!-- City -->
             <div class="control-group mb-3">
                 <select class="form-control" name="city" required>

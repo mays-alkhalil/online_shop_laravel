@@ -21,7 +21,6 @@ class OrderItem extends Model
 {
     return $this->belongsTo(Product::class);
 }
-// في موديل OrderItem
 public function getTotalPriceAttribute()
 {
     return $this->unit_price * $this->quantity;

@@ -46,12 +46,11 @@ class ProductController extends Controller
             'price' => 'required|numeric',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'category_id' => 'required|exists:categories,id',
-            'color' => 'nullable|string',  // إضافة التحقق من حقل اللون
-            'size' => 'nullable|string',   // إضافة التحقق من حقل الحجم
-            'store_id' => 'nullable|numeric', // إضافة التحقق من حقل Store ID
+            'color' => 'nullable|string', 
+            'size' => 'nullable|string',   
+            'store_id' => 'nullable|numeric', 
         ]);
 
-        // التعامل مع الصورة: إذا تم رفع صورة جديدة
         $imagePath = $request->hasFile('image') 
             ? $request->file('image')->store('images', 'public') 
             : null;
@@ -73,9 +72,9 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $categories = Category::all(); // لتحميل جميع الكاتيجوريز
-        $stores = Store::all(); // لتحميل جميع المتاجر
-
+        $categories = Category::all(); 
+        $stores = Store::all(); 
+        
         return view('admin.products.edit', compact('product', 'categories', 'stores'));
     }
 
@@ -117,7 +116,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'color' => $request->color,  // تحديث اللون
             'size' => $request->size,    // تحديث الحجم
-            'store_id' => $request->store_id, // تحديث Store ID
+            'store_id' => $request->store_id??1, // تحديث Store ID
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
