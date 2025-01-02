@@ -21,7 +21,7 @@ class AdminMiddleware
             if (Auth::user()->role_as == '1'|| Auth::user()->role_as == '2') {  // 1 هو أدمن
                 return $next($request);
             } else {
-                return redirect('/home')->with('message', 'Access Denied! You are not an admin.');
+                return redirect('/error404')->with('message', 'Access Denied! You are not an admin.');
             }
         } else {
             return redirect('/login')->with('status', 'Please login to access the admin panel.');
