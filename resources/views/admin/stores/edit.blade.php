@@ -45,33 +45,9 @@
                     @endif
                 </div>
 
-                <!-- <h6>SEO Tags</h6>
-                <div class="mb-3">
-                    <label for="meta-title">Meta Title</label>
-                    <input type="text" class="form-control" id="meta-title" name="meta_title" value="{{ old('meta_title', $store->meta_title) }}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="meta_keywords">Meta Keywords</label>
-                    <input type="text" class="form-control" id="meta_keywords" name="meta_keywords" value="{{ old('meta_keywords', $store->meta_keywords) }}">
-                </div>
-
-                <div class="mb-3">
-                    <label for="meta-description">Meta Description</label>
-                    <input type="text" class="form-control" id="meta-description" name="meta_description" value="{{ old('meta_description', $store->meta_description) }}">
-                </div> -->
-
-                <!-- <h6>Status Mode</h6> -->
+               
                 <div class="row">
-                    <!-- <div class="col-md-3 mb-3">
-                        <label for="navbar_status">Navbar Status</label>
-                        <input type="checkbox" id="navbar_status" name="navbar_status" {{ old('navbar_status', $store->navbar_status) == '1' ? 'checked' : '' }}>
-                    </div> -->
-
-                    <!-- <div class="col-md-3 mb-3">
-                        <label for="status">Status</label>
-                        <input type="checkbox" id="status" name="status" {{ old('status', $store->status) == '1' ? 'checked' : '' }}>
-                    </div> -->
+                    
 
                     <div class="col-md-6">
                         <button type="submit" class="btn btn-primary">Update Store</button>

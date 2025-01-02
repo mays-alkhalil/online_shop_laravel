@@ -3,9 +3,8 @@
         #userDropdown {
             display: none;
             position: absolute;
-            top: 100%;  /* تأكد من أنه سيظهر تحت الأيقونة */
+            top: 100%;
             left: 81%;
-            /* transform: translateX(-50%);  لوضعه بالمنتصف */
             background-color: #fff;
             border: 1px solid #ddd;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -37,7 +36,7 @@
 
 
         #userIcon:hover::after {
-            display: block; /* يظهر السهم عند التمرير فوق الأيقونة */
+            display: block; 
         }
 
         /* تحديد لون السهم بنفس لون الأيقونات */
@@ -72,8 +71,8 @@
     display: flex;
     /* gap: 15px; */
     align-items: center;
-    justify-content: flex-start; /* تغييرها من flex-end إلى flex-start */
-    margin-left: 15px; /* إضافة بعض المسافة بين "Customer Service" واللغات */
+    justify-content: flex-start;
+    margin-left: 15px;
 }
 
 
@@ -98,7 +97,7 @@
 }
 
 .navbar-nav {
-    margin: 0 auto; /* لجعل العناصر في المنتصف */
+    margin: 0 auto;
 }
 
 .nav-item {
@@ -110,7 +109,7 @@
 }
 
 .navbar-collapse {
-    justify-content: center; /* لضمان أن العناصر تبقى في المنتصف */
+    justify-content: center; 
 }
 
 
@@ -128,10 +127,11 @@
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     .navbar-nav {
-        flex-direction: column; /* العناصر تصبح عمودية في الشاشات الصغيرة */
+        flex-direction: column; 
+        /* العناصر تصبح عمودية في الشاشات الصغيرة */
     }
     .nav-item {
-        text-align: center; /* لتوسيط النصوص */
+        text-align: center;
         padding: 10px 0;
     }
 }
@@ -162,14 +162,7 @@
             </div>
             <div class="col-lg-4 col-6 text-left">
                <!-- HTML for Search Form -->
-               {{-- <form method="GET" action="{{ route('front.shop') }}" class="mb-4">
-                <div class="input-group">
-                    <input type="text" name="query" value="{{ request()->query('query') }}" class="form-control" placeholder="Search for products..." required>
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                    </div>
-                </div> 
-            </form> --}}
+              
                         </div>
                         <div class="col-lg-4 col-6 d-flex">
                             <div class="customer">

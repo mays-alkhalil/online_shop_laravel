@@ -27,7 +27,6 @@
                         @foreach($order->orderItems as $orderItem)
                         <tr>
                             <td class="align-middle">
-                                <!-- استخدام العلاقة بين الـ orderItem و الـ product -->
                                 <img src="{{ asset('storage/' . $orderItem->product->image) }}" alt="{{ $orderItem->product->name }}" style="width: 50px;">
                                 {{ $orderItem->product->name }}
                             </td>

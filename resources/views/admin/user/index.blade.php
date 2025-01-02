@@ -37,18 +37,17 @@
                             <th>User Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($users as $item)
+                        @foreach($users as $user)
                             <tr>
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->role_as == '1' ? 'Admin' : 'User' }}</td>
-                                <td><a href="{{ url('admin/user/'.$item->id) }}" class="btn btn-success">Edit</a></td>
-                            </tr>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>
+                                    {{ $user->role_as == '1' ? 'Admin' : ($user->role_as == '2' ? 'Store' : 'User') }}
+                                </tr>
                         @endforeach
                     </tbody>
                 </table>

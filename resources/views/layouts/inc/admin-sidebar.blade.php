@@ -56,7 +56,7 @@
                 @endif
 
                 <!-- Users Section -->
-                @if(auth()->user()->role == 1)
+                @if(auth()->user()->role_as == 1)
                     <a class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}" href="{{ url('admin/users') }}">
                         <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
                         Users
@@ -73,9 +73,6 @@
 
             </div>
         </div>
-        <div class="sb-sidenav-footer">
-            <div class="small">Logged in as:</div>
-            <div>{{ Auth::user()->name }}</div>
-        </div>
+      
     </nav>
 </div>

@@ -69,13 +69,11 @@ img{
         <img src="{{ asset('images/error404.jpg') }}" alt="Error 404" style="width: 40%; max-width: 600px; margin-bottom: 30px;">
         <h4>Oops! You're lost...</h4>
         <p>The page you are looking are looking for might have been moved, renamed, or might never existed.</p>
-        <!-- زر لإعادة التوجيه إلى صفحة الفرونت -->
         <a href="{{ route('front.index') }}">
             <button class="btn btn-custom">Go to Homepage</button>
         </a>
     </div>
 
-    <!-- إضافة Bootstrap JavaScript (اختياري لتأثيرات إضافية) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

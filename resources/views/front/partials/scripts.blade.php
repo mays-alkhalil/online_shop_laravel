@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loop: false,
         autoplay: true,
         path: '/front-assets/animations/lDJTO0WlTQ.json', // مسار ملف JSON الخاص بالأنيميشن الأول
-        speed: 0.9 // تقليل السرعة إلى 50% (يمكنك تعديل هذه القيمة حسب الحاجة)
+        speed: 0.9 
     });
 
     // عند انتهاء الأنيميشن الأول، قم بتشغيل الثاني بسلاسة

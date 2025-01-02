@@ -6,7 +6,6 @@
 
 @section('content')
 
-{{-- @include('front.partials.breadcrumb',['pageName' => 'Login']) --}}
 
 <!-- Login Start -->
 <div class="container-fluid">
@@ -32,6 +31,7 @@
                             required="required" data-validation-required-message="Please enter your password" />
                         <p class="help-block text-danger"></p>
                     </div>
+                    
 
                     <!-- Button -->
                     <div class="text-center mb-3">

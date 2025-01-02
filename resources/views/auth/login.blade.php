@@ -6,7 +6,6 @@
 
 @section('content')
 
-{{-- @include('front.partials.breadcrumb',['pageName' => 'Login']) --}}
 
 <!-- Login Start -->
 <div class="container-fluid">

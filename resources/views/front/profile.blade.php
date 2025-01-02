@@ -85,7 +85,6 @@
         
     </div>
 
-    <!-- Profile Image and Contact Details -->
 <!-- Profile End -->
 
 @endsection

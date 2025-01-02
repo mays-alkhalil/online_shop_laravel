@@ -2,11 +2,11 @@
 
 @section('cart-active','active')
 
-@section('title', __('cart.cart'))
+@section('title', __('messages.cart'))
 
 @section('content')
 
-@include('front.partials.breadcrumb',['pageName' => __('cart.cart')])
+@include('front.partials.breadcrumb',['pageName' => __('messages.cart')])
 
 <!-- Cart Start -->
 <div class="container-fluid">
@@ -90,7 +90,7 @@
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">{{ __('messages.shipping') }}</h6>
-                            <h6 class="font-weight-medium">$10</h6>
+                            <h6 class="font-weight-medium">10 JOD</h6>
                         </div>
                     </div>
                     <div class="pt-3">
@@ -98,9 +98,12 @@
                             <h5>{{ __('messages.total_price') }}</h5>
                             <h5 id="total">{{ $cartItems->sum(function($item) { return $item->product->price * $item->quantity; }) + 10 }} JOD</h5>
                         </div>
-                        <a href="{{ route('front.checkout') }}">
-                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">{{ __('messages.proceed_checkout') }}</button>
+                        <a href="{{ route('front.checkout') }}"style="text-decoration: none; border: none; outline: none;">
+                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" >
+                                {{ __('messages.proceed_checkout') }}
+                            </button>
                         </a>
+                        
                     </div>
                 </div>
             </div>

@@ -276,10 +276,6 @@
 
       let shirtSize = '';
 let pantSize = '';
-// if (shoulderWidth === undefined || waistWidth === undefined) {
-//   shirtSize = 'Undefined';  // الشيرت غير معرف
-//   pantSize = 'Undefined';   // البانت غير معرف
-// }else {
 if (shoulderWidth > 60.5 && waistWidth > 37) {
   shirtSize = 'Large (L)';
 } else if (shoulderWidth > 58.5 && waistWidth > 34) {

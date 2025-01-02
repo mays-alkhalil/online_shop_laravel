@@ -40,10 +40,7 @@
                 <div class="mb-3">
                     <label for="image">Image</label>
                     <input type="file" class="form-control" id="image" name="image">
-                    <!-- @if($category->image)
-                    <img src="{{ asset('uploads/categories/'.$category->image) }}" width="100px" height="100px"
-                        alt="Current Image">
-                    @endif -->
+                   
                 </div>
 
                 
