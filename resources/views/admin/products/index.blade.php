@@ -42,17 +42,13 @@
             @endif
 
             <!-- نموذج البحث -->
-            <form action="{{ route('admin.products.index') }}" method="GET" class="mb-3">
-                <div class="row">
-                    <div class="col-12 col-sm-8 col-md-6">
-                        <input type="text" name="search" class="form-control" placeholder="Search by Name or Category" value="{{ request('search') }}">
-                    </div>
-                    <div class="col-12 col-sm-4 col-md-6">
-                        <button type="submit" class="btn btn-primary w-100 w-sm-auto">Search</button>
-                    </div>
-                </div>
-            </form>
+            <div class="mb-3">
+                <form action="{{ route('admin.products.index') }}" method="GET" class="d-flex justify-content-between">
+                    <input type="text" name="search" class="form-control" placeholder="Search by Name or Category" value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary ms-2">Search</button>
 
+        </form>
+        </div>
             <!-- جدول المنتجات -->
             <div class="table-responsive">
                 <table id="myDataTable" class="table table-bordered">

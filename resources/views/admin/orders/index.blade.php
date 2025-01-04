@@ -42,16 +42,21 @@
             @endif
 
             <!-- نموذج البحث -->
-            <form action="{{ route('admin.orders.index') }}" method="GET" class="mb-3">
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" name="search" class="form-control" placeholder="Search by User Name, Status, or Delivery Method" value="{{ request('search') }}">
-                    </div>
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary w-100 w-md-auto">Search</button>
-                    </div>
-                </div>
-            </form>
+                   
+                   
+            <div class="mb-3">
+                <form action="{{ route('admin.orders.index') }}" method="GET" class="d-flex justify-content-between">
+            
+                    <input type="text" name="search" class="form-control" placeholder="Search by User Name, Status, or Delivery Method" value="{{ request('search') }}">
+
+                    <button type="submit" class="btn btn-primary ms-2">Search</button>
+
+        </form>
+
+        </div>
+
+
+     
 
             <!-- جدول الطلبات مع التمرير على الشاشات الصغيرة -->
             <div class="table-responsive">
