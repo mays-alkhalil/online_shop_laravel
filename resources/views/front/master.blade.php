@@ -20,6 +20,5 @@
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 @include('front.partials.scripts')
-<script src="//code.tidio.co/iciihghat5t5zp3kgeaxywxbefjvbmkq.js" async></script></body>
-
+<script src="//code.tidio.co/0l62fkif7dxtyrbjgri3styr43dl0xsr.js" async></script>
 </html>

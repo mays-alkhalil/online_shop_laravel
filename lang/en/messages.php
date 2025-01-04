@@ -15,7 +15,7 @@ return [
     'save' => 'Save',
     'specialOffer' => 'Special Offer',
     'qualityProduct' => 'High-quality Products',
-    'freeShipping' => 'Free Shipping',
+    'freeShipping' => 'Shipping',
     'fourteenDayReturn' => '14-Day Return',
     'support24/7' => '24/7 Support',
     'shop' => 'Shop',

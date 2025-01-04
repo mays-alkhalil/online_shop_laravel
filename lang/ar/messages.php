@@ -15,7 +15,7 @@ return [
     'save' => 'توفير',
     'specialOffer' => 'عرض خاص',
     'qualityProduct' => 'منتجات عالية الجودة',
-    'freeShipping' => 'شحن مجاني',
+    'freeShipping' => 'شحن ',
     'fourteenDayReturn' => 'إرجاع خلال 14 يومًا',
     'support24/7' => 'دعم 24/7',
     'shop' => 'التسوق',
