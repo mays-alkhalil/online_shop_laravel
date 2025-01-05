@@ -223,9 +223,13 @@
     async function loadPoseNet() {
       net = await posenet.load({
         architecture: 'MobileNetV1',
+        // نوع الشبكة
         outputStride: 16,
+        // دقة الصورة
         inputResolution: { width: 320, height: 240 },
+        // ابعاد الصورة
         multiplier: 0.75,
+        // حجم المودل
       });
       console.log('PoseNet model loaded');
     }
@@ -235,6 +239,7 @@
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
+        // بدنا نقرأ الصورة
         reader.onload = (e) => {
           uploadedImage.src = e.target.result;
           uploadedImage.style.display = 'block';
@@ -255,6 +260,7 @@
         const img = new Image();
         img.src = uploadedImage.src;
         pose = await net.estimateSinglePose(img, { flipHorizontal: false });
+        // نستخرج مواقع النقاط الرئيسية
       } else {
         resultDiv.textContent = 'Please Upload a new image';
         return;
@@ -305,7 +311,7 @@ if (waistWidth > 37) {
         title: 'Calculated Size',
         text: `Based on your image, your estimated sizes are:
   Shirt: ${shirtSize}
-  Pants: ${pantSize}
+  Pant: ${pantSize}
   `,
           icon: 'success',
       });
